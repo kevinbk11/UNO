@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var SocketController = require('./SocketController')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -27,7 +27,7 @@ server.listen(5500)
 server.on('listening', onListening);
 
 const io = new Server(server);
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));  
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
@@ -38,19 +38,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('VerifyRequest',data=>{
-    console.log(data)
-    if(data=='123') socket.emit('VerifyResult',{success:'true',data:'123'})
-    else socket.emit('VerifyResult',false)
-  })
-  socket.on('test',data=>{
-    data=JSON.parse(data)
-    if(data.id=='123')console.log('pass')
-    else console.log('error')
-  })
-});
+
+let socketController = new SocketController(io)
+socketController.initSocketEvent()
+
 
 app.use(function(req, res, next) {
   next(createError(404));
@@ -67,4 +58,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = {'app':app,'io':io};

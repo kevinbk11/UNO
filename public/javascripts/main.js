@@ -5,7 +5,7 @@ window.onload= ()=>{
     .then((id)=>{//成功之後
         let builder = new PacketBuilder(id)
         $('#testbtn').on('click',()=>{
-            client.emit('test',builder.addData('hi').build())
+            client.emit('TestRequest',builder.addData('hi').build())
             alert("已送出")}
         )
     })

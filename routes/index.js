@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
-
+let SocketController = require('../SocketController')
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { number: '123' });
+  let randomNumber = Math.floor(Math.random()*10000).toString()
+  res.render('index', { number:randomNumber});
+  SocketController.clients.push(randomNumber)
 });
 
 module.exports = router;
