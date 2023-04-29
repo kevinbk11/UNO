@@ -1,8 +1,8 @@
-module.exports=class TestRequest{
+module.exports=class JoinRoomRequest{
     constructor(){
         this.socket
         this.clients
-        this.name="TestRequest"
+        this.name="JoinRoomRequest"
         this.handler=
         data=>{
             console.log(typeof(data))
