@@ -6,7 +6,6 @@ var logger = require('morgan');
 var SocketController = require('./SocketController')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
 const { Server } = require("socket.io");
 var http = require('http');
 
@@ -38,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 
 let socketController = new SocketController(io)
 socketController.initSocketEvent()

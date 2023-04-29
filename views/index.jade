@@ -2,11 +2,18 @@ html
   head
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/verify.js')
-    script(src='/javascripts/PacketBuilder.js')
+    script(src='/javascripts/Builder/PacketBuilder.js')
+    script(src='/javascripts/Builder/RuleBuilder.js')
     script(src='/javascripts/main.js')
     script(src='https://code.jquery.com/jquery-3.6.4.js' integrity='sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=' crossorigin='anonymous')
+    link(rel='stylesheet' type='text/css' href='/stylesheers/style.css')
   body
     p(style='display:none',id='password') #{number}
-    input(value='hello',type='button',id="testbtn")
+    input(value='開始遊戲',type='button',id="gameStartButton",style='display:none')
+    input(value='創建房間',type='button',id="createRoomButton",class="RoomButton")
+    br(class="RoomButton")
+    input(value='加入房間',type='button',id='joinRoomButton',class="RoomButton")
+    br(class="RoomButton")
+    
     
 
