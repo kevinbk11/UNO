@@ -1,4 +1,5 @@
 let Room = require('../Room')
+const SocketController = require('../SocketController')
 module.exports=class CreateRoomRequest{
     constructor(){
         this.socket
@@ -15,11 +16,10 @@ module.exports=class CreateRoomRequest{
             }
             
             if(this.clients.includes(data.id)){
-                console.log()
                 let room = new Room(4,JSON.parse(JSON.parse(data.data).rule))
                 room.players.push(data.id)
                 Room.rooms.push(room)
-                console.log(Room.rooms)
+                console.log(`新房間${room.roomID}已被創建`)
             }
             else console.log('error')
         }

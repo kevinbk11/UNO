@@ -3,7 +3,6 @@ class SocketController{
     static clients=[]
     constructor(io){
         this.io=io
-        this.clients=SocketController.clients
     }
     initSocketEvent(){
         this.io.on('connection',(socket) => {
@@ -14,7 +13,7 @@ class SocketController{
     }
     setSocketRequestEvent(socket,event){
         event.socket=socket
-        event.clients=this.clients
+        event.clients=SocketController.clients
         socket.on(event.name,event.handler)
     }
 }

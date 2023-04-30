@@ -1,3 +1,5 @@
+const SocketController = require("../SocketController");
+
 module.exports=class VerifyRequest{
     constructor(){
         this.name='VerifyRequest'
@@ -5,10 +7,11 @@ module.exports=class VerifyRequest{
         this.clients;
         this.handler=
         data=>{
-            if(this.clients.includes(data))
+            if(this.clients.includes(data)){
                 this.socket.emit('VerifyResult',{success:'true',data:data})
-            else 
-                this.socket.emit('VerifyResult',false)
+            }
+                
+            else this.socket.emit('VerifyResult',false)
         }
     }
 }
