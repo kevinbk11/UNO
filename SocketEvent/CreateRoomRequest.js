@@ -20,7 +20,7 @@ module.exports=class CreateRoomRequest extends SocketEvent{
                 let room = new Room(4,JSON.parse(JSON.parse(data.data).rule))
                 room.players.push(data.id)
                 Room.rooms.push(room)
-                console.log(`新房間${room.roomID}已被創建`)
+                console.log(`房間${room.roomID}被創建了`)
             }
             else console.log('error')
         }

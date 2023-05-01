@@ -1,4 +1,3 @@
-const SocketController = require("../SocketController");
 const SocketEvent = require("./SocketEvent");
 
 module.exports=class VerifyRequest extends SocketEvent{

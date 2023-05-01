@@ -1,15 +1,17 @@
-let client = io()
+let client = null
 
 
 window.onload= ()=>{
+    client=io()
     verify()
     .then((id)=>{//成功之後
         Dialog.id=id;
-        $('#password').css('display','none')
+        //$('#password').css('display','none')
 
         let builder = new PacketBuilder(id)
         let ruleBuilder = new RuleBuilder()
         let joinGameDialog = new JoinGameDialog()
+        
         initEvents()
         joinGameDialog.create()
 

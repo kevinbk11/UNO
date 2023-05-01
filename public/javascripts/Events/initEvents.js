@@ -1,3 +1,5 @@
 function initEvents(){
-    console.log(SocketEvent.events)
+    SocketEvent.events.forEach(it=>{
+        client.on(it.name,it.handler)
+    })
 }

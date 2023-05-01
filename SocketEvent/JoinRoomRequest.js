@@ -1,5 +1,6 @@
 let Room = require('../Room')
 const SocketEvent = require('./SocketEvent')
+const builder = require('../PacketBuilder')
 module.exports=class JoinRoomRequest extends SocketEvent{
     constructor(){
         super()
@@ -21,10 +22,10 @@ module.exports=class JoinRoomRequest extends SocketEvent{
 
                     if(it.roomID==data.roomID){
                         it.players.forEach(player=>{
-                            this.idToClient[player].emit('PlayerJoin')
+                            this.idToClient[player].emit('PlayerJoinEvent',builder.addData('id',id).addData('number',it.players.length+1).build())
                         })
                         it.players.push(id)
-
+                        this.socket.emit('JoinGameEvent',builder.addData('players',it.players).build())
                     }
 
                     //接下來實作一些回傳給房客的東西
