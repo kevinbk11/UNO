@@ -10,7 +10,9 @@ window.onload= ()=>{
         let builder = new PacketBuilder(id)
         let ruleBuilder = new RuleBuilder()
         let joinGameDialog = new JoinGameDialog()
+        initEvents()
         joinGameDialog.create()
+
         $('#check').on('click',()=>{
             let roomNumber = $('#roomNumber').val();
             client.emit('JoinRoomRequest',builder.addData('roomID',roomNumber).build())

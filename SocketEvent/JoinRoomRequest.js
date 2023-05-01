@@ -1,8 +1,8 @@
 let Room = require('../Room')
-module.exports=class JoinRoomRequest{
+const SocketEvent = require('./SocketEvent')
+module.exports=class JoinRoomRequest extends SocketEvent{
     constructor(){
-        this.socket
-        this.clients
+        super()
         this.name="JoinRoomRequest"
         this.handler=
         data=>{
@@ -20,9 +20,13 @@ module.exports=class JoinRoomRequest{
                 Room.rooms.forEach((it)=>{
 
                     if(it.roomID==data.roomID){
+                        it.players.forEach(player=>{
+                            this.idToClient[player].emit('PlayerJoin')
+                        })
                         it.players.push(id)
-                        console.log(it.players)
+
                     }
+
                     //接下來實作一些回傳給房客的東西
                 })
             }

@@ -1,12 +1,13 @@
 let Room = require('../Room')
 const SocketController = require('../SocketController')
-module.exports=class CreateRoomRequest{
+const SocketEvent = require('./SocketEvent')
+module.exports=class CreateRoomRequest extends SocketEvent{
     constructor(){
-        this.socket
-        this.clients
+        super()
         this.name="CreateRoomRequest"
         this.handler=
         data=>{
+            
             try{
                 data=JSON.parse(data)
             }
