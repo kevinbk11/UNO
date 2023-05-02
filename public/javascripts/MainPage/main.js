@@ -11,7 +11,6 @@ window.onload= ()=>{
     verify(nickname)
     .then((id)=>{//成功之後
         $('#password').text(nickname)
-        Dialog.id=id;
         let builder = new PacketBuilder(id)
         let ruleBuilder = new RuleBuilder()
         
@@ -34,10 +33,10 @@ window.onload= ()=>{
         })
         $('#gameStartButton').on('click',()=>{
             let roomID = $('#roomID').text().split(':')[1]
+
             client.emit('StartGameRequest',builder.addData('name',nickname).addData('roomID',roomID).build())
             $('#gameStartButton').hide()
         })
-
     })
     .catch(()=>{
         alert("失敗")

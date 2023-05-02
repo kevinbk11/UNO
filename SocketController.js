@@ -1,4 +1,5 @@
-const requestEvents = require('./SocketEvent/index')
+const mainRequestEvents = require('./SocketEvent/Events/MainPageEvents/index')
+const unoRequestEvents = require('./SocketEvent/Events/UnoEvents/index')
 class SocketController{
     static clients=[]
     static nameToClient={}
@@ -8,8 +9,10 @@ class SocketController{
     initSocketEvent(){
         this.io.on('connection',(socket) => {
             console.log('a user connected');
-            for(let i = 0;i<requestEvents.length;i++)
-                this.setSocketRequestEvent(socket,new requestEvents[i]())
+            for(let i = 0;i<mainRequestEvents.length;i++)   
+                this.setSocketRequestEvent(socket,new mainRequestEvents[i]())
+            for(let i=0;i<unoRequestEvents.length;i++)
+                this.setSocketRequestEvent(socket,new unoRequestEvents[i]())
           });
     }
     setSocketRequestEvent(socket,event){

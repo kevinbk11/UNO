@@ -5,5 +5,10 @@ html
     script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
     link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
     script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/UNO/Events/SocketEvent.js')
+    script(src='/javascripts/UNO/Events/InitGameRespondEvent.js')
+    script(src="/javascripts/UNO/initEvents.js") 
+    script(src="/javascripts/UNO/Builder/PacketBuilder.js") 
     script(src='/javascripts/UNO/main.js')
   body
+    p(id='name') #{name}

@@ -1,12 +1,11 @@
-let Room = require('../../Room')
-const SocketEvent = require('../SocketEvent')
-const builder = require('../../PacketBuilder')
+let Room = require('../../../Room')
+const SocketEvent = require('../../SocketEvent')
+const builder = require('../../../PacketBuilder')
 module.exports=class CreateRoomRequest extends SocketEvent{
     constructor(){
         super()
         this.name="CreateRoomRequest"
-        this.handler=
-        data=>{
+        this.handler=data=>{
             if(this.clients.includes(data.id)){
                 data=data.data
                 let room = new Room(4,data.rule)

@@ -1,10 +1,6 @@
 class StringJsonBuilder//Server
 {
     static data = {}
-    constructor()
-    {
-        this.data={}
-    }
     static addData(key,value)
     {
         StringJsonBuilder.data[key]=value
