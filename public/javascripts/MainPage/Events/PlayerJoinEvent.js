@@ -3,9 +3,8 @@ class PlayerJoinEvent extends SocketEvent{
     constructor(){
         super('PlayerJoinEvent')
         this.handler=(data)=>{
-            data=JSON.parse(data)
             
-            $("#content").append(`${data.number}.${data.id}<br>`)
+            $("#content").append(`${data.number}.${data.name}<br>`)
         }
         SocketEvent.events.push(this)
     }

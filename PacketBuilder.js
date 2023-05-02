@@ -12,7 +12,7 @@ class StringJsonBuilder//Server
     }
     static build()
     {
-        let res = JSON.stringify(StringJsonBuilder.data)
+        let res = StringJsonBuilder.data
         StringJsonBuilder.data={}
         return res
     }

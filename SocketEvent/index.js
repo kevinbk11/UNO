@@ -1,9 +1,11 @@
-let VerifyRequest = require('./VerifyRequest')
-let CreateRoomRequest = require('./CreateRoomRequest')
-let JoinRoomRequest = require('./JoinRoomRequest')
+let VerifyRequest = require('./Events/VerifyRequest')
+let CreateRoomRequest = require('./Events/CreateRoomRequest')
+let JoinRoomRequest = require('./Events/JoinRoomRequest')
+let StartGameRequest = require('./Events/StartGameRequest')
 requests=[
     VerifyRequest,
     CreateRoomRequest,
-    JoinRoomRequest
+    JoinRoomRequest,
+    StartGameRequest
 ]
 module.exports= requests
