@@ -2,7 +2,7 @@ class GameStartEvent extends SocketEvent{
     static self = new this()
     constructor(){
         super('GameStartEvent')
-        this.handler=(data)=>{
+        this.handler=(data)=>{//post傳遞自身名稱並重新導向
             var redirect = $(location).attr('href')+ `game/${data.roomID}`;
             $.extend(
             {
