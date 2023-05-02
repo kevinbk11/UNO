@@ -12,7 +12,7 @@ class PacketBuilder//Client
     }
     build()
     {
-        let res = JSON.stringify({'id':this.id,data:JSON.stringify(this.data)})
+        let res = {'id':this.id,data:this.data}
         this.data={}
         return res
     }

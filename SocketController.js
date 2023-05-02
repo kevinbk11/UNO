@@ -1,7 +1,7 @@
 const requestEvents = require('./SocketEvent/index')
 class SocketController{
     static clients=[]
-    static idToClient={}
+    static nameToClient={}
     constructor(io){
         this.io=io
     }
@@ -15,7 +15,7 @@ class SocketController{
     setSocketRequestEvent(socket,event){
         event.socket=socket
         event.clients=SocketController.clients
-        event.idToClient=SocketController.idToClient
+        event.nameToClient=SocketController.nameToClient
         socket.on(event.name,event.handler)
     }
 }
