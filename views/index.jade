@@ -81,11 +81,13 @@ html
 
   body
     p(style='display:none',id='password') #{number}
-    h1.kaxi UNO!
-    .button-container
-      button#gameStartButton.game-button(style='display:none') 開始遊戲
-      button#createRoomButton.game-button 創建房間
-      button#joinRoomButton.game-button 加入遊戲
+    p(id='roomID')
+    input(value='開始遊戲',type='button',id="gameStartButton",style='display:none')
+    input(value='創建房間',type='button',id="createRoomButton",class="RoomButton")
+    br(class="RoomButton")
+    input(value='加入房間',type='button',id='joinRoomButton',class="RoomButton")
+    br(class="RoomButton")
+    div(id='content') 
 
     
     

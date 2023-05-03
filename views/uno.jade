@@ -10,5 +10,113 @@ html
     script(src="/javascripts/UNO/initEvents.js") 
     script(src="/javascripts/UNO/Builder/PacketBuilder.js") 
     script(src='/javascripts/UNO/main.js')
+    style.
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px;
+      }
+      .box {
+        width: 200px;
+        height: 200px;
+        box-sizing: border-box;
+        text-align: center;
+        line-height: 200px;
+        font-size: 24px;
+        margin: 10px;
+      }
+      .left {
+        order: 2;
+        flex: 1 0 30%;
+        max-width: 10%;
+        margin-right: auto;
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .right {
+        order: 3;
+        flex: 1 0 30%;
+        max-width: 10%;
+        margin-left: auto;
+        margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .top {
+        order: 1;
+        flex: 1 0 100%;
+      }
+      .bottom {
+        order: 4;
+        flex: 1 0 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+      }
+      .bottom .content {
+        margin-bottom: 10px;
+      }
+      .content {
+        color: #FFFFFF;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .bottom img{
+        width:150px;
+        margin:-20px -30px -20px -30px;
+      }
+      .top img{
+        width:150px;
+        margin:-30px;
+        transform: rotate(180deg)
+      }
+      .left img{
+        width:150px;
+        margin:-64.2048px -20px -64.2048px -20px;
+        transform: rotate(-270deg);
+      }
+      .right img{
+        width:150px;
+        margin:-64.2048px -20px -64.2048px -20px;
+        transform: rotate(-90deg);
+      }
   body
-    p(id='name') #{name}
+    //p(id='name') #{name}.wrapper
+    .container
+      .box.top
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+      .box.left
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+      .box.right
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+      .box.bottom 
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+        img(src='/images/card/back.png')
+ 
+
+
+
+
+
+

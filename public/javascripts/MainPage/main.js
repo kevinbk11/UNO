@@ -24,9 +24,9 @@ window.onload= ()=>{
         $('#createRoomButton').on('click',()=>{
             let rule =ruleBuilder.build()
             client.emit('CreateRoomRequest',builder.addData('name',nickname).addData('rule',rule).build())
-            $('.game-button').hide()
+            $('.RoomButton').hide()
             $('#gameStartButton').css('display','block')
-            $('#users').append(`1.${nickname}`)
+            $('#content').append(`1.${nickname}<br>`)
         })
         $('#joinRoomButton').on('click',()=>{
             joinRoomDialog.show()
