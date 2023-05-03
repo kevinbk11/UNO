@@ -24,7 +24,7 @@ window.onload= ()=>{
         $('#createRoomButton').on('click',()=>{
             let rule =ruleBuilder.build()
             client.emit('CreateRoomRequest',builder.addData('name',nickname).addData('rule',rule).build())
-            $('.RoomButton').hide()
+            $('.game-button').hide()
             $('#gameStartButton').css('display','block')
             $('#users').append(`1.${nickname}`)
         })
@@ -33,7 +33,6 @@ window.onload= ()=>{
         })
         $('#gameStartButton').on('click',()=>{
             let roomID = $('#roomID').text().split(':')[1]
-
             client.emit('StartGameRequest',builder.addData('name',nickname).addData('roomID',roomID).build())
             $('#gameStartButton').hide()
         })
