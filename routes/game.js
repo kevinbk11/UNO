@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-let SocketController = require('../SocketController')
-let Room = require('../Room')
+let SocketController = require('../Utils/Socket/SocketController')
+let Room = require('../Utils/Game/Room')
 /* GET home page. */
 router.post('/game/:roomID', function(req, res, next) {
     if(Room.rooms[req.params.roomID]!=null){
