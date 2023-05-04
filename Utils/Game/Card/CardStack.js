@@ -18,7 +18,7 @@ module.exports=class CardStack{
         for(let i=1;i<4;i++){
             for(let j=0;j<4;j++){
                 for(let k=0;k<2;k++){
-                    this.stack.push(new Card(colors[i],null,types[i]))//設定有色功能牌
+                    this.stack.push(new Card(colors[i],10,types[i]))//設定有色功能牌
                 }
             }
         }
