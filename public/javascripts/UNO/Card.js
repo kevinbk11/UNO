@@ -1,4 +1,4 @@
-module.exports=class Card{
+class Card{
     constructor(color,number,type){
         this.color=color
         this.number=number

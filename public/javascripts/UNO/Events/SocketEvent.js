@@ -3,5 +3,7 @@ class SocketEvent{
     constructor(name){
         this.name=name;
         this.handler;
+        this.userName;
+        this.roomID;
     }
 }

@@ -6,14 +6,15 @@ class RuleBuilder
     }
     setThrowMultipleCard(state){
         this.rule.throwMultipleCard=state
+        return this
     }
     setOverlay(state){
         this.rule.overlay=state
+        return this
     }
     build()
     {
-        let res = JSON.stringify(this.rule)
-        this.data={}
+        let res = this.rule
         return res
     }
 }

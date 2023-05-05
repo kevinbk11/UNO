@@ -1,11 +1,17 @@
 let client = null
+
 window.onload = ()=>{
     client = io()
-    client.on('connect',(socket)=>{
-        initEvents()
-        const roomID = $(location).attr('href').split('/').pop()
-        client.emit('InitGameRequest',PacketBuilder.addData('name',$('#name').text()).addData('roomID',roomID).build())
-        
+    const name = $('#name').text()
+    const roomID = $(location).attr('href').split('/').pop()
+    verify(name)
+    .then((id)=>{
+        let builder = new PacketBuilder(id)        
+        initEvents(name,roomID,builder)
+        client.emit('InitGameRequest',builder
+        .addData('name',name)
+        .addData('roomID',roomID)
+        .build())
     })
     
 }

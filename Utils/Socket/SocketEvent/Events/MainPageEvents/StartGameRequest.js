@@ -3,6 +3,8 @@ const SocketEvent = require('../../SocketEvent')
 const builder = require('../../../../Builder/PacketBuilder')
 const Game = require('../../../../Game/Game')
 const Rule = require('../../../../Game/Rule')
+const Player = require('../../../../Game/Player')
+const ThrowMultipleCardStrategy = require('../../../../Game/Strategy/ThrowMultipleCardStrategy')
 module.exports=class StartGameRequest extends SocketEvent{
     constructor(){
         super()
@@ -10,14 +12,18 @@ module.exports=class StartGameRequest extends SocketEvent{
         this.handler=data=>{
             if(this.clients.includes(data.id)){
                 data=data.data
-                Room.rooms[data.roomID].players.forEach(player=>{
-                    this.nameToClient[player].emit('GameStartEvent',builder
+                const players=[]
+                Room.rooms[data.roomID].players.forEach(name=>{
+                    this.nameToClient[name].emit('GameStartEvent',builder
                     .addData('roomID',data.roomID)
-                    .addData('name',player)
+                    .addData('name',name)
                     .build())
-                    delete this.nameToClient[player]
+                    delete this.nameToClient[name]
+                    players.push(new Player(name))
                 })
-                let game=new Game(Room.rooms[data.roomID].players,new Rule(),data.roomID)
+
+                let game=new Game(players,new Rule(),data.roomID)
+                game.setupStrategy(data.rule)
                 Game.games[data.roomID]=game
 
             }  

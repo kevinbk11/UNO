@@ -10,14 +10,23 @@ module.exports = class InitGameRequest extends SocketEvent{
         this.name='InitGameRequest'
         this.handler=data=>{
             try{
-                this.nameToClient[data.name]=this.socket
-                const room=Room.rooms[data.roomID]
-                const number = room.players.indexOf(data.name)+1
-                const cards=[]
-                const cardStack = Game.games[data.roomID].cardStack
-                for(let i=0;i<7;i++)cards.push(cardStack.drawCard())
-                this.socket.emit('InitGameRespondEvent',PacketBuilder.addData('number',number).addData('cards',cards).build())//要給玩家編號
-                
+                if(this.clients.includes(data.id)){
+                    data=data.data
+                    this.nameToClient[data.name]=this.socket
+                    const room=Room.rooms[data.roomID]
+                    const game = Game.games[data.roomID]
+                    const number = room.players.indexOf(data.name)+1
+                    const cards=[]
+        
+                    for(let i=0;i<7;i++)cards.push(game.drawOneCard())
+                    this.socket.emit('InitGameRespondEvent',PacketBuilder
+                    .addData('number',number)
+                    .addData('cards',cards)
+                    .addData('players',room.players)
+                    .build())
+                    game.players[number-1].handCards=cards  
+                }
+
             }
             catch{
 

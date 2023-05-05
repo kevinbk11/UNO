@@ -5,6 +5,8 @@ html
     script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
     link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
     script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/verify.js')
+    script(src='/javascripts/PacketBuilder.js')
     script(src='/javascripts/UNO/Events/SocketEvent.js')
     script(src='/javascripts/UNO/Events/InitGameRespondEvent.js')
     script(src="/javascripts/UNO/initEvents.js") 
@@ -71,7 +73,7 @@ html
         font-size: 24px;
         font-weight: bold;
       }
-      .bottom img{
+      .bottom img.notChoiced{
         width:150px;
         margin:-20px -30px -20px -30px;
       }
@@ -90,16 +92,19 @@ html
         margin:-64.048px -20px -64.2048px -20px;
         transform: rotate(-90deg);
       }
-      .choiced{
-        transform: translateY(-50px)
+      .bottom img.choiced{
+        width:150px;
+        margin:20px -10px;
       }
   body
     p(id='name') #{name}
+    p(id='password') #{password}
     .container
       .box.top
       .box.left
       .box.right
       .box.bottom 
+
 
  
 

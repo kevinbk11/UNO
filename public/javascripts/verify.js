@@ -9,7 +9,7 @@ function verify(nickname){
         client.on('VerifyRespond',data=>{
             if(data!=false){
                 password.text("已認證。")
-                password.css('display','block')
+                password.css('display','none')
                 resolve(data['data'])
             }
             else{
