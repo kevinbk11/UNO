@@ -15,16 +15,17 @@ module.exports = class InitGameRequest extends SocketEvent{
                     this.nameToClient[data.name]=this.socket
                     const room=Room.rooms[data.roomID]
                     const game = Game.games[data.roomID]
-                    const number = room.players.indexOf(data.name)+1
+                    const number = room.getPlayerNumber(data.name)
                     const cards=[]
-        
                     for(let i=0;i<7;i++)cards.push(game.drawOneCard())
                     this.socket.emit('InitGameRespondEvent',PacketBuilder
                     .addData('number',number)
                     .addData('cards',cards)
                     .addData('players',room.players)
                     .build())
-                    game.players[number-1].handCards=cards  
+                    game.players[number-1].handCards=cards
+                    game.players[number-1].socket=this.socket
+
                 }
 
             }

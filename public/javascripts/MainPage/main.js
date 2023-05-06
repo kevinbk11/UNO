@@ -33,8 +33,8 @@ window.onload= ()=>{
         })
         $('#gameStartButton').on('click',()=>{
             let roomID = $('#roomID').text().split(':')[1]
-            let ruleBuilder = RuleBuilder()
-            let rule=ruleBuilder.setThrowMultipleCard(false).setOverlay(false).build()
+            let ruleBuilder = new RuleBuilder()
+            let rule=ruleBuilder.setThrowMultipleCard(true).setOverlay(false).build()
             client.emit('StartGameRequest',builder.addData('name',nickname).addData('roomID',roomID).addData('rule',rule).build())
             $('#gameStartButton').hide()
         })

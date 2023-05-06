@@ -6,4 +6,7 @@ module.exports=class Room{
         this.rule=rule
         this.players=[]
     }
+    getPlayerNumber(name){
+        return this.players.indexOf(name)+1
+    }
 }

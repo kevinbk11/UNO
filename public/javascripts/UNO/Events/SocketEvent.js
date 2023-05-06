@@ -5,5 +5,6 @@ class SocketEvent{
         this.handler;
         this.userName;
         this.roomID;
+        this.handCards
     }
 }

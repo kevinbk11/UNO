@@ -1,5 +1,4 @@
 let client = null
-
 window.onload = ()=>{
     client = io()
     const name = $('#name').text()

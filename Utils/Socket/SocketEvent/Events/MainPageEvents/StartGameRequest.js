@@ -4,7 +4,6 @@ const builder = require('../../../../Builder/PacketBuilder')
 const Game = require('../../../../Game/Game')
 const Rule = require('../../../../Game/Rule')
 const Player = require('../../../../Game/Player')
-const ThrowMultipleCardStrategy = require('../../../../Game/Strategy/ThrowMultipleCardStrategy')
 module.exports=class StartGameRequest extends SocketEvent{
     constructor(){
         super()
@@ -21,9 +20,7 @@ module.exports=class StartGameRequest extends SocketEvent{
                     delete this.nameToClient[name]
                     players.push(new Player(name))
                 })
-
-                let game=new Game(players,new Rule(),data.roomID)
-                game.setupStrategy(data.rule)
+                let game=new Game(players,data.rule,data.roomID)
                 Game.games[data.roomID]=game
 
             }  
