@@ -1,5 +1,5 @@
 class InitGameRespondEvent extends SocketEvent{
-    static self=new this() 
+    static self=new this()
     constructor(){
         super('InitGameRespondEvent')
         this.choiced=[]
@@ -17,12 +17,16 @@ class InitGameRespondEvent extends SocketEvent{
             data.cards.forEach((it)=>{
                 this.handCards.push(it)
             })
-            
             this.showCard(0,data.cards,data.players)
+            const firstCard=data.firstCard
+            $('#dropped').attr('src',CardResourceProcessor.processor.getCardImageResource(firstCard))
+
         }
         SocketEvent.events.push(this)
     }
-
+    clearChoiced(){
+        this.choiced=[]
+    }
     showCard(i,cards,players){
         if(i==7){
             this.setCardClickEvent()
@@ -32,18 +36,17 @@ class InitGameRespondEvent extends SocketEvent{
         new Promise((resolve,reject)=>{
             setTimeout(()=>{
                 const card = cards[i]
-                if(card.type=='number')$('.box.bottom').append(`<img class ='notChoiced' src='/images/cards/${card.color}-${card.number}.png'>`)
-                else if(card.color==null)$('.box.bottom').append(`<img class ='notChoiced' src='/images/cards/${card.type}.png'>`)
-                else $('.box.bottom').append(`<img class ='notChoiced' src='/images/cards/${card.color}-${card.type}.png'>`)
+                $('.CardBlock').append(`<img class ='notChoiced noEvent' src='${CardResourceProcessor.processor.getCardImageResource(card)}'>`)
                 this.showAnotherPlayerCard(players)
                 resolve()
             },150)
         }).then(()=>{this.showCard(i+1,cards,players)})
     }
     setCardClickEvent(){
-        const cardsButton=$('.box.bottom img')
+        const cardsButton=$('.CardBlock img.noEvent')
+        cardsButton.off('click')
         cardsButton.on('click',(e)=>{ 
-            let newButtons = $('.box.bottom img')
+            let newButtons = $('.CardBlock img.noEvent')
             $(e.target).toggleClass('choiced')
             $(e.target).toggleClass('notChoiced')
             newButtons.each(i=>{
@@ -58,6 +61,9 @@ class InitGameRespondEvent extends SocketEvent{
             })  
             console.log(this.choiced)
         })      
+        for(let i=0;i<cardsButton.length;i++){
+            console.log($(cardsButton[i]));
+        }
            
     }
     showAnotherPlayerCard(players){
@@ -66,7 +72,6 @@ class InitGameRespondEvent extends SocketEvent{
         if(players.length>=4)$('.box.left').append(`<img src='/images/cards/back.png'>`)
     }
     setThrowCardButton(){
-        $('.box.bottom').append(`<input id='throwCard' type='button' style="margin:0px 50px" value="丟牌">`)//新增丟牌按鈕
         $('#throwCard').on('click',()=>{
             const cards=[]
             this.choiced.forEach((it)=>{
@@ -78,9 +83,6 @@ class InitGameRespondEvent extends SocketEvent{
             .addData('choiced',this.choiced)
             .addData('roomID',this.roomID)
             .build())
-            this.choiced=[]
-            $('.box.bottom img').removeClass('choiced')
-            $('.box.bottom img').addClass('notChoiced')
         })
     }
 }

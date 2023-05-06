@@ -16,9 +16,13 @@ module.exports=class Game{
         this.players=players
         this.rule=rule
         this.nowPlayer=0
+        this.lastCard
+    }
+    init(){
         this.cardStack.buildCardStack()
         this.cardStack.shuffle()
         this.setupStrategy()
+        this.lastCard=this.drawOneCard()
     }
     setupStrategy(){
     }
@@ -44,7 +48,14 @@ module.exports=class Game{
                 }
             }
             else{
-                return true
+                if(cards[0].color==null)return true
+                if(cards[0].number==this.lastCard.number || cards[0].color==this.lastCard.color) return true
+                else {
+                    console.log(cards)
+                    console.log(this.lastCard)
+                    this.players[this.nowPlayer].socket.emit('ErrorEvent','顏色或數字必須和上一張一樣')
+                    return false
+                }
             }
         }
         else{
@@ -58,6 +69,8 @@ module.exports=class Game{
             const it=cards[i]
             if(it.type!=firstCard.type || it.number!=firstCard.number)return false
         }
+        if(firstCard.number!=this.lastCard.number)return false
+        //如果出的數字和上一張卡不同那就FALSE
         return true
     }
     isCorrectPlayerThrowing(name){
@@ -65,12 +78,13 @@ module.exports=class Game{
 
     }
     throw(cards){
+        
         const handCards=this.players[this.nowPlayer].handCards
-        console.log(handCards)
         cards.forEach(card=>{
             handCards.forEach(target=>{
                 if(card.isEqual(target)){
-                    let removedCard = handCards.remove(card)
+                    this.lastCard=card
+                    handCards.remove(card)
                 }
             })
         })

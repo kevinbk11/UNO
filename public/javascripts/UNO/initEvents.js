@@ -1,5 +1,4 @@
-function initEvents(name,roomID,packetBuilder){
-    let handCards = []
+function initEvents(name,roomID,handCards,packetBuilder){
     SocketEvent.events.forEach(it=>{
         client.on(it.name,it.handler)
         it.userName=name

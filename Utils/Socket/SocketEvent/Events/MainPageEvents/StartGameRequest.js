@@ -21,6 +21,7 @@ module.exports=class StartGameRequest extends SocketEvent{
                     players.push(new Player(name))
                 })
                 let game=new Game(players,data.rule,data.roomID)
+                game.init()
                 Game.games[data.roomID]=game
 
             }  

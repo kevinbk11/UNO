@@ -5,13 +5,16 @@ html
     script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
     link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
     script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/UNO/Events/SocketEvent.js')
     script(src='/javascripts/verify.js')
     script(src='/javascripts/remove.js')
     script(src='/javascripts/PacketBuilder.js')
-    script(src='/javascripts/UNO/Events/SocketEvent.js')
+    script(src='/javascripts/UNO/CardResourceProcessor.js')
+    script(src='/javascripts/UNO/Events/ChangeCardEvent.js')
     script(src='/javascripts/UNO/Events/InitGameRespondEvent.js')
     script(src='/javascripts/UNO/Events/ThrowCardRespondEvent.js')
     script(src='/javascripts/UNO/Events/ErrorEvent.js')
+    script(src="/javascripts/UNO/Events/DrawOneCardRespondEvent.js") 
     script(src="/javascripts/UNO/initEvents.js") 
     script(src="/javascripts/UNO/Builder/PacketBuilder.js") 
     script(src='/javascripts/UNO/main.js')
@@ -71,11 +74,21 @@ html
       .bottom .content {
         margin-bottom: 10px;
       }
+      .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .content {
         color: #FFFFFF;
         font-size: 24px;
         font-weight: bold;
       }
+      
       .bottom img.notChoiced{
         width:150px;
         margin:-20px -30px -20px -30px;
@@ -105,8 +118,14 @@ html
     .container
       .box.top
       .box.left
+      .box.center
+        img(id = 'draw' src='/images/cards/back.png' style='width:150px')
+        img(id='dropped' style='width:150px')
       .box.right
       .box.bottom 
+        .CardBlock
+        .throw
+          input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
 
 
  

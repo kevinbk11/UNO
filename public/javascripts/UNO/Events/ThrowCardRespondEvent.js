@@ -3,13 +3,17 @@ class ThrowCardRespondEvent extends SocketEvent{
     constructor(){
         super('ThrowCardRespondEvent')
         this.hand=[]
-        
+
         this.handler=(data)=>{
             let cardsImg = $('.box.bottom img')
+            const numbers = data.removedCardNumber
+            const lastCardIndex = numbers[numbers.length-1]
+            $('#dropped').attr('src',cardsImg[lastCardIndex].src)
             data.removedCardNumber.forEach((it)=>{
                 cardsImg[it].remove()
             })
-            const numbers = data.removedCardNumber
+            
+
             let removed=0
             for(let i=0;removed<numbers.length;i++){
                 if(numbers.includes(i)){
@@ -18,6 +22,9 @@ class ThrowCardRespondEvent extends SocketEvent{
                     removed++
                 }
             }
+            InitGameRespondEvent.self.clearChoiced()
+            $('.box.bottom img').removeClass('choiced')
+            $('.box.bottom img').addClass('notChoiced')
         }
         SocketEvent.events.push(this)
     }}

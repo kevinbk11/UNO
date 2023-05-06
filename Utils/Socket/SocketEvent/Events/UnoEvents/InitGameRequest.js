@@ -4,8 +4,6 @@ const PacketBuilder = require('../../../../Builder/PacketBuilder');
 const Game = require("../../../../Game/Game");
 module.exports = class InitGameRequest extends SocketEvent{
     constructor(){
-        //重新設定玩家名字和連線的key:value
-        //給玩家遊戲編號，決定前端排版
         super()
         this.name='InitGameRequest'
         this.handler=data=>{
@@ -22,6 +20,7 @@ module.exports = class InitGameRequest extends SocketEvent{
                     .addData('number',number)
                     .addData('cards',cards)
                     .addData('players',room.players)
+                    .addData('firstCard',game.lastCard)
                     .build())
                     game.players[number-1].handCards=cards
                     game.players[number-1].socket=this.socket
