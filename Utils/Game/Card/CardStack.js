@@ -18,13 +18,13 @@ module.exports=class CardStack{
         for(let i=0;i<4;i++){
             for(let j=1;j<4;j++){
                 for(let k=0;k<2;k++){
-                    this.stack.push(new Card(colors[i],10,types[j]))//設定有色功能牌
+                    this.stack.push(new Card(colors[i],10+j,types[j]))//設定有色功能牌
                 }
             }
         }
         for(let i=4;i<=5;i++){
             for(let j=0;j<2;j++){
-                this.stack.push(new Card(null,null,types[i]))
+                this.stack.push(new Card(null,10+i,types[i]))
             }
         }
     }

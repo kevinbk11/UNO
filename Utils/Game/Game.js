@@ -1,12 +1,13 @@
 const CardStack = require('./Card/CardStack')
 Array.prototype.remove=function(value){
-    this.forEach((it,index)=>{
+    for(let index =0;index<this.length;index++){
+        const it = this[index]
         if(it.isEqual(value)){
             this.splice(index,1)
             return true
         }
         return false
-    })
+    }
 }
 module.exports=class Game{
     static games={}
@@ -17,6 +18,8 @@ module.exports=class Game{
         this.rule=rule
         this.nowPlayer=0
         this.lastCard
+        this.order=1 //1 for 順向 -1 for 逆向
+        this.penaltyCardPile=[]
     }
     init(){
         this.cardStack.buildCardStack()
@@ -51,8 +54,6 @@ module.exports=class Game{
                 if(cards[0].color==null)return true
                 if(cards[0].number==this.lastCard.number || cards[0].color==this.lastCard.color) return true
                 else {
-                    console.log(cards)
-                    console.log(this.lastCard)
                     this.players[this.nowPlayer].socket.emit('ErrorEvent','顏色或數字必須和上一張一樣')
                     return false
                 }
@@ -79,15 +80,30 @@ module.exports=class Game{
     }
     throw(cards){
         
-        const handCards=this.players[this.nowPlayer].handCards
         cards.forEach(card=>{
-            handCards.forEach(target=>{
+            const handCards=this.players[this.nowPlayer].handCards
+            for(let i =0;i<handCards.length;i++){
+                const target = handCards[i]
                 if(card.isEqual(target)){
                     this.lastCard=card
+                    this.lastCard.executeEffect(this)
                     handCards.remove(card)
+                    break
                 }
-            })
+            }
+
         })
-        this.nowPlayer=(this.nowPlayer+1)%this.players.length
+        this.nowPlayer=this.caculateNextPlayer()
+    }
+    caculateNextPlayer(){
+        if(this.order==1){
+            return (this.nowPlayer+1)%this.players.length
+        }
+        else{
+            if(this.nowPlayer==0)return this.players.length-1
+            else{
+                return this.nowPlayer-1
+            }
+        }
     }
 }

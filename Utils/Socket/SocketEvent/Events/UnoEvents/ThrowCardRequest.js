@@ -16,17 +16,15 @@ module.exports = class ThrowCardRequest extends SocketEvent{
                     cards[i]=Card.buildCard(cards[i])
                 }
                 if(game.checkThrowIsValid(cards,data.name)){
-                    game.throw(cards)
                     this.socket.emit('ThrowCardRespondEvent',PacketBuilder
                     .addData('success',true)
                     .addData('removedCardNumber',data.choiced)
                     .build())
+                    game.throw(cards)
                 }
                 for(let i=0;i<game.players.length;i++){
-                    if(game.players[i].name!=data.name){
-                        const player = game.players[i]
-                        player.socket.emit('ChangeCardEvent',game.lastCard)
-                    }
+                    const player = game.players[i]
+                    player.socket.emit('ChangeCardEvent',game.lastCard)
                 }
             }
             

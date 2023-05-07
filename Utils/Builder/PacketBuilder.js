@@ -1,17 +1,17 @@
-class StringJsonBuilder//Server
+class PacketBuilder//Server
 {
     static data = {}
     static addData(key,value)
     {
-        StringJsonBuilder.data[key]=value
+        PacketBuilder.data[key]=value
         return this
     }
     static build()
     {
-        let res = StringJsonBuilder.data
-        StringJsonBuilder.data={}
+        let res = PacketBuilder.data
+        PacketBuilder.data={}
         return res
     }
 
 }
-module.exports=StringJsonBuilder
+module.exports=PacketBuilder

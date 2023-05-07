@@ -23,8 +23,7 @@ class ThrowCardRespondEvent extends SocketEvent{
                 }
             }
             InitGameRespondEvent.self.clearChoiced()
-            $('.box.bottom img').removeClass('choiced')
-            $('.box.bottom img').addClass('notChoiced')
+            CardResourceProcessor.processor.setAllCardUnchoiced()
         }
         SocketEvent.events.push(this)
     }}

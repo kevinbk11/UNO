@@ -3,6 +3,7 @@ class ChangeCardEvent extends SocketEvent{
     constructor(){
         super('ChangeCardEvent')
         this.handler=data=>{
+            console.log(data)
             $('#dropped').attr('src',CardResourceProcessor.processor.getCardImageResource(data))
         }
         SocketEvent.events.push(this)

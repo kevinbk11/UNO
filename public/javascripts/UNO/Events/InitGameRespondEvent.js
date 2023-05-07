@@ -4,23 +4,13 @@ class InitGameRespondEvent extends SocketEvent{
         super('InitGameRespondEvent')
         this.choiced=[]
         this.handler=(data)=>{
-            const colors = {'red':1,'yellow':2,'blue':3,'green':4,null:0}
-            data.cards.sort((a,b)=>{
-                if(colors[a.color]>colors[b.color])return -1
-                if(colors[a.color]<colors[b.color])return 1
-                if(colors[a.color]==colors[b.color]){
-                    if(a.number>b.number)return 1
-                    if(a.number<b.number)return -1
-                    return 0
-                }
-            })
+            Card.sort(data.cards)
             data.cards.forEach((it)=>{
                 this.handCards.push(it)
             })
             this.showCard(0,data.cards,data.players)
             const firstCard=data.firstCard
             $('#dropped').attr('src',CardResourceProcessor.processor.getCardImageResource(firstCard))
-
         }
         SocketEvent.events.push(this)
     }
@@ -31,6 +21,7 @@ class InitGameRespondEvent extends SocketEvent{
         if(i==7){
             this.setCardClickEvent()
             this.setThrowCardButton()
+            this.setDrawButtonEvent()
             return
         }   
         new Promise((resolve,reject)=>{
@@ -44,9 +35,8 @@ class InitGameRespondEvent extends SocketEvent{
     }
     setCardClickEvent(){
         const cardsButton=$('.CardBlock img.noEvent')
-        cardsButton.off('click')
         cardsButton.on('click',(e)=>{ 
-            let newButtons = $('.CardBlock img.noEvent')
+            let newButtons = $('.CardBlock img')
             $(e.target).toggleClass('choiced')
             $(e.target).toggleClass('notChoiced')
             newButtons.each(i=>{
@@ -61,9 +51,7 @@ class InitGameRespondEvent extends SocketEvent{
             })  
             console.log(this.choiced)
         })      
-        for(let i=0;i<cardsButton.length;i++){
-            console.log($(cardsButton[i]));
-        }
+        cardsButton.removeClass('noEvent')
            
     }
     showAnotherPlayerCard(players){
@@ -71,7 +59,7 @@ class InitGameRespondEvent extends SocketEvent{
         if(players.length>=3)$('.box.top').append(`<img src='/images/cards/back.png'>`)
         if(players.length>=4)$('.box.left').append(`<img src='/images/cards/back.png'>`)
     }
-    setThrowCardButton(){
+    setThrowCardButton(){ 
         $('#throwCard').on('click',()=>{
             const cards=[]
             this.choiced.forEach((it)=>{
@@ -85,4 +73,13 @@ class InitGameRespondEvent extends SocketEvent{
             .build())
         })
     }
+    setDrawButtonEvent(){
+        $('#draw').on('click',()=>{
+            client.emit('DrawOneCardRequest',this.packetBuilder
+            .addData('roomID',this.roomID)
+            .addData('name',this.userName)
+            .build())
+        })
+    }
+    
 }

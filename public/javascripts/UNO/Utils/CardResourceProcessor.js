@@ -5,6 +5,10 @@ class CardResourceProcessor{
         else if(card.color==null)return `/images/cards/${card.type}.png`
         else return `/images/cards/${card.color}-${card.type}.png`
     }
+    setAllCardUnchoiced(){
+        $('.CardBlock img').removeClass('choiced')
+        $('.CardBlock img').addClass('notChoiced')
+    }
     buildCard(){
 
     }

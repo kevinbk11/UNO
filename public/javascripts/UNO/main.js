@@ -12,14 +12,6 @@ window.onload = ()=>{
         .addData('name',name)
         .addData('roomID',roomID)
         .build())
-
-        $('#draw').on('click',()=>{
-            client.emit('DrawOneCardRequest',builder
-            .addData('roomID',roomID)
-            .addData('name',name)
-            .build())
-            console.log(handCards)
-        })
     })
     
 }
