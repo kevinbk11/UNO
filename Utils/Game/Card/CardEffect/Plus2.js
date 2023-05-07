@@ -1,8 +1,9 @@
 const PacketBuilder = require("../../../Builder/PacketBuilder")
 
 module.exports = class Plus2{
-    execute(game){
-        for(let i=0;i<2;i++){
+    execute(game,times){
+        console.log(times)
+        for(let i=0;i<2*times;i++){
             game.penaltyCardPile.push(game.drawOneCard())
         }
         const nextPlayer = game.players[game.caculateNextPlayer()]
@@ -17,8 +18,6 @@ module.exports = class Plus2{
             game.penaltyCardPile.forEach(it=>{
                 nextPlayer.handCards.push(it)
             })
-            
-            
             game.penaltyCardPile=[]
         }
     }

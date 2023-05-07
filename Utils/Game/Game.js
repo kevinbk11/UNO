@@ -1,3 +1,4 @@
+const CARD_TYPE = require('./Card/CARD_TYPE')
 const CardStack = require('./Card/CardStack')
 Array.prototype.remove=function(value){
     for(let index =0;index<this.length;index++){
@@ -70,36 +71,26 @@ module.exports=class Game{
             const it=cards[i]
             if(it.type!=firstCard.type || it.number!=firstCard.number)return false
         }
+        if(firstCard.type==CARD_TYPE.WILD ||firstCard.type==CARD_TYPE.WILD_PLUS_4 )return true
         if(firstCard.number!=this.lastCard.number)return false
-        //如果出的數字和上一張卡不同那就FALSE
         return true
     }
     isCorrectPlayerThrowing(name){
             return this.players[this.nowPlayer].name==name
-
     }
     throw(cards){
         cards.forEach(card=>{
             const handCards=this.players[this.nowPlayer].handCards
-            let find = false
             for(let i =0;i<handCards.length;i++){
                 const target = handCards[i]
-                if(card.isEqual(target)){
-                    
+                if(card.isEqual(target)){              
                     this.lastCard=card
-                    this.lastCard.executeEffect(this)
                     handCards.remove(card)
-                    find=true
                     break
                 }
             }
-            if(!find){
-                console.log(cards)
-                console.log(card)
-                console.log(handCards)
-            }
-
         })
+        this.lastCard.executeEffect(this,cards.length)
         this.nowPlayer=this.caculateNextPlayer()
     }
     caculateNextPlayer(){

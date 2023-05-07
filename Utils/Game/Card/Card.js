@@ -14,8 +14,8 @@ module.exports=class Card{
     isEqual(card){
         return this.color==card.color && this.number==card.number && this.type==card.type   
     }
-    executeEffect(game){
-        this.effect.execute(game)
+    executeEffect(game,times){
+        this.effect.execute(game,times)
     }
     setEffect(){
         switch(this.type){

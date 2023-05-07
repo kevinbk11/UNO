@@ -1,6 +1,6 @@
 module.exports = class Stop{
-    execute(game){
-        game.nowPlayer=game.caculateNextPlayer()
-        game.nowPlayer=game.caculateNextPlayer()
+    execute(game,times){
+        for(let i=0;i<times;i++)
+            game.nowPlayer=game.caculateNextPlayer()
     }
 }

@@ -1,5 +1,6 @@
 module.exports = class Reverse{
-    execute(game){
-        game.order*=-1
+    execute(game,times){
+        for(let i=0;i<times;i++)
+            game.order*=-1
     }
 }
