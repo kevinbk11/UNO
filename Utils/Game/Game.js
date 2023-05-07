@@ -79,17 +79,24 @@ module.exports=class Game{
 
     }
     throw(cards){
-        
         cards.forEach(card=>{
             const handCards=this.players[this.nowPlayer].handCards
+            let find = false
             for(let i =0;i<handCards.length;i++){
                 const target = handCards[i]
                 if(card.isEqual(target)){
+                    
                     this.lastCard=card
                     this.lastCard.executeEffect(this)
                     handCards.remove(card)
+                    find=true
                     break
                 }
+            }
+            if(!find){
+                console.log(cards)
+                console.log(card)
+                console.log(handCards)
             }
 
         })
