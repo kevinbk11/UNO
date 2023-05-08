@@ -1,5 +1,7 @@
 const CARD_TYPE = require('./Card/CARD_TYPE')
+const Plus2 = require('./Card/CardEffect/Plus2')
 const CardStack = require('./Card/CardStack')
+const PacketBuilder = require('../Builder/PacketBuilder')
 Array.prototype.remove=function(value){
     for(let index =0;index<this.length;index++){
         const it = this[index]
@@ -17,18 +19,18 @@ module.exports=class Game{
         this.cardStack=new CardStack()
         this.players=players
         this.rule=rule
-        this.nowPlayer=0
+        this.nowPlayerNumber=0
         this.lastCard
         this.order=1 //1 for 順向 -1 for 逆向
         this.penaltyCardPile=[]
+        this.isStacking=false
+        //if stacking and lastCard != +2 OR +4 (送罰牌請求 把整個罰牌的array丟給倒楣蛋) 
+
     }
     init(){
         this.cardStack.buildCardStack()
         this.cardStack.shuffle()
-        this.setupStrategy()
         this.lastCard=this.drawOneCard()
-    }
-    setupStrategy(){
     }
     drawOneCard(){
         return this.cardStack.draw()
@@ -42,26 +44,26 @@ module.exports=class Game{
                         return true
                     }
                     else{
-                        this.players[this.nowPlayer].socket.emit('ErrorEvent','出牌規則錯誤!只能出同數字的牌。')
+                        this.players[this.nowPlayerNumber].sendError('出牌規則錯誤!只能出同數字的牌。')
                         return false
                     }
                 }
                 else{
-                    this.players[this.nowPlayer].socket.emit('ErrorEvent','不能一次出多張牌。')
+                    this.players[this.nowPlayerNumber].sendError('不能一次出多張牌。')
                     return false
                 }
             }
             else{
-                if(cards[0].color==null)return true
+                if(cards[0].isNoColor())return true
                 if(cards[0].number==this.lastCard.number || cards[0].color==this.lastCard.color) return true
                 else {
-                    this.players[this.nowPlayer].socket.emit('ErrorEvent','顏色或數字必須和上一張一樣')
+                    this.players[this.nowPlayerNumber].sendError('顏色或數字必須和上一張一樣')
                     return false
                 }
             }
         }
         else{
-            this.players.filter(it=>it.name==name)[0].socket.emit('ErrorEvent','現在不是你的回合。')
+            this.players.filter(it=>it.name==name)[0].sendError('現在不是你的回合。')
             return false
         }
     }
@@ -71,16 +73,16 @@ module.exports=class Game{
             const it=cards[i]
             if(it.type!=firstCard.type || it.number!=firstCard.number)return false
         }
-        if(firstCard.type==CARD_TYPE.WILD ||firstCard.type==CARD_TYPE.WILD_PLUS_4 )return true
+        if(cards[0].isNoColor())return true
         if(firstCard.number!=this.lastCard.number)return false
         return true
     }
     isCorrectPlayerThrowing(name){
-            return this.players[this.nowPlayer].name==name
+            return this.players[this.nowPlayerNumber].name==name
     }
     throw(cards){
         cards.forEach(card=>{
-            const handCards=this.players[this.nowPlayer].handCards
+            const handCards=this.players[this.nowPlayerNumber].handCards
             for(let i =0;i<handCards.length;i++){
                 const target = handCards[i]
                 if(card.isEqual(target)){              
@@ -90,17 +92,38 @@ module.exports=class Game{
                 }
             }
         })
-        this.lastCard.executeEffect(this,cards.length)
-        this.nowPlayer=this.caculateNextPlayer()
-    }
-    caculateNextPlayer(){
-        if(this.order==1){
-            return (this.nowPlayer+1)%this.players.length
+        if(this.rule.isOverlay){
+            if((this.lastCard.type!=CARD_TYPE.PLUS_2 && this.lastCard.type!=CARD_TYPE.WILD_PLUS_4) && this.isStacking){
+                this.executePenaltyCardEvent(this.nowPlayerNumber)
+            }
         }
         else{
-            if(this.nowPlayer==0)return this.players.length-1
+            const nextPlayer = this.caculateNextPlayer()
+            this.executePenaltyCardEvent(nextPlayer)
+        }
+        this.lastCard.executeEffect(this,cards.length)
+        this.nowPlayerNumber=this.caculateNextPlayer()
+    }
+    executePenaltyCardEvent(playerNumber){
+        const player = this.players[playerNumber]
+        player.socket.emit('PenaltyCardEvent',PacketBuilder
+        .addData('cards',this.penaltyCardPile)
+        .build())
+        this.penaltyCardPile.forEach(it=>{
+            player.pushCard(it)
+        })
+        this.penaltyCardPile=[]
+        this.isStacking=false
+    }
+    
+    caculateNextPlayer(){
+        if(this.order==1){
+            return (this.nowPlayerNumber+1)%this.players.length
+        }
+        else{
+            if(this.nowPlayerNumber==0)return this.players.length-1
             else{
-                return this.nowPlayer-1
+                return this.nowPlayerNumber-1
             }
         }
     }

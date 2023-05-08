@@ -4,4 +4,10 @@ module.exports=class Player{
         this.socket;
         this.handCards=[]
     }
+    sendError(message){
+        this.socket.emit('ErrorEvent',message)
+    }
+    pushCard(card){
+        this.handCards.push(card)
+    }
 }

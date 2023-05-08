@@ -3,7 +3,6 @@ class ErrorEvent extends SocketEvent{
     constructor(){
         super('ErrorEvent')
         this.handler=(data)=>{
-            
             alert(data)
         }
         SocketEvent.events.push(this)

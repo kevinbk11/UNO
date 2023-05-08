@@ -11,7 +11,7 @@ module.exports = class DrawOneCardRequest extends SocketEvent{
                 const game = Game.games[data.roomID]
                 const newCard = game.drawOneCard()
 
-                game.players.filter(it=>it.name==data.name)[0].handCards.push(newCard)
+                game.players.filter(it=>it.name==data.name)[0].pushCard(newCard)
                 this.socket.emit('DrawOneCardRespondEvent',newCard)
             }
         
