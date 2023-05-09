@@ -66,7 +66,7 @@ module.exports=class Game{
             }
         }
         else{
-            nowPlayer.sendError('現在不是你的回合。')
+            requestPlayer.sendError('現在不是你的回合。')
             return false
         }
     }
@@ -95,15 +95,23 @@ module.exports=class Game{
                 }
             }
         })
-        this.lastCard.executeEffect(this,cards.length)
+        
         if(this.rule.isOverlay){
             if((this.lastCard.type!=CARD_TYPE.PLUS_2 && this.lastCard.type!=CARD_TYPE.WILD_PLUS_4) && this.isStacking){
                 this.executePenaltyCardEvent(this.nowPlayerNumber)
+                this.lastCard.executeEffect(this,cards.length)
+            }
+            else{
+                this.lastCard.executeEffect(this,cards.length)
             }
         }
         else if(this.lastCard.type==CARD_TYPE.PLUS_2 ||this.lastCard.type==CARD_TYPE.WILD_PLUS_4){
+            this.lastCard.executeEffect(this,cards.length)
             const nextPlayer = this.caculateNextPlayerNumber()
             this.executePenaltyCardEvent(nextPlayer)
+        }
+        else{
+            this.lastCard.executeEffect(this,cards.length)
         }
         this.nowPlayerNumber=this.caculateNextPlayerNumber()
     }

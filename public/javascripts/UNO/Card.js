@@ -40,6 +40,9 @@ class Card{
             const cardImgs = $('.CardBlock img')
             let e1 = cardImgs[i]
             let e2 = cardImgs[i+1]
+            let temp = $(e1).css('z-index')
+            $(e1).css('z-index',$(e2).css('z-index'))
+            $(e2).css('z-index',temp)
             $(e1).insertAfter($(e2))
         }
         if(by=='color'){
@@ -54,6 +57,9 @@ class Card{
                         swap(cards,i)
                     }
                 }
+                else{
+                    return i
+                }
             }
         }
         else{
@@ -66,6 +72,9 @@ class Card{
                     if (Card.colors[cardA.color] < Card.colors[cardB.color]) {
                         swap(cards,i)
                     }
+                }
+                else{
+                    return i
                 }
             }
         }

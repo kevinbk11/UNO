@@ -74,12 +74,17 @@ class InitGameRespondEvent extends SocketEvent{
         })
     }
     setDrawButtonEvent(){
-        $('#draw').on('click',()=>{
+        const handler = ()=>{
             client.emit('DrawOneCardRequest',this.packetBuilder
             .addData('roomID',this.roomID)
             .addData('name',this.userName)
             .build())
-        })
+            $('#draw').off('click')
+            setTimeout(()=>{
+                $('#draw').on('click',handler)
+            },1100)
+        }
+        $('#draw').on('click',handler)
     }
     
 }
