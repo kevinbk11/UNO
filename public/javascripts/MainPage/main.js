@@ -1,7 +1,8 @@
 let client = null
-let joinRoomDialog = new JoinRoomDialog()
+
 
 window.onload= ()=>{
+    let joinRoomDialog = new JoinRoomDialog()
     joinRoomDialog.create()
     let nickname = prompt('請輸入您的暱稱。')
     while(nickname==null || nickname=='')
@@ -34,7 +35,7 @@ window.onload= ()=>{
         $('#gameStartButton').on('click',()=>{
             let roomID = $('#roomID').text().split(':')[1]
             let ruleBuilder = new RuleBuilder()
-            let rule=ruleBuilder.setThrowMultipleCard(true).setOverlay(true).build()
+            let rule=ruleBuilder.setThrowMultipleCard(true).setOverlay(false).build()
             client.emit('StartGameRequest',builder.addData('name',nickname).addData('roomID',roomID).addData('rule',rule).build())
             $('#gameStartButton').hide()
         })

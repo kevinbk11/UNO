@@ -1,8 +1,10 @@
 const CARD_TYPE = require("./CARD_TYPE")
 const NullEffect = require("./CardEffect/NullEffect")
 const Plus2 = require("./CardEffect/Plus2")
+const Plus4 = require("./CardEffect/Plus4")
 const Reverse = require("./CardEffect/Reverse")
 const Stop = require("./CardEffect/Stop")
+const Wild = require("./CardEffect/Wild")
 
 module.exports=class Card{
     constructor(color,number,type){
@@ -30,7 +32,10 @@ module.exports=class Card{
                 return new Reverse()
             case CARD_TYPE.STOP:
                 return new Stop()
-            
+            case CARD_TYPE.WILD_PLUS_4:
+                return new Plus4()
+            case CARD_TYPE.WILD:
+                return new Wild()
         }
     }
     static buildCard(cardDict){

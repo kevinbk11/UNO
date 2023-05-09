@@ -9,12 +9,15 @@ html
     script(src='/javascripts/Utils/PacketBuilder.js')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/UNO/Events/SocketEvent.js')
+    script(src='/javascripts/Dialog.js')
+    script(src="/javascripts/UNO/Dialogs/ChangeColorDialog.js") 
     script(src="/javascripts/UNO/Card.js") 
     script(src='/javascripts/UNO/Utils/CardResourceProcessor.js')
     script(src='/javascripts/UNO/Events/ChangeCardEvent.js')
     script(src='/javascripts/UNO/Events/InitGameRespondEvent.js')
     script(src='/javascripts/UNO/Events/ThrowCardRespondEvent.js')
     script(src='/javascripts/UNO/Events/ErrorEvent.js')
+    script(src="/javascripts/UNO/Events/ChoiceColorEvent.js") 
     script(src="/javascripts/UNO/Events/PenaltyCardEvent.js") 
     script(src="/javascripts/UNO/Events/DrawOneCardRespondEvent.js") 
     script(src="/javascripts/UNO/initEvents.js") 
@@ -127,7 +130,7 @@ html
         .CardBlock
         .throw
           input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
-
+      div(id='content')
 
  
 

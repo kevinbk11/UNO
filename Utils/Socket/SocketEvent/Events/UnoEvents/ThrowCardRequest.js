@@ -21,10 +21,10 @@ module.exports = class ThrowCardRequest extends SocketEvent{
                     .addData('removedCardNumber',data.choiced)
                     .build())
                     game.throw(cards)
-                }
-                for(let i=0;i<game.players.length;i++){
-                    const player = game.players[i]
-                    player.socket.emit('ChangeCardEvent',game.lastCard)
+                    for(let i=0;i<game.players.length;i++){
+                        const player = game.players[i]
+                        player.socket.emit('ChangeCardEvent',game.lastCard)
+                    }
                 }
             }
             

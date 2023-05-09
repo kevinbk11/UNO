@@ -1,5 +1,7 @@
 let client = null
 window.onload = ()=>{
+    let choiceColorDialog = new ChangeColorDialog()
+    choiceColorDialog.create()
     client = io()
     const name = $('#name').text()
     const roomID = $(location).attr('href').split('/').pop()
@@ -12,6 +14,12 @@ window.onload = ()=>{
         .addData('name',name)
         .addData('roomID',roomID)
         .build())
+        $('.color-button').on('click',(e)=>{
+            client.emit('ChoiceColorRespond',builder
+            .addData('color',$(e.target).attr('id'))
+            .addData('roomID',roomID))
+            choiceColorDialog.hide()
+         })
     })
     
 }

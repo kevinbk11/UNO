@@ -5,6 +5,5 @@ module.exports = class Plus2{
         for(let i=0;i<2*times;i++){
             game.penaltyCardPile.push(game.drawOneCard())
         }
-
     }
 }
