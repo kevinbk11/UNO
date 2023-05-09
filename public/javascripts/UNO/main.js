@@ -14,6 +14,7 @@ window.onload = ()=>{
         .addData('name',name)
         .addData('roomID',roomID)
         .build())
+        
         $('.color-button').on('click',(e)=>{
             client.emit('ChoiceColorRespond',builder
             .addData('color',$(e.target).attr('id'))

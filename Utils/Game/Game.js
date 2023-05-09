@@ -1,6 +1,7 @@
 const CARD_TYPE = require('./Card/CARD_TYPE')
 const CardStack = require('./Card/CardStack')
 const PacketBuilder = require('../Builder/PacketBuilder')
+const Card = require('./Card/Card')
 Array.prototype.remove=function(value){
     for(let index =0;index<this.length;index++){
         const it = this[index]
@@ -28,6 +29,11 @@ module.exports=class Game{
         this.cardStack.buildCardStack()
         this.cardStack.shuffle()
         this.lastCard=this.drawOneCard()
+        while(this.lastCard.isNoColor()){
+            this.cardStack.push(this.lastCard)
+            this.cardStack.shuffle()
+            this.lastCard=this.drawOneCard()
+        }
     }
     drawOneCard(){
         return this.cardStack.draw()
