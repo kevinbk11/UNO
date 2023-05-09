@@ -20,7 +20,7 @@ module.exports=class StartGameRequest extends SocketEvent{
                     delete this.nameToClient[name]
                     players.push(new Player(name))
                 })
-                let game=new Game(players,data.rule,data.roomID)
+                let game=new Game(players,Rule.buildRule(data.rule),data.roomID)
                 game.init()
                 Game.games[data.roomID]=game
 
