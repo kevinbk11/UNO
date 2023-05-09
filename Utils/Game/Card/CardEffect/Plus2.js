@@ -1,9 +1,7 @@
-const CARD_TYPE = require('../CARD_TYPE')
-module.exports = class Plus2{
+const IPlus = require("./IPlus")
+
+module.exports = class Plus2 extends IPlus{
     execute(game,times){
-        game.isStacking=true
-        for(let i=0;i<2*times;i++){
-            game.penaltyCardPile.push(game.drawOneCard())
-        }
+        this.plus(game,2,times)
     }
 }

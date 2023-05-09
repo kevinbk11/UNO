@@ -1,9 +1,8 @@
-module.exports = class Plus4{
+const IPlus = require("./IPlus")
+
+module.exports = class Plus4 extends IPlus {
     execute(game,times){
-        game.isStacking=true
-        for(let i=0;i<4*times;i++){
-            game.penaltyCardPile.push(game.drawOneCard())
-        }
+        this.plus(game,4,times)
         const player = game.getNowPlayer()
         player.socket.emit('ChoiceColorEvent')
     }

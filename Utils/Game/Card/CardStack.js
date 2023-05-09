@@ -4,6 +4,8 @@ const CARD_TYPE = require('./CARD_TYPE')
 module.exports=class CardStack{
     constructor(){
         this.stack=[]
+        //沒牌之後可以把墳墓裡面的牌丟回stack
+        //要建立一個墳墓
     }
     buildCardStack(){
         let colors = Object.values(CARD_COLOR)

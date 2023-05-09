@@ -95,29 +95,15 @@ module.exports=class Game{
                 }
             }
         })
-        
         if(this.rule.isOverlay){
             if((this.lastCard.type!=CARD_TYPE.PLUS_2 && this.lastCard.type!=CARD_TYPE.WILD_PLUS_4) && this.isStacking){
-                this.executePenaltyCardEvent(this.nowPlayerNumber)
-                this.lastCard.executeEffect(this,cards.length)
-            }
-            else{
-                this.lastCard.executeEffect(this,cards.length)
+                this.executePenaltyCardEvent(this.getNowPlayer())
             }
         }
-        else if(this.lastCard.type==CARD_TYPE.PLUS_2 ||this.lastCard.type==CARD_TYPE.WILD_PLUS_4){
-            this.lastCard.executeEffect(this,cards.length)
-            const nextPlayer = this.caculateNextPlayerNumber()
-            this.executePenaltyCardEvent(nextPlayer)
-        }
-        else{
-            this.lastCard.executeEffect(this,cards.length)
-        }
+        this.lastCard.executeEffect(this,cards.length)
         this.nowPlayerNumber=this.caculateNextPlayerNumber()
     }
-    executePenaltyCardEvent(playerNumber){
-        const player = this.players[playerNumber]
-        console.log(this.penaltyCardPile)
+    executePenaltyCardEvent(player){
         player.socket.emit('PenaltyCardEvent',PacketBuilder
         .addData('cards',this.penaltyCardPile)
         .build())
@@ -129,6 +115,9 @@ module.exports=class Game{
     }
     getNowPlayer(){
         return this.players[this.nowPlayerNumber]
+    }
+    getPlayer(number){
+        return this.players[number]
     }
     caculateNextPlayerNumber(){
         if(this.order==1){
