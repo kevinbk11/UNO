@@ -21,14 +21,12 @@ module.exports=class Rule{
     setStrategy(){
         this.throwMultipleCardStrategy= this.isAllowThrowMultipleCard ? new AllowMultipleThrow() : new NoMultipleThrow() 
         this.stackingStrategy= this.isAllowStacking ? new AllowStacking() : new NoStacking()
-        console.log(this.isAllowStacking)
-        console.log(this.stackingStrategy)
     }
     executeMultipleCardStrategy(game,cards){
         return this.throwMultipleCardStrategy.execute(game,cards)
     }
-    executeStackingStrategy(game){
-        return this.stackingStrategy.execute(game)
+    executeStackingStrategy(game,playerNumber){
+        return this.stackingStrategy.execute(game,playerNumber)
     }
     checkLastCardHasColor(game){
         if(game.lastCard.isNoColor()){

@@ -1,13 +1,11 @@
-const IRuleStrategy = require("../IRuleStrategy")
+const IMultipleThrow = require("./IMultipleThrow")
 
-module.exports = class AllowMultipleThrow extends IRuleStrategy{
+module.exports = class AllowMultipleThrow extends IMultipleThrow{
     execute(game,cards){
-        console.log("??")
         if(cards.length==1){
             return this.checkOneCardIsValid(game,cards[0])
         }
         if(this.checkThrowMultipleCardIsValid(game,cards)){
-            console.log("?")
             return true
         }
         else{
@@ -22,7 +20,6 @@ module.exports = class AllowMultipleThrow extends IRuleStrategy{
             if(it.type!=firstCard.type || it.number!=firstCard.number)return false
         }
         if(cards[0].isNoColor())return true
-        if(firstCard.number!=game.lastCard.number)return false
-        return true
+        return firstCard.number==game.lastCard.number
     }
 }

@@ -1,4 +1,4 @@
-const IRuleStrategy = require("../IRuleStrategy")
+const IRuleStrategy = require("./IMultipleThrow")
 
 module.exports = class NoMultipleThrow extends IRuleStrategy{
     execute(game,cards){

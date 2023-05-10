@@ -1,10 +1,10 @@
 const CARD_TYPE = require("../../../Card/CARD_TYPE")
-module.exports = class NoStacking{
-    execute(game){
-        if(game.lastCard.type==CARD_TYPE.PLUS_2 ||game.lastCard.type==CARD_TYPE.WILD_PLUS_4){
-            const nextPlayer = game.getPlayer(game.caculateNextPlayerNumber())
-            game.executePenaltyCardEvent(nextPlayer)
+const IStacking = require("./IStacking")
+module.exports = class NoStacking extends IStacking{
+    execute(game,playerNumber){
+        if(this.lastIsPlus(game)){
+            const player = game.getPlayer(playerNumber)
+            game.executePenaltyCardEvent(player)
         }
-
     }
 }

@@ -51,8 +51,9 @@ module.exports=class Game{
         }
     }
     endRound(droppedCards){
+        const punishedPlayer = this.rule.isAllowStacking? this.nowPlayerNumber:this.caculateNextPlayerNumber()
         this.lastCard.executeEffect(this,droppedCards.length)
-        this.rule.executeStackingStrategy(this)
+        this.rule.executeStackingStrategy(this,punishedPlayer)
         this.nowPlayerNumber=this.caculateNextPlayerNumber()
     }
     isCorrectPlayerThrowing(name){
