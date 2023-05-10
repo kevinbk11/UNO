@@ -26,6 +26,7 @@ module.exports=class Game{
         this.isStacking=false
     }
     init(){
+        console.log(this.rule)
         this.cardStack.buildCardStack()
         this.cardStack.shuffle()
         this.lastCard=this.drawOneCard()
@@ -39,75 +40,24 @@ module.exports=class Game{
         return this.cardStack.draw()
     }
     checkThrowIsValid(cards,name){
-        const nowPlayer = this.getNowPlayer()
         const requestPlayer = this.players.filter(it=>it.name==name)[0]
-        if(cards.length==0)return false
+        if(cards.length==0)return  false
         if(this.isCorrectPlayerThrowing(name)){
-            if(this.lastCard.isNoColor()){
-                requestPlayer.sendError('上家還未選擇顏色')
-                return false
-            }
-            if(cards.length>1){
-                if(this.rule.isThrowMultipleCard){
-                    if(this.checkThrowMultipleCardIsValid(cards)){
-                        return true
-                    }
-                    else{
-                        nowPlayer.sendError('出牌規則錯誤!只能出同數字的牌。')
-                        return false
-                    }
-                }
-                else{
-                    nowPlayer.sendError('不能一次出多張牌。')
-                    return false
-                }
-            }
-            else{
-                if(cards[0].isNoColor())return true
-                if(cards[0].number==this.lastCard.number || cards[0].color==this.lastCard.color) return true
-                else {
-                    nowPlayer.sendError('顏色或數字必須和上一張一樣')
-                    return false
-                }
-            }
+            return this.rule.executeMultipleCardStrategy(this,cards)
         }
         else{
             requestPlayer.sendError('現在不是你的回合。')
             return false
         }
     }
-    checkThrowMultipleCardIsValid(cards){
-        let firstCard = cards[0]
-        for(let i = 0;i<cards.length;i++){
-            const it=cards[i]
-            if(it.type!=firstCard.type || it.number!=firstCard.number)return false
-        }
-        if(cards[0].isNoColor())return true
-        if(firstCard.number!=this.lastCard.number)return false
-        return true
+    endRound(droppedCards){
+        const punishedPlayer = this.rule.isAllowStacking? this.nowPlayerNumber:this.caculateNextPlayerNumber()
+        this.lastCard.executeEffect(this,droppedCards.length)
+        this.rule.executeStackingStrategy(this,punishedPlayer)
+        this.nowPlayerNumber=this.caculateNextPlayerNumber()
     }
     isCorrectPlayerThrowing(name){
             return this.getNowPlayer().name==name
-    }
-    throw(cards){
-        cards.forEach(card=>{
-            const handCards=this.players[this.nowPlayerNumber].handCards
-            for(let i =0;i<handCards.length;i++){
-                const target = handCards[i]
-                if(card.isEqual(target)){              
-                    this.lastCard=card
-                    handCards.remove(card)
-                    break
-                }
-            }
-        })
-        if(this.rule.isOverlay){
-            if((this.lastCard.type!=CARD_TYPE.PLUS_2 && this.lastCard.type!=CARD_TYPE.WILD_PLUS_4) && this.isStacking){
-                this.executePenaltyCardEvent(this.getNowPlayer())
-            }
-        }
-        this.lastCard.executeEffect(this,cards.length)
-        this.nowPlayerNumber=this.caculateNextPlayerNumber()
     }
     executePenaltyCardEvent(player){
         player.socket.emit('PenaltyCardEvent',PacketBuilder

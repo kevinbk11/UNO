@@ -2,14 +2,14 @@ class RuleBuilder
 {
     constructor()
     {
-        this.rule={isThrowMultipleCard:false,isOverlay:false}
+        this.rule={isAllowThrowMultipleCard:false,isAllowStacking:false}
     }
-    setThrowMultipleCard(state){
-        this.rule.isThrowMultipleCard=state
+    setAllowThrowMultipleCard(state){
+        this.rule.isAllowThrowMultipleCard=state
         return this
     }
-    setOverlay(state){
-        this.rule.isOverlay=state
+    setAllowStacking(state){
+        this.rule.isAllowStacking=state
         return this
     }
     build()
