@@ -2,18 +2,19 @@ class RuleBuilder
 {
     constructor()
     {
-        this.rule={throwMultipleCard:false,overlay:false}
+        this.rule={isAllowThrowMultipleCard:false,isAllowStacking:false}
     }
-    setThrowMultipleCard(state){
-        this.rule.throwMultipleCard=state
+    setAllowThrowMultipleCard(state){
+        this.rule.isAllowThrowMultipleCard=state
+        return this
     }
-    setOverlay(state){
-        this.rule.overlay=state
+    setAllowStacking(state){
+        this.rule.isAllowStacking=state
+        return this
     }
     build()
     {
-        let res = JSON.stringify(this.rule)
-        this.data={}
+        let res = this.rule
         return res
     }
 }

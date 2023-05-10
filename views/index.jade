@@ -4,10 +4,11 @@ html
     script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
     link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
     script(src='/socket.io/socket.io.js')
-    script(src='/javascripts/MainPage/verify.js')
-    script(src='/javascripts/MainPage/Builder/PacketBuilder.js')
+    script(src='/javascripts/Utils/verify.js')
+    script(src='/javascripts/Utils/remove.js')
+    script(src='/javascripts/Utils/PacketBuilder.js')
     script(src='/javascripts/MainPage/Builder/RuleBuilder.js')
-    script(src='/javascripts/MainPage/Dialogs/Dialog.js')
+    script(src='/javascripts/Dialog.js')
     script(src='/javascripts/MainPage/Dialogs/joinRoomDialog.js')
     script(src='/javascripts/MainPage/Events/SocketEvent.js')
     script(src='/javascripts/MainPage/Events/PlayerJoinEvent.js')
@@ -16,7 +17,66 @@ html
     script(src='/javascripts/MainPage/Events/CreateRoomRespondEvent.js')
     script(src='/javascripts/MainPage/Events/GameStartEvent.js')
     script(src='/javascripts/MainPage/main.js')
-
+    title 2
+    style.
+      /*文字*/
+      .kaxi {
+      font-size: 6em;
+      color: rgb(71, 229, 221);
+      text-shadow: 1px 1px #303dd2, 2px 2px #303dd2, 3px 3px #303dd2, 4px 4px#303dd2, 5px 5px #303dd2, 6px 6px#303dd2, 7px 7px #303dd2, 8px 8px #303dd2, 9px 9px #303dd2, 10px 10px #303dd2;
+      animation: grow 15s infinite;
+      position: absolute;
+      top: 20%;
+      left: 52%;
+      transform: translate(-50%, -50%);
+      }
+      @keyframes grow {
+      0% {
+      font-size: 150px;
+      }
+      50% {
+      font-size: 200px;
+      }
+      100% {
+      font-size: 150px;
+      }
+      }
+      /*按鈕*/
+      .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative; /* 相对定位 */
+      top: 380px; /* 向下偏移50像素 */
+      left: 51%; /* 水平居中 */
+      transform: translateX(-50%); /* 水平居中 */
+      }
+      .game-button {
+      background-color: #4CAF50;
+      border: none;
+      color: rgb(254, 255, 254);
+      padding: 15px 40px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 20px;
+      margin: 10px 0px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 2px 2px 5px rgba(9, 177, 51, 0.3);
+      transition: all 0.3s ease;
+      }
+      .game-button:hover {
+      background-color: #3e8e41;
+      }
+      /*背景*/
+      body {
+      background-image: url('images/backgound.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      }
 
 
 
@@ -24,7 +84,6 @@ html
     p(style='display:none',id='password') #{number}
     p(id='roomID')
     input(value='開始遊戲',type='button',id="gameStartButton",style='display:none')
-    div(id='users')
     input(value='創建房間',type='button',id="createRoomButton",class="RoomButton")
     br(class="RoomButton")
     input(value='加入房間',type='button',id='joinRoomButton',class="RoomButton")

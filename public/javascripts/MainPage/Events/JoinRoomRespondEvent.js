@@ -11,9 +11,7 @@ class JoinRoomRespondEvent extends SocketEvent{
                 $("#content").append(`${num++}.${it}<br>`)
             })
             $('.RoomButton').hide()
-            joinRoomDialog.hide()
-            /*$('#createRoomButton').hide()
-            $('#joinRoomButton').hide()*/
+            JoinRoomDialog.dialog.hide()
         }
         SocketEvent.events.push(this)
     }

@@ -1,7 +1,8 @@
 let client = null
-let joinRoomDialog = new JoinRoomDialog()
+
 
 window.onload= ()=>{
+    let joinRoomDialog = new JoinRoomDialog()
     joinRoomDialog.create()
     let nickname = prompt('請輸入您的暱稱。')
     while(nickname==null || nickname=='')
@@ -11,7 +12,6 @@ window.onload= ()=>{
     verify(nickname)
     .then((id)=>{//成功之後
         $('#password').text(nickname)
-        Dialog.id=id;
         let builder = new PacketBuilder(id)
         let ruleBuilder = new RuleBuilder()
         
@@ -27,17 +27,18 @@ window.onload= ()=>{
             client.emit('CreateRoomRequest',builder.addData('name',nickname).addData('rule',rule).build())
             $('.RoomButton').hide()
             $('#gameStartButton').css('display','block')
-            $('#users').append(`1.${nickname}`)
+            $('#content').append(`1.${nickname}<br>`)
         })
         $('#joinRoomButton').on('click',()=>{
             joinRoomDialog.show()
         })
         $('#gameStartButton').on('click',()=>{
             let roomID = $('#roomID').text().split(':')[1]
-            client.emit('StartGameRequest',builder.addData('name',nickname).addData('roomID',roomID).build())
+            let ruleBuilder = new RuleBuilder()
+            let rule=ruleBuilder.setAllowThrowMultipleCard(true).setAllowStacking(true).build()
+            client.emit('StartGameRequest',builder.addData('name',nickname).addData('roomID',roomID).addData('rule',rule).build())
             $('#gameStartButton').hide()
         })
-
     })
     .catch(()=>{
         alert("失敗")
