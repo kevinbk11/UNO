@@ -11,10 +11,10 @@ class DrawOneCardRespondEvent extends SocketEvent {
             >`)
             Card.insertCard(this.handCards)
             new Promise((resolve,reject)=>{
-                $('#draw').effect('transfer',{to:$('.CardBlock img.notAnimated')},1000)
+                $('#draw').effect('transfer',{to:$('.CardBlock img.notAnimated')},150)
                 $(".ui-effects-transfer:last").css("background-image", "url(" + CardResourceProcessor.processor.getCardImageResource(data) + ")");
                 $(".ui-effects-transfer:last").css('background-size','150px 214px')
-                setTimeout(()=>{resolve()},1000)
+                setTimeout(()=>{resolve()},150)
             }).then(()=>{
                 InitGameRespondEvent.self.clearChoiced() 
                 InitGameRespondEvent.self.setCardClickEvent() 

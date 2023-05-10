@@ -2,7 +2,7 @@ let Room = require('../../../../Game/Room')
 const SocketEvent = require('../../SocketEvent')
 const builder = require('../../../../Builder/PacketBuilder')
 const Game = require('../../../../Game/Game')
-const Rule = require('../../../../Game/Rule')
+const Rule = require('../../../../Game/Rule/Rule')
 const Player = require('../../../../Game/Player')
 module.exports=class StartGameRequest extends SocketEvent{
     constructor(){

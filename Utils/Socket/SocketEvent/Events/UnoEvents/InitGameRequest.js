@@ -22,8 +22,9 @@ module.exports = class InitGameRequest extends SocketEvent{
                     .addData('players',room.players)
                     .addData('firstCard',game.lastCard)
                     .build())
-                    game.players[number-1].handCards=cards
-                    game.players[number-1].socket=this.socket
+                    game.getPlayer(number-1).handCards=cards
+                    game.getPlayer(number-1).socket=this.socket
+                    game.getPlayer(number-1).game=game
 
                 }
 

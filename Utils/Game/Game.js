@@ -41,33 +41,22 @@ module.exports=class Game{
     }
     checkThrowIsValid(cards,name){
         const requestPlayer = this.players.filter(it=>it.name==name)[0]
-        if(cards.length==0)return false
+        if(cards.length==0)return  false
         if(this.isCorrectPlayerThrowing(name)){
-            return this.rule.executeMultipleCardRuleCheck(this,cards)
+            return this.rule.executeMultipleCardStrategy(this,cards)
         }
         else{
             requestPlayer.sendError('現在不是你的回合。')
             return false
         }
     }
+    endRound(droppedCards){
+        this.lastCard.executeEffect(this,droppedCards.length)
+        this.rule.executeStackingStrategy(this)
+        this.nowPlayerNumber=this.caculateNextPlayerNumber()
+    }
     isCorrectPlayerThrowing(name){
             return this.getNowPlayer().name==name
-    }
-    throw(cards){
-        cards.forEach(card=>{
-            const handCards=this.players[this.nowPlayerNumber].handCards
-            for(let i =0;i<handCards.length;i++){
-                const target = handCards[i]
-                if(card.isEqual(target)){              
-                    this.lastCard=card
-                    handCards.remove(card)
-                    break
-                }
-            }
-        })
-        this.rule.executeStackingCheck(this)
-        this.lastCard.executeEffect(this,cards.length)
-        this.nowPlayerNumber=this.caculateNextPlayerNumber()
     }
     executePenaltyCardEvent(player){
         player.socket.emit('PenaltyCardEvent',PacketBuilder

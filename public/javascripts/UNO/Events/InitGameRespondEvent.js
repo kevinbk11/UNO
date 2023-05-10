@@ -82,7 +82,7 @@ class InitGameRespondEvent extends SocketEvent{
             $('#draw').off('click')
             setTimeout(()=>{
                 $('#draw').on('click',handler)
-            },1100)
+            },170)
         }
         $('#draw').on('click',handler)
     }
