@@ -21,6 +21,12 @@ window.onload = ()=>{
             .addData('roomID',roomID))
             choiceColorDialog.hide()
          })
+         $('#unoButton').on('click',()=>{
+            client.emit('UnoRequest',builder
+            .addData('roomID',roomID)
+            .addData('name',name)
+            .build())
+         })
     })
     
 }

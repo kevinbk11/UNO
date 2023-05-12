@@ -1,9 +1,15 @@
+Array.prototype.remove = function(value) {
+    const index = this.indexOf(value)
+    this.splice(index, 1);
+    return index
+}
 module.exports=class Player{
     constructor(name){
         this.name=name
         this.socket;
         this.game;
         this.handCards=[]
+        this.isUno;
     }
     sendError(message){
         this.socket.emit('ErrorEvent',message)
@@ -14,16 +20,21 @@ module.exports=class Player{
     dropCard(cards){
         const game=this.game
         cards.forEach(card=>{
-            const handCards=game.getNowPlayer().handCards
-            for(let i =0;i<handCards.length;i++){
-                const target = handCards[i]
-                if(card.isEqual(target)){              
+            for(let i =0;i<this.handCards.length;i++){
+                const target = this.handCards[i]
+                if(card.isEqual(target)){        
                     game.lastCard=card
-                    handCards.remove(card)
+                    this.handCards.remove(target)
                     break
                 }
-            }
+            }0
         })
+        if(this.handCards.length==0 && !this.isUno){
+            game.executeUnoPenaltyCard(this)
+        }
+        else{
+            //game.end() TODO
+        }
         game.endRound(cards)
     }
 }

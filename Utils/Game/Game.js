@@ -2,6 +2,7 @@ const CARD_TYPE = require('./Card/CARD_TYPE')
 const CardStack = require('./Card/CardStack')
 const PacketBuilder = require('../Builder/PacketBuilder')
 const Card = require('./Card/Card')
+const remove = require('../remove')
 Array.prototype.remove=function(value){
     for(let index =0;index<this.length;index++){
         const it = this[index]
@@ -69,11 +70,26 @@ module.exports=class Game{
         this.penaltyCardPile=[]
         this.isStacking=false
     }
+    executeUnoPenaltyCard(player){
+        const cards=[]
+        for(let i=0;i<2;i++){
+            cards.push(this.drawOneCard())
+        }
+        player.socket.emit('PenaltyCardEvent',PacketBuilder
+        .addData('cards',cards)
+        .build())
+        cards.forEach(it=>{
+            player.pushCard(it)
+        })
+    }
     getNowPlayer(){
         return this.players[this.nowPlayerNumber]
     }
     getPlayer(number){
         return this.players[number]
+    }
+    getPlayerByName(name){
+        return this.players.filter(it=>it.name==name)[0]
     }
     caculateNextPlayerNumber(){
         if(this.order==1){
