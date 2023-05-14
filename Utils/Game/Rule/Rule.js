@@ -28,11 +28,4 @@ module.exports=class Rule{
     executeStackingStrategy(game,playerNumber){
         return this.stackingStrategy.execute(game,playerNumber)
     }
-    checkLastCardHasColor(game){
-        if(game.lastCard.isNoColor()){
-            nowPlayer.sendError('上家還未選擇顏色')
-            return false
-        }
-    }
-
 }

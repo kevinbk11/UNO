@@ -3,6 +3,7 @@ const CardStack = require('./Card/CardStack')
 const PacketBuilder = require('../Builder/PacketBuilder')
 const Card = require('./Card/Card')
 const remove = require('../remove')
+const checker = require('./Rule/RuleChecker')
 Array.prototype.remove=function(value){
     for(let index =0;index<this.length;index++){
         const it = this[index]
@@ -41,6 +42,10 @@ module.exports=class Game{
         return this.cardStack.draw()
     }
     checkThrowIsValid(cards,name){
+        if(checker.checkLastCardHasColor(this)){
+            this.getPlayerByName(name).sendError('目前還未選擇顏色')
+            return false
+        }
         const requestPlayer = this.players.filter(it=>it.name==name)[0]
         if(cards.length==0)return  false
         if(this.isCorrectPlayerThrowing(name)){
@@ -52,7 +57,7 @@ module.exports=class Game{
         }
     }
     endRound(droppedCards){
-        const punishedPlayer = this.rule.isAllowStacking? this.nowPlayerNumber:this.caculateNextPlayerNumber()
+        const punishedPlayer = this.rule.isAllowStacking? this.nowPlayerNumber:this.caculateNextPlayerNumber()//不要更變這四行的順序
         this.lastCard.executeEffect(this,droppedCards.length)
         this.rule.executeStackingStrategy(this,punishedPlayer)
         this.nowPlayerNumber=this.caculateNextPlayerNumber()

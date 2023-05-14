@@ -13,12 +13,7 @@ module.exports = class UnoRequest extends SocketEvent{
                 data=data.data
                 const game = Game.games[data.roomID] 
                 const player = game.getPlayerByName(data.name)
-                if(game.isCorrectPlayerThrowing(data.name) && !player.isUno){
-                    if(!AllowMultipleThrow.checkThrowMultipleCardIsValid(player.handCards)){
-                        game.executeUnoPenaltyCard(player)
-                    }
-                    player.isUno=true
-                }
+                player.isUno=true
             }
         }
     }

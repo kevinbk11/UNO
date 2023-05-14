@@ -1,3 +1,4 @@
+const checker = require("../../RuleChecker")
 const IRuleStrategy = require("./IMultipleThrow")
 
 module.exports = class NoMultipleThrow extends IRuleStrategy{
@@ -8,7 +9,7 @@ module.exports = class NoMultipleThrow extends IRuleStrategy{
             return false
         }
         else{
-            return this.checkOneCardIsValid(game,cards[0])
+            return checker.checkOneCardIsValid(game,cards[0])
         }
     }
 }
