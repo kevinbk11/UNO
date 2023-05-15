@@ -28,7 +28,6 @@ module.exports=class Game{
         this.isStacking=false
     }
     init(){
-        console.log(this.rule)
         this.cardStack.buildCardStack()
         this.cardStack.shuffle()
         this.lastCard=this.drawOneCard()
@@ -40,6 +39,9 @@ module.exports=class Game{
     }
     drawOneCard(){
         return this.cardStack.draw()
+    }
+    dropCardOnTable(card){
+        this.cardStack.pushDroppedCard(card)
     }
     checkThrowIsValid(cards,name){
         if(checker.checkLastCardHasColor(this)){
@@ -56,14 +58,19 @@ module.exports=class Game{
             return false
         }
     }
-    endRound(droppedCards){
+    endRound(droppedCards=null){
+        console.log(droppedCards)
+        const nowPlayer = this.getNowPlayer()
         const punishedPlayer = this.rule.isAllowStacking? this.nowPlayerNumber:this.caculateNextPlayerNumber()//不要更變這四行的順序
-        this.lastCard.executeEffect(this,droppedCards.length)
-        this.rule.executeStackingStrategy(this,punishedPlayer)
+        if(droppedCards!=null){
+            this.lastCard.executeEffect(this,droppedCards.length)
+        }
+        nowPlayer.isDrawed=false
+        this.rule.executeStackingStrategy(this,punishedPlayer,droppedCards)
         this.nowPlayerNumber=this.caculateNextPlayerNumber()
     }
     isCorrectPlayerThrowing(name){
-            return this.getNowPlayer().name==name
+        return this.getNowPlayer().name==name
     }
     executePenaltyCardEvent(player){
         player.socket.emit('PenaltyCardEvent',PacketBuilder

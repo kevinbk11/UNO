@@ -4,7 +4,12 @@ module.exports = class AllowMultipleThrow extends IMultipleThrow{
     execute(game,cards){
         console.log(cards)
         if(cards.length==1){
-            return checker.checkOneCardIsValid(game,cards[0])
+            if(checker.checkOneCardIsValid(game,cards[0])){
+                return true
+            }
+            else{
+                game.getNowPlayer().sendError('卡片必須和上一張的數字或顏色相同。')
+            }
         }
         if(checker.checkThrowMultipleCardIsValid(cards)){
             if(cards[0].isNoColor())return true

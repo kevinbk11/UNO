@@ -1,4 +1,5 @@
 const Game = require("../../../../Game/Game");
+const checker = require("../../../../Game/Rule/RuleChecker");
 const SocketEvent = require("../../SocketEvent");
 
 module.exports = class DrawOneCardRequest extends SocketEvent{
@@ -9,9 +10,18 @@ module.exports = class DrawOneCardRequest extends SocketEvent{
             if(this.clients.includes(data.id)){
                 data=data.data
                 const game = Game.games[data.roomID]
-                const newCard = game.drawOneCard()
-                game.players.filter(it=>it.name==data.name)[0].pushCard(newCard)
-                this.socket.emit('DrawOneCardRespondEvent',newCard)
+                const player = game.getPlayerByName(data.name)
+                if(game.isCorrectPlayerThrowing(data.name) && !player.isDrawed){
+                    player.isDrawed=true
+                    const newCard = game.drawOneCard()
+                    player.pushCard(newCard)
+                    this.socket.emit('DrawOneCardRespondEvent',newCard)
+                    if(!checker.checkOneCardIsValid(game,newCard)){
+                        game.endRound()
+                    }
+
+                }
+
             }
         
         }

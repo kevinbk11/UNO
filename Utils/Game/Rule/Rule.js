@@ -25,7 +25,7 @@ module.exports=class Rule{
     executeMultipleCardStrategy(game,cards){
         return this.throwMultipleCardStrategy.execute(game,cards)
     }
-    executeStackingStrategy(game,playerNumber){
-        return this.stackingStrategy.execute(game,playerNumber)
+    executeStackingStrategy(game,playerNumber,droppedCards){
+        return this.stackingStrategy.execute(game,playerNumber,droppedCards)
     }
 }

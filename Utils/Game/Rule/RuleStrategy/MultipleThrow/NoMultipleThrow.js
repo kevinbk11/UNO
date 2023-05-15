@@ -9,7 +9,12 @@ module.exports = class NoMultipleThrow extends IRuleStrategy{
             return false
         }
         else{
-            return checker.checkOneCardIsValid(game,cards[0])
+            if(checker.checkOneCardIsValid(game,cards[0])){
+                return true
+            }
+            else{
+                game.getNowPlayer().sendError('卡片必須和上一張的數字或顏色相同。')
+            }
         }
     }
 }

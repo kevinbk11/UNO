@@ -14,6 +14,7 @@ module.exports=class Player{
         this.game;
         this.handCards=[]
         this.isUno;
+        this.isDrawed=false
     }
     sendError(message){
         this.socket.emit('ErrorEvent',message)
@@ -28,21 +29,23 @@ module.exports=class Player{
                 const target = this.handCards[i]
                 if(card.isEqual(target)){        
                     game.lastCard=card
+                    game.dropCardOnTable(target)
                     this.handCards.remove(target)
                     break
                 }
-            }0
-        })
-        if(checker.checkUno(this)){//檢查有沒有正確的喊或亂喊
-            if(this.handCards.length==0){
-                //game.over
             }
+        })
+        if(this.handCards.length==0){
+            //game.over
+            console.log('GameOver')
         }
         else{
-            game.executeUnoPenaltyCard(this)
-        }    
-        
-        this.isUno=false
-        game.endRound(cards)
+            if(!checker.checkUno(this)){
+                game.executeUnoPenaltyCard(this)
+            }    
+            this.isUno=false
+            game.endRound(cards)
+        }
+
     }
 }
