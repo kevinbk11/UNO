@@ -2,7 +2,6 @@ const IMultipleThrow = require("./IMultipleThrow")
 const checker  = require("../../RuleChecker")
 module.exports = class AllowMultipleThrow extends IMultipleThrow{
     execute(game,cards){
-        console.log(cards)
         if(cards.length==1){
             if(checker.checkOneCardIsValid(game,cards[0])){
                 return true

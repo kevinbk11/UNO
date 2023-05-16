@@ -8,13 +8,11 @@ class RuleChecker{
         //這是XNOR 所以直接使用位元運算NOR和NOT來完成。
     }
     checkOneCardIsValid(game,card){
-        console.log(card)
         if(card.isNoColor())return true
         return (card.number==game.lastCard.number || card.color==game.lastCard.color) 
 
     }
     checkThrowMultipleCardIsValid(cards){
-        console.log(cards)
         let firstCard = cards[0]
         for(let i = 0;i<cards.length;i++){
             const it=cards[i]

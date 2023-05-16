@@ -35,17 +35,17 @@ module.exports=class Player{
                 }
             }
         })
+
+        if(!checker.checkUno(this) && this.handCards.length!=0){
+            game.executeUnoPenaltyCard(this)
+        }    
+        this.isUno=false
         if(this.handCards.length==0){
-            //game.over
-            console.log('GameOver')
+            console.log("???????????")
+            game.gameOver()
         }
-        else{
-            if(!checker.checkUno(this)){
-                game.executeUnoPenaltyCard(this)
-            }    
-            this.isUno=false
-            game.endRound(cards)
-        }
+        game.endRound(cards)
+
 
     }
 }

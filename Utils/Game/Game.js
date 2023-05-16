@@ -59,7 +59,6 @@ module.exports=class Game{
         }
     }
     endRound(droppedCards=null){
-        console.log(droppedCards)
         const nowPlayer = this.getNowPlayer()
         const punishedPlayer = this.rule.isAllowStacking? this.nowPlayerNumber:this.caculateNextPlayerNumber()//不要更變這四行的順序
         if(droppedCards!=null){
@@ -68,6 +67,15 @@ module.exports=class Game{
         nowPlayer.isDrawed=false
         this.rule.executeStackingStrategy(this,punishedPlayer,droppedCards)
         this.nowPlayerNumber=this.caculateNextPlayerNumber()
+    }
+    gameOver(){
+        const winner = this.getNowPlayer()
+        const losers = this.players.filter(it=>it.name!=winner.name)
+        console.log("??")
+        winner.socket.emit("YouWinEvent")
+        losers.forEach(it=>{
+            it.socket.emit("YouLoseEvent",winner.name)
+        })
     }
     isCorrectPlayerThrowing(name){
         return this.getNowPlayer().name==name
