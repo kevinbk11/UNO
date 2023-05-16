@@ -15,7 +15,7 @@ module.exports = class InitGameRequest extends SocketEvent{
                     const game = Game.games[data.roomID]
                     const number = room.getPlayerNumber(data.name)
                     const cards=[]
-                    for(let i=0;i<7;i++)cards.push(game.drawOneCard())
+                    for(let i=0;i<3;i++)cards.push(game.drawOneCard())
                     this.socket.emit('InitGameRespondEvent',PacketBuilder
                     .addData('number',number)
                     .addData('cards',cards)

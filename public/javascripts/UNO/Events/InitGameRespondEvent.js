@@ -18,7 +18,7 @@ class InitGameRespondEvent extends SocketEvent{
         this.choiced=[]
     }
     showCard(i,cards,players){
-        if(i==7){
+        if(i==3){
             this.setCardClickEvent()
             this.setThrowCardButton()
             this.setDrawButtonEvent()

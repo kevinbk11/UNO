@@ -1,6 +1,8 @@
 let client = null
 window.onload = ()=>{
     let choiceColorDialog = new ChangeColorDialog()
+    let gameEndDialog = new GameEndDialog()
+    gameEndDialog.create()
     choiceColorDialog.create()
     client = io()
     const name = $('#name').text()

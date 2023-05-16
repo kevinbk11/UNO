@@ -71,10 +71,17 @@ module.exports=class Game{
     gameOver(){
         const winner = this.getNowPlayer()
         const losers = this.players.filter(it=>it.name!=winner.name)
-        console.log("??")
-        winner.socket.emit("YouWinEvent")
+        const playersName = []
+        this.players.forEach(it=>{
+            playersName.push(it.name)
+        })
+        const gameOverPacket=PacketBuilder
+        .addData('playersName',playersName)
+        .addData('winnerName',winner.name)
+        .build()
+        winner.socket.emit("YouWinEvent",gameOverPacket)
         losers.forEach(it=>{
-            it.socket.emit("YouLoseEvent",winner.name)
+            it.socket.emit("YouLoseEvent",gameOverPacket)
         })
     }
     isCorrectPlayerThrowing(name){
