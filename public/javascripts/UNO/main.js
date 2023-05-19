@@ -34,7 +34,29 @@ window.onload = ()=>{
             client.emit('ReadyRequest',builder
             .addData('name',name)
             .addData('roomID',roomID)
+            .build())//還是弄成準備跟取消準備
+        })
+        $('#gameEndDialog #startButton').on('click',()=>{
+            client.emit('RestartRequest',builder
+            .addData('roomID',roomID)
             .build())
+            $('#gameEndDialog #startButton').hide()
+        })
+        $('#gameEndDialog #exitButton').on('click',()=>{
+            var redirect = '/'
+            $.extend(
+            {
+                redirectPost: function(location, args)
+                {
+                    var form = '';
+                    $.each( args, function( key, value ) {
+                        value = value.split('"').join('\"')
+                        form += '<input type="hidden" name="'+key+'" value="'+value+'">';
+                    });
+                    $('<form action="' + location + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
+                }
+            });
+            $.redirectPost(redirect, {name:name});
         })
     })
     

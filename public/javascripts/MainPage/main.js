@@ -2,10 +2,16 @@ let client = null
 window.onload= ()=>{
     let joinRoomDialog = new JoinRoomDialog()
     joinRoomDialog.create()
-    let nickname = prompt('請輸入您的暱稱。')
-    while(nickname==null || nickname=='')
-        nickname=prompt('暱稱不可為空!請輸入您的暱稱。')
-
+    let nickname
+    if($('#name').text()==""){
+        nickname = prompt('請輸入您的暱稱。')
+        while(nickname==null || nickname=='')
+            nickname=prompt('暱稱不可為空!請輸入您的暱稱。')
+        $('#name').text(nickname)
+    }
+    else{
+        nickname=$('#name').text()
+    }
     client=io()
     verify(nickname)
     .then((id)=>{//成功之後

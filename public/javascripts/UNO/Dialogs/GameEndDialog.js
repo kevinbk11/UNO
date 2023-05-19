@@ -10,6 +10,7 @@ class GameEndDialog extends Dialog{
             <p id='player4'></p>
             <input type='button' id='readyButton' value='準備下一局'>
             <input type='button' id='exitButton' value='離開'>
+            <input type='button' id='startButton' value='開始'>
         </div>`)
     }
     create(){
@@ -20,9 +21,10 @@ class GameEndDialog extends Dialog{
             ,resizable:false
             ,draggable:true
             ,autoOpen:false
-            ,show:{effect:'slide',direction:'left'}
-            ,hide:{effect:'slide',direction:'right'}});
+            ,show:{effect:'slide',direction:'left'}});
         $('.ui-dialog-titlebar-close').css('display','none')
+        $('#gameEndDialog #startButton').hide()
+        $('#gameEndDialog #startButton').css('float', 'right')
         GameEndDialog.dialog=this
     }
     show(){

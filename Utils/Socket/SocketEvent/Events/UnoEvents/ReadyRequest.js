@@ -14,13 +14,14 @@ module.exports = class ReadyRequest extends SocketEvent{
                 room.readySet.add(data.name)
                 const game = Game.games[data.roomID]
                 const players = game.players
-                if(room.readySet.size==room.players.length){
-                    room.readySet.clear()
-                    game.restart()
-                    players.forEach((it)=>{
-                        it.socket.emit("RestartGameEvent","?")
-                    })
-                }  
+                players.forEach((it)=>{
+                    it.socket.emit("ReadyRespondEvent",PacketBuilder
+                    .addData('number',room.players.indexOf(data.name))
+                    .addData('name',data.name)
+                    .addData('isAllReady',room.readySet.size==room.players.length)
+                    .addData('isRoomHost',room.players.indexOf(it.name)==0)
+                    .build())
+                })
             }
 
         }

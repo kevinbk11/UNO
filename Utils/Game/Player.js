@@ -35,15 +35,10 @@ module.exports=class Player{
                 }
             }
         })
-
         if(!checker.checkUno(this) && this.handCards.length!=0){
             game.executeUnoPenaltyCard(this)
         }    
         this.isUno=false
-        if(this.handCards.length==0){
-            console.log("???????????")
-            game.gameOver()
-        }
         game.endRound(cards)
 
 
