@@ -1,0 +1,146 @@
+doctype html
+html
+  head
+    script(src='https://code.jquery.com/jquery-3.6.4.js' integrity='sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=' crossorigin='anonymous')
+    script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
+    link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
+    script(src='/javascripts/Utils/verify.js')
+    script(src='/javascripts/Utils/remove.js')
+    script(src='/javascripts/Utils/PacketBuilder.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/UNO/Events/SocketEvent.js')
+    script(src='/javascripts/Dialog.js')
+    script(src="/javascripts/UNO/Dialogs/ChangeColorDialog.js") 
+    script(src="/javascripts/UNO/Dialogs/GameEndDialog.js") 
+    script(src="/javascripts/UNO/Card.js") 
+    script(src='/javascripts/UNO/Utils/CardResourceProcessor.js')
+    script(src='/javascripts/UNO/Events/ChangeCardEvent.js')
+    script(src='/javascripts/UNO/Events/InitGameRespondEvent.js')
+    script(src='/javascripts/UNO/Events/YouWinEvent.js')
+    script(src='/javascripts/UNO/Events/YouLoseEvent.js')
+    script(src='/javascripts/UNO/Events/ThrowCardRespondEvent.js')
+    script(src='/javascripts/UNO/Events/ErrorEvent.js')
+    script(src="/javascripts/UNO/Events/ChoiceColorEvent.js") 
+    script(src="/javascripts/UNO/Events/PenaltyCardEvent.js") 
+    script(src="/javascripts/UNO/Events/DrawOneCardRespondEvent.js") 
+    script(src="/javascripts/UNO/initEvents.js") 
+    script(src='/javascripts/UNO/main.js')
+    style.
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px;
+      }
+      .box {
+        width: 200px;
+        height: 200px;
+        box-sizing: border-box;
+        text-align: center;
+        line-height: 200px;
+        font-size: 24px;
+        margin: 10px;
+      }
+      .left {
+        order: 2;
+        flex: 1 0 30%;
+        max-width: 10%;
+        margin-right: auto;
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .right {
+        order: 3;
+        flex: 1 0 30%;
+        max-width: 10%;
+        margin-left: auto;
+        margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .top {
+        order: 1;
+        flex: 1 0 100%;
+      }
+      .bottom {
+        order: 4;
+        flex: 1 0 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+      }
+      .bottom .content {
+        margin-bottom: 10px;
+      }
+      .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .content {
+        color: #FFFFFF;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      
+      .bottom img.notChoiced{
+        width:150px;
+        height:214px;
+        margin:-20px -30px -20px -30px;
+      }
+      .top img{
+        width:150px;
+        margin:-30px;
+        transform: rotate(180deg)
+      }
+      .left img{
+        width:150px;
+        margin:-64.2048px -20px -64.2048px -20px;
+        transform: rotate(-270deg);
+      }
+      .right img{
+        width:150px;
+        margin:-64.048px -20px -64.2048px -20px;
+        transform: rotate(-90deg);
+      }
+      .bottom img.choiced{
+        width:150px;
+        margin:20px -10px;
+      }
+  body
+    p(id='name') #{name}
+    p(id='password') #{password}
+    .container
+      .box.top
+      .box.left
+      .box.center
+        img(id = 'draw' src='/images/cards/back.png' style='width:150px')
+        img(id='dropped' style='width:150px')
+      .box.right
+      .box.bottom 
+        .CardBlock
+        .throw
+          input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
+          input(id='unoButton' type='button' style="margin:0px -40px" value="UNO")
+      div(id='content')
+
+ 
+
+
+
+
+
+
