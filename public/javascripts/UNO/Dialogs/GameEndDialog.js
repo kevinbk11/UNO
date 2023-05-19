@@ -24,7 +24,6 @@ class GameEndDialog extends Dialog{
             ,hide:{effect:'slide',direction:'right'}});
         $('.ui-dialog-titlebar-close').css('display','none')
         GameEndDialog.dialog=this
-        
     }
     show(){
         $('#gameEndDialog').dialog('open');
@@ -36,7 +35,7 @@ class GameEndDialog extends Dialog{
     }
     setPlayersName(players){
         for(let i =1;i<=players.length;i++){
-            $(`#gameEndDialog #player${i}`).text(`${i}.{players[i-1]}`)
+            $(`#gameEndDialog #player${i}`).text(`${i}.${players[i-1]}`)
         }
     }
     setWinner(winner){
