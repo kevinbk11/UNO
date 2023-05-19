@@ -15,6 +15,7 @@ window.onload = ()=>{
         client.emit('InitGameRequest',builder
         .addData('name',name)
         .addData('roomID',roomID)
+        .addData('restart',false)
         .build())
         
         $('.color-button').on('click',(e)=>{
@@ -29,6 +30,12 @@ window.onload = ()=>{
             .addData('name',name)
             .build())
          })
+         $('#gameEndDialog #readyButton').on('click',()=>{
+            client.emit('ReadyRequest',builder
+            .addData('name',name)
+            .addData('roomID',roomID)
+            .build())
+        })
     })
     
 }

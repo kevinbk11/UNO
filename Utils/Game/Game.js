@@ -18,7 +18,7 @@ module.exports=class Game{
     static games={}
     constructor(players,rule,roomID){
         this.roomID=roomID
-        this.cardStack=new CardStack()
+        this.cardStack;
         this.players=players
         this.rule=rule
         this.nowPlayerNumber=0
@@ -28,6 +28,7 @@ module.exports=class Game{
         this.isStacking=false
     }
     init(){
+        this.cardStack = new CardStack()
         this.cardStack.buildCardStack()
         this.cardStack.shuffle()
         this.lastCard=this.drawOneCard()
@@ -83,6 +84,14 @@ module.exports=class Game{
         losers.forEach(it=>{
             it.socket.emit("YouLoseEvent",gameOverPacket)
         })
+    }
+    restart(){
+        this.players.forEach(it=>{
+            it.handCards=[]
+            it.isUno=false;
+            it.isDrawed=false
+        })
+        this.init()
     }
     isCorrectPlayerThrowing(name){
         return this.getNowPlayer().name==name

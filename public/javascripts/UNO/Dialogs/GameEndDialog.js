@@ -8,8 +8,8 @@ class GameEndDialog extends Dialog{
             <p id='player2'></p>
             <p id='player3'></p>
             <p id='player4'></p>
-            <input type='button' value='再來一局'>
-            <input type='button' value='離開'>
+            <input type='button' id='readyButton' value='準備下一局'>
+            <input type='button' id='exitButton' value='離開'>
         </div>`)
     }
     create(){
@@ -31,7 +31,7 @@ class GameEndDialog extends Dialog{
     }
     hide(){
         //$('#changeColorDialog').effect({effect:'slide',duration:1000})
-        $('gameEndDialog').dialog('close');
+        $('#gameEndDialog').dialog('close');
     }
     setPlayersName(players){
         for(let i =1;i<=players.length;i++){
