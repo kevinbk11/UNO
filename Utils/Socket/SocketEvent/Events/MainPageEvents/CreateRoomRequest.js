@@ -6,7 +6,7 @@ module.exports=class CreateRoomRequest extends SocketEvent{
         super()
         this.name="CreateRoomRequest"
         this.handler=data=>{
-            if(this.clients.includes(data.id)){
+            if(this.clients.has(data.id)){
                 data=data.data
                 let room = new Room(4,data.rule)
                 room.players.push(data.name)

@@ -8,7 +8,7 @@ module.exports = class ThrowCardRequest extends SocketEvent{
         super()
         this.name='ThrowCardRequest'
         this.handler=data=>{
-            if(this.clients.includes(data.id)){
+            if(this.clients.has(data.id)){
                 data=data.data
                 const cards = data.cards
                 const game = Game.games[data.roomID]

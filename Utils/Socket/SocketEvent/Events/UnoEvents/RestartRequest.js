@@ -7,7 +7,7 @@ module.exports = class RestartRequest extends SocketEvent{
         super()
         this.name='RestartRequest'
         this.handler=data=>{
-            if(this.clients.includes(data.id)){
+            if(this.clients.has(data.id)){
                 data=data.data
                 const room = Room.rooms[data.roomID]
                 const game = Game.games[data.roomID]

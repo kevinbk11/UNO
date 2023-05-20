@@ -9,7 +9,7 @@ module.exports=class StartGameRequest extends SocketEvent{
         super()
         this.name='StartGameRequest'
         this.handler=data=>{
-            if(this.clients.includes(data.id)){
+            if(this.clients.has(data.id)){
                 data=data.data
                 const players=[]
                 Room.rooms[data.roomID].players.forEach(name=>{

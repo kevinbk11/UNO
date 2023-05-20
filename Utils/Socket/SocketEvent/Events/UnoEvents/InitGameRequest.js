@@ -8,7 +8,7 @@ module.exports = class InitGameRequest extends SocketEvent{
         this.name='InitGameRequest'
         this.handler=data=>{
             try{
-                if(this.clients.includes(data.id)){
+                if(this.clients.has(data.id)){
                     data=data.data
                     this.nameToClient[data.name]=this.socket
                     const room=Room.rooms[data.roomID]

@@ -6,7 +6,7 @@ module.exports=class JoinRoomRequest extends SocketEvent{
         super()
         this.name="JoinRoomRequest"
         this.handler=data=>{        
-            if(this.clients.includes(data.id)){
+            if(this.clients.has(data.id)){
                 data=data.data
                 let room = Room.rooms[data.roomID]
                 if(room==null)return

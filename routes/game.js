@@ -6,7 +6,7 @@ let Room = require('../Utils/Game/Room')
 router.post('/game/:roomID', function(req, res, next) {
     if(Room.rooms[req.params.roomID]!=null){
         let randomNumber = Math.floor(Math.random()*10000).toString()
-        SocketController.clients.push(randomNumber)
+        SocketController.clients.add(randomNumber)
         res.render('uno',{'name':req.body.name,'password':randomNumber})
     }
     else{

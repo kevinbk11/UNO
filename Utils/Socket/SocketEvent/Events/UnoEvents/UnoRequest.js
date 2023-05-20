@@ -9,7 +9,7 @@ module.exports = class UnoRequest extends SocketEvent{
         super()
         this.name='UnoRequest'
         this.handler=data=>{
-            if(this.clients.includes(data.id)){
+            if(this.clients.has(data.id)){
                 data=data.data
                 const game = Game.games[data.roomID] 
                 const player = game.getPlayerByName(data.name)

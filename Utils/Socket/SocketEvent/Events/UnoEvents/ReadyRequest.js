@@ -7,7 +7,7 @@ module.exports = class ReadyRequest extends SocketEvent{
         super()
         this.name='ReadyRequest'
         this.handler=data=>{
-            if(this.clients.includes(data.id)){
+            if(this.clients.has(data.id)){
                 data=data.data
                 console.log(`${data.name} in ${data.roomID} is ready`)
                 const room = Room.rooms[data.roomID]
