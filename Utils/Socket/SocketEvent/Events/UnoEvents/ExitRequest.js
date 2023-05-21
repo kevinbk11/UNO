@@ -13,6 +13,5 @@ module.exports = class ExitRequest extends SocketEvent{
                 game.removePlayer(data.name)
             }
         }
-        //你還在refactor
     }
 }

@@ -50,7 +50,17 @@ module.exports=class Game{
             return false
         }
         const requestPlayer = this.players.filter(it=>it.name==name)[0]
-        if(cards.length==0)return  false
+        const handCards = requestPlayer.handCards
+        if(requestPlayer.isDrawed){
+            if(cards.length>1)return false
+            else if(cards.length==1){
+                if(!handCards[handCards.length-1].isEqual(cards[0])){
+                    requestPlayer.sendError('你只能出你抽到的這張牌。')
+                    return false
+                }
+            }
+        }
+        if(cards.length==0)return false
         if(this.isCorrectPlayerThrowing(name)){
             return this.rule.executeMultipleCardStrategy(this,cards)
         }
