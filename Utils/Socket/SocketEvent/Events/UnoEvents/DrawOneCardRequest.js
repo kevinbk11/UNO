@@ -14,16 +14,6 @@ module.exports = class DrawOneCardRequest extends SocketEvent{
                 if(game.isCorrectPlayerThrowing(data.name) && !player.isDrawed){
                     game.rule.executePassStrategy(game,player)
                 }
-                /*if(game.isCorrectPlayerThrowing(data.name) && !player.isDrawed){
-                    player.isDrawed=true
-                    const newCard = game.drawOneCard()
-                    player.pushCard(newCard)
-                    this.socket.emit('DrawOneCardRespondEvent',newCard)
-                    if(!checker.checkOneCardIsValid(game,newCard)){
-                        game.endRound()
-                    }
-                }*/
-
             }
         
         }
