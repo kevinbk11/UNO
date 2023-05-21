@@ -1,6 +1,6 @@
 class RuleBuilder {
     constructor() {
-        this.rule = { isAllowThrowMultipleCard: false, isAllowStacking: false, isAllowPass: false }
+        this.rule = { isAllowThrowMultipleCard: false, isAllowStacking: false, isAllowPass: false, isMustThrowCard: false }
     }
     setAllowThrowMultipleCard(state) {
         this.rule.isAllowThrowMultipleCard = state
@@ -12,6 +12,10 @@ class RuleBuilder {
     }
     setAllowPass(state) {
         this.rule.isAllowPass = state
+        return this
+    }
+    setMustThrowCard(state) {
+        this.rule.isMustThrowCard = state
         return this
     }
     build() {

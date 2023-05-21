@@ -32,7 +32,7 @@ window.onload = () => {
                 $('.RoomButton').hide()
                 $('#gameStartButton').css('display', 'block')
                 $('#content').append(`1.${nickname}<br>`)
-            })
+            })  
             $('#joinRoomButton').on('click', () => {
                 joinRoomDialog.show()
             })
@@ -40,9 +40,10 @@ window.onload = () => {
                 let roomID = $('#roomID').text().split(':')[1]
                 let ruleBuilder = new RuleBuilder()
                 let rule = ruleBuilder
-                    .setAllowThrowMultipleCard(true)
+                    .setAllowThrowMultipleCard(false)
                     .setAllowStacking(true)
                     .setAllowPass(true)
+                    .setMustThrowCard(true)
                     .build()
                 client.emit('StartGameRequest', builder
                     .addData('name', nickname)

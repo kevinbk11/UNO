@@ -2,12 +2,15 @@ const checker = require("../../RuleChecker");
 const IRuleStrategy = require("../IRuleStrategy");
 module.exports = class IThrowCards extends IRuleStrategy{
     draw(game,player){
-        player.isDrawed=true
+        //DrawOneCardRequest呼叫這裡的底下的兩個子類，然後這兩個子類會去呼叫這個東西
+
+        //player.isDrawed=true
         const newCard = game.drawOneCard()
         player.pushCard(newCard)
         player.socket.emit('DrawOneCardRespondEvent',newCard)
-        if(!checker.checkOneCardIsValid(game,newCard)){
-            game.endRound()
-        }
+        game.rule.executeMustThrowCard(game,player,newCard)
+        /*if(!checker.checkOneCardIsValid(game,newCard)){
+            game.rule.executeMustThrowCard(game,newCard)
+        }*/
     }
 }
