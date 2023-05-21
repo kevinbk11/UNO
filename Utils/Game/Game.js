@@ -59,6 +59,18 @@ module.exports=class Game{
             return false
         }
     }
+    deleteGame(){
+        delete Game.games[this.roomID]
+        delete this
+    }
+    removePlayer(playerName){
+        console.log(Game.games)
+        console.log(this.players)
+        this.players.remove(playerName)
+        if(this.players.length==0){
+            this.deleteGame()
+        }
+    }
     endRound(droppedCards=null){
         const nowPlayer = this.getNowPlayer()
         const punishedPlayer = this.rule.isAllowStacking? this.nowPlayerNumber:this.caculateNextPlayerNumber()//不要更變這四行的順序

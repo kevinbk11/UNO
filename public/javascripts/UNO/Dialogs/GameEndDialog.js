@@ -43,6 +43,5 @@ class GameEndDialog extends Dialog{
     setWinner(winner){
         $(`#gameEndDialog #winnerName`).text(`勝利者是${winner}`)
     }
-    //接下來實作再來一局和離開功能
     //另外，把加入房間的功能多增加可以選擇房間列表似乎是不錯的選擇。
 }

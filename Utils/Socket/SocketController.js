@@ -14,9 +14,6 @@ class SocketController{
                 this.setSocketRequestEvent(socket,new mainRequestEvents[i]())
             for(let i=0;i<unoRequestEvents.length;i++)
                 this.setSocketRequestEvent(socket,new unoRequestEvents[i]())
-            console.log(SocketController.clients)
-            console.log(SocketController.nameToClient)
-            console.log(SocketController.socketIDToUserID)
             socket.on('disconnect',()=>{
                 const id = SocketController.socketIDToUserID[socket.id]
                 delete SocketController.socketIDToUserID[socket.id]
@@ -26,9 +23,6 @@ class SocketController{
                         delete SocketController.nameToClient[it]
                     }
                 })
-                console.log(SocketController.clients)
-                console.log(SocketController.nameToClient)
-                console.log(SocketController.socketIDToUserID)
             })
           });
     }

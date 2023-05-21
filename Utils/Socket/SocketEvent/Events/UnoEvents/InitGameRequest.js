@@ -15,9 +15,7 @@ module.exports = class InitGameRequest extends SocketEvent{
                     const game = Game.games[data.roomID]
                     const number = room.getPlayerNumber(data.name)
                     const cards=[]
-                    console.log(game)
-                    console.log(number)
-                    for(let i=0;i<3;i++)cards.push(game.drawOneCard())
+                    for(let i=0;i<7;i++)cards.push(game.drawOneCard())
                     this.socket.emit('InitGameRespondEvent',PacketBuilder
                     .addData('number',number)
                     .addData('cards',cards)
@@ -26,7 +24,6 @@ module.exports = class InitGameRequest extends SocketEvent{
                     .addData('restart',data.restart)
                     .build())
                     game.getPlayer(number-1).handCards=cards
-                    console.log(game.getPlayer(number-1).handCards)
                     game.getPlayer(number-1).socket=this.socket
                     game.getPlayer(number-1).game=game
                 }

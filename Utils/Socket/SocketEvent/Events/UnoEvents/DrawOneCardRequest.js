@@ -17,7 +17,7 @@ module.exports = class DrawOneCardRequest extends SocketEvent{
                     player.pushCard(newCard)
                     this.socket.emit('DrawOneCardRespondEvent',newCard)
                     if(!checker.checkOneCardIsValid(game,newCard)){
-                        game.endRound()
+                        game.endRound()//只能出上一張抽到的
                     }
 
                 }

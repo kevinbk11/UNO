@@ -43,6 +43,10 @@ window.onload = ()=>{
             $('#gameEndDialog #startButton').hide()
         })
         $('#gameEndDialog #exitButton').on('click',()=>{
+            client.emit('ExitRequest',builder
+            .addData('roomID',roomID)
+            .addData('name',name)
+            .build())
             var redirect = '/'
             $.extend(
             {
