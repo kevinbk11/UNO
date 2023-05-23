@@ -3,10 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var SocketController = require('./SocketController')
+var SocketController = require('./Utils/Socket/SocketController')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var indexPostRouter = require('./routes/indexPost')
 const { Server } = require("socket.io");
+const gameRouter = require('./routes/game')
 var http = require('http');
 
 
@@ -36,8 +38,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/',indexPostRouter)
 app.use('/users', usersRouter);
-
+app.use('/',gameRouter)
 
 let socketController = new SocketController(io)
 socketController.initSocketEvent()
