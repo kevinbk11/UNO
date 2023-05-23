@@ -4,5 +4,8 @@ module.exports = class MustThrowCard{
         if(checker.checkOneCardIsValid(game,newCard)){
             player.isDrawed=true
         }
+        else if(checker.checkPlayerCanThrow(game,player)){
+            game.endRound()
+        }
     }
 }
