@@ -4,6 +4,7 @@ const builder = require('../../../../Builder/PacketBuilder')
 const Game = require('../../../../Game/Game')
 const Rule = require('../../../../Game/Rule/Rule')
 const Player = require('../../../../Game/Player')
+const releaser = require('../../../../MemoreReleaser')
 module.exports=class StartGameRequest extends SocketEvent{
     constructor(){
         super()
@@ -18,12 +19,14 @@ module.exports=class StartGameRequest extends SocketEvent{
                     .addData('name',name)
                     .build())
                     delete this.nameToClient[name]
-                    players.push(new Player(name))
+                    const player = new Player(name)
+                    releaser.allPlayer[player.name]=player
+                    players.push(player)
                 })
                 let game=new Game(players,Rule.buildRule(data.rule),data.roomID)
                 game.init()
                 Game.games[data.roomID]=game
-
+                
             }  
         }
     }

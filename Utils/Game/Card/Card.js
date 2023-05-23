@@ -39,7 +39,6 @@ module.exports=class Card{
         }
     }
     static buildCard(cardDict){
-        console.log(cardDict)
         return new Card(cardDict.color,cardDict.number,cardDict.type)
     }
 }

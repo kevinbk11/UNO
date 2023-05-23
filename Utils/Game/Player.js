@@ -1,7 +1,4 @@
 const checker = require("./Rule/RuleChecker");
-const Rule = require("./Rule/Rule");
-const AllowMultipleThrow = require("./Rule/RuleStrategy/MultipleThrow/AllowMultipleThrow");
-
 Array.prototype.remove = function(value) {
     const index = this.indexOf(value)
     this.splice(index, 1);

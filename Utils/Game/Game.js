@@ -1,19 +1,7 @@
-const CARD_TYPE = require('./Card/CARD_TYPE')
 const CardStack = require('./Card/CardStack')
 const PacketBuilder = require('../Builder/PacketBuilder')
-const Card = require('./Card/Card')
-const remove = require('../remove')
 const checker = require('./Rule/RuleChecker')
-Array.prototype.remove=function(value){
-    for(let index =0;index<this.length;index++){
-        const it = this[index]
-        if(it.isEqual(value)){
-            this.splice(index,1)
-            return true
-        }
-        return false
-    }
-}
+const releaser = require('../MemoreReleaser')
 module.exports=class Game{
     static games={}
     constructor(players,rule,roomID){
@@ -71,12 +59,15 @@ module.exports=class Game{
     }
     deleteGame(){
         delete Game.games[this.roomID]
+        releaser.releaseGameMemore(this)
         delete this
     }
     removePlayer(playerName){
-        console.log(Game.games)
-        console.log(this.players)
-        this.players.remove(playerName)
+        for(let index=0;index<this.players.length;index++){
+            if(this.players[index].name==playerName){
+                this.players.splice(index,1)
+            }
+        }
         if(this.players.length==0){
             this.deleteGame()
         }
