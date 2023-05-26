@@ -112,6 +112,19 @@ module.exports=class Game{
         this.isStacking=false
         this.init()
     }
+    updateAllPlayerHandCards(changerNumber,number,isDraw=true){
+        for(let i=0;i<this.players.length;i++){
+            if(i!=changerNumber){
+                this.players[i].socket.emit("UpdatePlayerHandCardsEvent",PacketBuilder
+                .addData('who',changerNumber)
+                .addData('you',i)
+                .addData('numberOfPeople',this.players.length)
+                .addData('numberOfCards',number)
+                .addData('isDraw',isDraw)
+                .build())
+            }
+        }
+    }
     isCorrectPlayerThrowing(name){
         return this.getNowPlayer().name==name
     }
@@ -122,6 +135,12 @@ module.exports=class Game{
         this.penaltyCardPile.forEach(it=>{
             player.pushCard(it)
         })
+        for(let i=0;i<this.players.length;i++){
+            if(this.players[i].name==player.name){
+                this.updateAllPlayerHandCards(i,this.penaltyCardPile.length)
+                break
+            }
+        }
         this.penaltyCardPile=[]
         this.isStacking=false
     }

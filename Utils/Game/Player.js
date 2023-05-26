@@ -34,6 +34,7 @@ module.exports=class Player{
         })
         if(!checker.checkUno(this) && this.handCards.length!=0){
             game.executeUnoPenaltyCard(this)
+            game.updateAllPlayerHandCards(game.nowPlayerNumber,2)
         }    
         this.isUno=false
         game.endRound(cards)
