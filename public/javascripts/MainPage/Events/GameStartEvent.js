@@ -4,20 +4,6 @@ class GameStartEvent extends SocketEvent{
         super('GameStartEvent')     
         this.handler=(data)=>{//post傳遞自身名稱並重新導向
             postRedirect($(location).attr('href')+ `game/${data.roomID}`,{name:data.name})
-            /*var redirect = $(location).attr('href')+ `game/${data.roomID}`;
-            $.extend(
-            {
-                redirectPost: function(location, args)
-                {
-                    var form = '';
-                    $.each( args, function( key, value ) {
-                        value = value.split('"').join('\"')
-                        form += '<input type="hidden" name="'+key+'" value="'+value+'">';
-                    });
-                    $('<form action="' + location + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
-                }
-            });
-            $.redirectPost(redirect, {name:data.name});*/
         }
         SocketEvent.events.push(this)
     }

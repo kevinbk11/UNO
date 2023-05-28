@@ -9,17 +9,19 @@ class UpdatePlayerHandCardsEvent extends SocketEvent{
             let you = data.you//1
             let numberOfPeople = data.numberOfPeople
             const dif = ((who-you)+numberOfPeople)%numberOfPeople
-            let everyone = [$('.bottom'),$('.right'),$('.top'),$('.left')]
-            console.log(data)
-            console.log(dif)
+            let everyone = ['.bottom','.right','.top','.left']
+            const processor = CardResourceProcessor.processor
             if(data.isDraw){
-                for(let i=0;i<data.numberOfCards;i++){
-                    everyone[dif].append(`<img src='/images/cards/back.png'>`)
-                }
+                let count = 0
+                let id = setInterval(()=>{
+                    processor.playDrawCardAnimate(everyone[dif],processor.getCardImageResource('back'))
+                    count++
+                    if(count==data.numberOfCards)clearInterval(id)
+                },170)
             }
             else{
                 for(let i=0;i<data.numberOfCards;i++){
-                    everyone[dif].children()[0].remove()
+                    $(everyone[dif]).children()[0].remove()
                 }
                 
             }
