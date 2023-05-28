@@ -1,19 +1,7 @@
-const CARD_TYPE = require('./Card/CARD_TYPE')
 const CardStack = require('./Card/CardStack')
 const PacketBuilder = require('../Builder/PacketBuilder')
-const Card = require('./Card/Card')
-const remove = require('../remove')
 const checker = require('./Rule/RuleChecker')
-Array.prototype.remove=function(value){
-    for(let index =0;index<this.length;index++){
-        const it = this[index]
-        if(it.isEqual(value)){
-            this.splice(index,1)
-            return true
-        }
-        return false
-    }
-}
+const releaser = require('../MemoreReleaser')
 module.exports=class Game{
     static games={}
     constructor(players,rule,roomID){
@@ -71,12 +59,16 @@ module.exports=class Game{
     }
     deleteGame(){
         delete Game.games[this.roomID]
+        releaser.releaseGameMemore(this)
         delete this
     }
     removePlayer(playerName){
-        console.log(Game.games)
-        console.log(this.players)
-        this.players.remove(playerName)
+        if(this.players==null)return
+        for(let index=0;index<this.players.length;index++){
+            if(this.players[index].name==playerName){
+                this.players.splice(index,1)
+            }
+        }
         if(this.players.length==0){
             this.deleteGame()
         }
@@ -121,6 +113,19 @@ module.exports=class Game{
         this.isStacking=false
         this.init()
     }
+    updateAllPlayerHandCards(changerNumber,number,isDraw=true){
+        for(let i=0;i<this.players.length;i++){
+            if(i!=changerNumber){
+                this.players[i].socket.emit("UpdatePlayerHandCardsEvent",PacketBuilder
+                .addData('who',changerNumber)
+                .addData('you',i)
+                .addData('numberOfPeople',this.players.length)
+                .addData('numberOfCards',number)
+                .addData('isDraw',isDraw)
+                .build())
+            }
+        }
+    }
     isCorrectPlayerThrowing(name){
         return this.getNowPlayer().name==name
     }
@@ -131,6 +136,12 @@ module.exports=class Game{
         this.penaltyCardPile.forEach(it=>{
             player.pushCard(it)
         })
+        for(let i=0;i<this.players.length;i++){
+            if(this.players[i].name==player.name){
+                this.updateAllPlayerHandCards(i,this.penaltyCardPile.length)
+                break
+            }
+        }
         this.penaltyCardPile=[]
         this.isStacking=false
     }

@@ -1,3 +1,4 @@
+const PacketBuilder = require("../../../../Builder/PacketBuilder");
 const checker = require("../../RuleChecker");
 const IRuleStrategy = require("../IRuleStrategy");
 module.exports = class IThrowCards extends IRuleStrategy{
@@ -8,7 +9,9 @@ module.exports = class IThrowCards extends IRuleStrategy{
         const newCard = game.drawOneCard()
         player.pushCard(newCard)
         player.socket.emit('DrawOneCardRespondEvent',newCard)
+        game.updateAllPlayerHandCards(game.nowPlayerNumber,1)
         game.rule.executeMustThrowCard(game,player,newCard)
+
         /*if(!checker.checkOneCardIsValid(game,newCard)){
             game.rule.executeMustThrowCard(game,newCard)
         }*/

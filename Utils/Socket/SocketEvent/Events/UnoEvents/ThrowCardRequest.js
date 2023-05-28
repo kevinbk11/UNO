@@ -16,6 +16,7 @@ module.exports = class ThrowCardRequest extends SocketEvent{
                     cards[i]=Card.buildCard(cards[i])
                 }
                 if(game.checkThrowIsValid(cards,data.name)){
+                    game.updateAllPlayerHandCards(game.nowPlayerNumber,cards.length,false)
                     this.socket.emit('ThrowCardRespondEvent',PacketBuilder
                     .addData('success',true)
                     .addData('removedCardNumber',data.choiced)
@@ -26,6 +27,7 @@ module.exports = class ThrowCardRequest extends SocketEvent{
                         const player = game.players[i]
                         player.socket.emit('ChangeCardEvent',game.lastCard)
                     }
+                    
                 }
             }
             

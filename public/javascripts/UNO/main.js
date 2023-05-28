@@ -43,24 +43,7 @@ window.onload = ()=>{
             $('#gameEndDialog #startButton').hide()
         })
         $('#gameEndDialog #exitButton').on('click',()=>{
-            client.emit('ExitRequest',builder
-            .addData('roomID',roomID)
-            .addData('name',name)
-            .build())
-            var redirect = '/'
-            $.extend(
-            {
-                redirectPost: function(location, args)
-                {
-                    var form = '';
-                    $.each( args, function( key, value ) {
-                        value = value.split('"').join('\"')
-                        form += '<input type="hidden" name="'+key+'" value="'+value+'">';
-                    });
-                    $('<form action="' + location + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
-                }
-            });
-            $.redirectPost(redirect, {name:name});
+            postRedirect('/',{name:name})
         })
     })
     

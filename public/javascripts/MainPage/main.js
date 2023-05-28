@@ -40,9 +40,9 @@ window.onload = () => {
                 let roomID = $('#roomID').text().split(':')[1]
                 let ruleBuilder = new RuleBuilder()
                 let rule = ruleBuilder
-                    .setAllowThrowMultipleCard(false)
+                    .setAllowThrowMultipleCard(true)
                     .setAllowStacking(true)
-                    .setAllowPass(true)
+                    .setAllowPass(false)
                     .setMustThrowCard(true)
                     .build()
                 client.emit('StartGameRequest', builder

@@ -7,11 +7,6 @@ module.exports = class ExitRequest extends SocketEvent{
         super()
         this.name='ExitRequest'
         this.handler=data=>{
-            if(this.clients.has(data.id)){
-                data=data.data
-                const game=Game.games[data.roomID]
-                game.removePlayer(data.name)
-            }
         }
     }
 }
