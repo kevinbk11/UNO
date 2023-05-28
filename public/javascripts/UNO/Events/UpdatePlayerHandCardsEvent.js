@@ -12,12 +12,9 @@ class UpdatePlayerHandCardsEvent extends SocketEvent{
             let everyone = ['.bottom','.right','.top','.left']
             const processor = CardResourceProcessor.processor
             if(data.isDraw){
-                let count = 0
-                let id = setInterval(()=>{
-                    processor.playDrawCardAnimate(everyone[dif],processor.getCardImageResource('back'))
-                    count++
-                    if(count==data.numberOfCards)clearInterval(id)
-                },170)
+                const cards = []
+                for(let i=0;i<data.numberOfCards;i++)cards.push(['back'])
+                processor.playAnimate({place:everyone[dif],cards:cards,handCards:null})
             }
             else{
                 for(let i=0;i<data.numberOfCards;i++){

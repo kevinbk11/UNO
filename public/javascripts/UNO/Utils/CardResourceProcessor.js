@@ -23,7 +23,10 @@ class CardResourceProcessor{
             class='notChoiced noEvent notAnimated' 
             src="${noneCardResource}" 
         >`)
-        if(place=='.CardBlock')Card.insertCard(handCards)
+        if(place=='.CardBlock'){
+            Card.insertCard(handCards)
+            console.log("?")
+        }
         new Promise((resolve,reject)=>{
             $('#draw').effect('transfer',{to:$(`${place} img.notAnimated`)},150)
             $(".ui-effects-transfer:last").css("background-image", "url(" + cardResource + ")");
@@ -59,7 +62,7 @@ class CardResourceProcessor{
                 let count=0;
                 const id=setInterval(()=>{
                     const it=cards[count]
-                    handCards.push(it)
+                    if(handCards!=null)handCards.push(it)
                     processor.playDrawCardAnimate(place,processor.getCardImageResource(it),handCards)
                     count++
                     if(count==length){

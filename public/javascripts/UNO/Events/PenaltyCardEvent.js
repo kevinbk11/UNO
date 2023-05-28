@@ -7,7 +7,6 @@ class PenaltyCardEvent extends SocketEvent{
             setTimeout(()=>{  
                 processor.playAnimate({place:'.CardBlock',cards:data.cards,handCards:this.handCards})
             },10+Math.random()*5)
-            
         }
         SocketEvent.events.push(this)
     }}
