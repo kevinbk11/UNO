@@ -3,14 +3,10 @@ class PenaltyCardEvent extends SocketEvent{
     constructor(){
         super('PenaltyCardEvent')
         this.handler=(data)=>{
-            data.cards.forEach(it=>{
-                this.handCards.push(it)
-                $('.CardBlock').append(`<img class='notChoiced noEvent' src=${CardResourceProcessor.processor.getCardImageResource(it)}>`)
-                Card.insertCard(this.handCards)
-                InitGameRespondEvent.self.clearChoiced()
-                InitGameRespondEvent.self.setCardClickEvent() 
-                CardResourceProcessor.processor.setAllCardUnchoiced()
-            })
+            const processor = CardResourceProcessor.processor
+            setTimeout(()=>{  
+                processor.playAnimate({place:'.CardBlock',cards:data.cards,handCards:this.handCards})
+            },10+Math.random()*5)
             
         }
         SocketEvent.events.push(this)

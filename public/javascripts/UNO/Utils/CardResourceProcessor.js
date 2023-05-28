@@ -13,12 +13,11 @@ class CardResourceProcessor{
         $('.CardBlock img').addClass('notChoiced')
     }
     playDrawCardAnimate(place,cardResource,handCards=null){
-        let deg;
+        let deg='0deg';
         if(place=='.left')deg='-90deg'
         else if(place==".top")deg='180deg'
         else if(place=='.right')deg='-270deg'
-        console.log(`rotate(${deg})`)
-        const noneCardResource = CardResourceProcessor.processor.getCardImageResource(null)
+        const noneCardResource = this.getCardImageResource(null)
         $(place).append(`
         <img 
             class='notChoiced noEvent notAnimated' 
@@ -36,4 +35,49 @@ class CardResourceProcessor{
             $(`${place} img.notAnimated`).removeClass('notAnimated')
         })
     }
+    playAnimate(myData){
+        const processor = this
+        function waitAnimationEnd(myData){
+            //為了避免伺服器對客戶發送同時兩次請求導致動畫無法正常運行
+            //所以事件觸發後會隨機等待一段時間再進行判斷是否正在播放動畫
+            //但可能還是會觸發無法正常運行的BUG，但機率應該很低。
+            return new Promise((resolve,reject)=>{
+                const id = setInterval(()=>{
+                    if(!processor.isPlayingAnimation){
+                        clearInterval(id)
+                        resolve(myData)
+                    }
+                },10+Math.random()*5)})
+        }
+        function play(myData){
+            const cards=myData.cards
+            const length=cards.length
+            const handCards=myData.handCards
+            const place = myData.place
+            return new Promise((resolve,reject)=>{
+                processor.isPlayingAnimation=true
+                let count=0;
+                const id=setInterval(()=>{
+                    const it=cards[count]
+                    handCards.push(it)
+                    processor.playDrawCardAnimate(place,processor.getCardImageResource(it),handCards)
+                    count++
+                    if(count==length){
+                        clearInterval(id)
+                        resolve()
+                    }
+                },180)
+            })
+        }
+        function reset(){
+            InitGameRespondEvent.self.clearChoiced()
+            InitGameRespondEvent.self.setCardClickEvent() 
+            processor.setAllCardUnchoiced()
+            processor.isPlayingAnimation=false
+        }
+        waitAnimationEnd(myData)
+        .then(myData=>play(myData))
+        .then(reset)
+    }
+
 }
