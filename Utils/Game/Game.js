@@ -63,6 +63,7 @@ module.exports=class Game{
         delete this
     }
     removePlayer(playerName){
+        console.log(this)
         for(let index=0;index<this.players.length;index++){
             if(this.players[index].name==playerName){
                 this.players.splice(index,1)

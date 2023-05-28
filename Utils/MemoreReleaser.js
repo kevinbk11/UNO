@@ -30,13 +30,14 @@ class MemoreReleaser{
                 console.log(`delete user:${it}`)
                 if(this.allPlayer[it]!=null){
                     const game = this.allPlayer[it].game
-                    console.log(it)
                     game.removePlayer(it)
-                    for(let j=0;j<game.players.length;j++){
-                        const player = game.players[j]
-                        console.log(player)
-                        player.sendError('有人斷線了!將自動終止遊戲並返回大廳。')
+                    if(game.players!=null){
+                        for(let j=0;j<game.players.length;j++){
+                            const player = game.players[j]
+                            player.sendError('有人斷線了!將自動終止遊戲並返回大廳。')
+                        }
                     }
+
                 }
                 delete SocketController.nameToClient[it]
             }
