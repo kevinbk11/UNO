@@ -23,10 +23,10 @@ module.exports=class StartGameRequest extends SocketEvent{
                     releaser.allPlayer[player.name]=player
                     players.push(player)
                 })
-                let game=new Game(players,Rule.buildRule(data.rule),data.roomID)
+                let game=new Game(players,Rule.buildRule(Room.rooms[data.roomID].rule),data.roomID)
                 game.init()
                 Game.games[data.roomID]=game
-                
+                console.log(game.rule)
             }  
         }
     }

@@ -18,7 +18,7 @@ module.exports=class JoinRoomRequest extends SocketEvent{
                 })
                 room.players.push(data.name)
                 this.socket.emit('JoinRoomRespondEvent',builder
-                .addData('players',room.players)
+                .addData('name',data.name)
                 .addData('roomID',room.roomID)
                 .build())//回傳請求加入房間的玩家的相關資料
             }

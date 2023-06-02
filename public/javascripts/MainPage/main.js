@@ -2,6 +2,8 @@ let client = null
 window.onload = () => {
     let joinRoomDialog = new JoinRoomDialog()
     joinRoomDialog.create()
+    let createRoomDialog = new CreateRoomDialog()
+    createRoomDialog.create()
     let nickname
     if ($('#name').text() == "") {
         nickname = prompt('請輸入您的暱稱。')
@@ -27,23 +29,30 @@ window.onload = () => {
             })
 
             $('#createRoomButton').on('click', () => {
-                let rule = ruleBuilder.build()
-                client.emit('CreateRoomRequest', builder.addData('name', nickname).addData('rule', rule).build())
-                $('.RoomButton').hide()
-                $('#gameStartButton').css('display', 'block')
-                $('#content').append(`1.${nickname}<br>`)
+                createRoomDialog.show()
             })  
+            $('#createRoomSubmit').on('click',()=>{
+                let ruleBuilder = new RuleBuilder()
+                let rule = ruleBuilder
+                    .setAllowThrowMultipleCard($("#checkbox_1").is(":checked"))
+                    .setMustThrowCard($("#checkbox_2").is(":checked"))
+                    .setAllowStacking($("#checkbox_3").is(":checked"))
+                    .setAllowPass($("#checkbox_4").is(":checked"))
+                    .build()
+                client.emit('CreateRoomRequest', builder.addData('name', nickname).addData('rule', rule).build())
+                $('#gameStartButton').show()
+            })
             $('#joinRoomButton').on('click', () => {
                 joinRoomDialog.show()
+                client.emit("GetAllRoomRequest",builder.build())
             })
             $('#gameStartButton').on('click', () => {
                 let roomID = $('#roomID').text().split(':')[1]
-                let ruleBuilder = new RuleBuilder()
                 let rule = ruleBuilder
-                    .setAllowThrowMultipleCard(true)
-                    .setAllowStacking(true)
-                    .setAllowPass(false)
-                    .setMustThrowCard(true)
+                    .setAllowThrowMultipleCard($("#checkbox_1").is(":checked"))
+                    .setAllowStacking($("#checkbox_2").is(":checked"))
+                    .setAllowPass($("#checkbox_3").is(":checked"))
+                    .setMustThrowCard($("#checkbox_4").is(":checked"))
                     .build()
                 client.emit('StartGameRequest', builder
                     .addData('name', nickname)

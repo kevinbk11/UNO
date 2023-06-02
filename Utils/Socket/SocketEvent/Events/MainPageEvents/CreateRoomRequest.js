@@ -12,7 +12,7 @@ module.exports=class CreateRoomRequest extends SocketEvent{
                 room.players.push(data.name)
                 Room.rooms[room.roomID]=room
                 console.log(`房間${room.roomID}被創建了`)
-                this.socket.emit('CreateRoomRespondEvent',builder.addData('roomID',room.roomID).build())
+                this.socket.emit('CreateRoomRespondEvent',builder.addData('roomID',room.roomID).addData("name",data.name).build())
             }
             
             else console.log('error')

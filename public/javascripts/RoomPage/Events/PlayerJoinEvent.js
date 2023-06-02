@@ -3,7 +3,7 @@ class PlayerJoinEvent extends SocketEvent{
     constructor(){
         super('PlayerJoinEvent')//當玩家加入該房間時觸發
         this.handler=(data)=>{
-            $("#content").append(`${data.number}.${data.name}<br>`)
+            $(`#name${data.number}`).val(data.name)
         }
         SocketEvent.events.push(this)
     }

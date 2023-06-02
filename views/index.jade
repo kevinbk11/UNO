@@ -11,12 +11,12 @@ html
     script(src='/javascripts/MainPage/Builder/RuleBuilder.js')
     script(src='/javascripts/Dialog.js')
     script(src='/javascripts/MainPage/Dialogs/joinRoomDialog.js')
+    script(src='/javascripts/MainPage/Dialogs/CreateRoomDialog.js')
     script(src='/javascripts/MainPage/Events/SocketEvent.js')
-    script(src='/javascripts/MainPage/Events/PlayerJoinEvent.js')
     script(src='/javascripts/MainPage/Events/JoinRoomRespondEvent.js')
-    script(src='/javascripts/MainPage/initEvents.js')
+    script(src='/javascripts/MainPage/Events/GetAllRoomRespondEvent.js')
     script(src='/javascripts/MainPage/Events/CreateRoomRespondEvent.js')
-    script(src='/javascripts/MainPage/Events/GameStartEvent.js')
+    script(src='/javascripts/MainPage/initEvents.js')
     script(src='/javascripts/MainPage/main.js')
     title 2
     style.
@@ -78,7 +78,17 @@ html
       background-position: center;
       background-size: cover;
       }
+      label {
+      border:1px solid #ccc;
+      padding:10px;
+      margin:0 0 10px;
+      display:block; 
+      }
 
+      label:hover {
+      background:#eee;
+      cursor:pointer;
+      }
 
 
   body

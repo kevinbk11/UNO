@@ -5,7 +5,6 @@ class ErrorEvent extends SocketEvent{
         this.handler=(data)=>{
             alert(data)
             if(data=='有人斷線了!將自動終止遊戲並返回大廳。'){
-                alert(this.userName)
                 postRedirect('/',{name:this.userName})
             }
         }
