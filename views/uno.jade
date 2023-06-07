@@ -120,22 +120,30 @@ html
         width:150px;
         margin:20px -10px;
       }
+
+
+   
   body
-    p(id='name') #{name}
+  
     p(id='password') #{password}
     .container
       .box.top
+  
       .box.left
       .box.center
-        img(id = 'draw' src='/images/cards/back.png' style='width:150px')
+       p(id='name' ) #{name}
+        img(id = 'draw' src='/images/cards/back.png' style='width:150px' )
         img(id='dropped' style='width:150px')
       .box.right
       .box.bottom 
         .CardBlock
         .throw
+         
           input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
           input(id='unoButton' type='button' style="margin:0px -40px" value="UNO")
       div(id='content')
+
+
 
  
 
