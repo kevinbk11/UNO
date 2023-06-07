@@ -4,6 +4,7 @@ class InitGameRespondEvent extends SocketEvent{
         super('InitGameRespondEvent')
         this.choiced=[]
         this.restart;
+        this.isSetDrawButtonEvent=false
         this.handler=(data)=>{
             this.restart=data.restart
             Card.sort(data.cards)
@@ -80,16 +81,26 @@ class InitGameRespondEvent extends SocketEvent{
     }
     setDrawButtonEvent(){
         const handler = ()=>{
+            $('#draw').off('click')
+            this.isSetDrawButtonEvent=
             client.emit('DrawOneCardRequest',this.packetBuilder
             .addData('roomID',this.roomID)
             .addData('name',this.userName)
             .build())
-            $('#draw').off('click')
             setTimeout(()=>{
+                for(let i=0;i<20;i++){
+                    $("#draw").off('click')
+                }
                 $('#draw').on('click',handler)
             },170)
         }
-        $('#draw').on('click',handler)
+        if(!this.isSetDrawButtonEvent){
+            for(let i=0;i<20;i++){
+                $("#draw").off('click')
+            }
+            $('#draw').on('click',handler)
+            this.isSetDrawButtonEvent=true
+        }
     }
     
 }

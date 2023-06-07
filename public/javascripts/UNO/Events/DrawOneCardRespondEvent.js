@@ -3,7 +3,7 @@ class DrawOneCardRespondEvent extends SocketEvent {
     constructor() {
         super('DrawOneCardRespondEvent')
         this.handler = data => {
-            this.handCards.push(data)
+            this.handCards.push(data) 
             const processor = CardResourceProcessor.processor
             const location = '.CardBlock'
             const cardResource = processor.getCardImageResource(data)

@@ -42,8 +42,8 @@ module.exports=class Game{
         if(requestPlayer.isDrawed){
             if(cards.length>1)return false
             else if(cards.length==1){
-                if(!handCards[handCards.length-1].isEqual(cards[0])){
-                    requestPlayer.sendError('你只能出你抽到的這張牌。')
+                if(handCards[handCards.length-1].getInfo()!=cards[0].getInfo()){
+                    requestPlayer.sendError(`你只能出你抽到的這張牌。抽到的牌是${handCards[handCards.length-1].getInfo()}`)
                     return false
                 }
             }
