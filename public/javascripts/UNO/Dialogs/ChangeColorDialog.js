@@ -2,7 +2,7 @@ class ChangeColorDialog extends Dialog{
     static dialog = null
     constructor(){
         super(`
-        <div id="changeColorDialog" class=dialog title="加入房間">
+        <div id="changeColorDialog" class=dialog title="選擇顏色">
             <p style="font-size:24px">請選擇你想變更的顏色</p>
             <input id=green value='綠色' class="ui-button color-button" style="width:40px";>
             <input id=blue value='藍色' class="ui-button color-button" style="width:40px";>

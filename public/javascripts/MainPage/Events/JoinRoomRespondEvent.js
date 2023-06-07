@@ -3,15 +3,7 @@ class JoinRoomRespondEvent extends SocketEvent{
     constructor(){
         super('JoinRoomRespondEvent')
         this.handler=(data)=>{
-            const players = data.players.toString().split(',')
-            const roomID = data.roomID
-            let num=1;
-            $("#roomID").append(`房間ID:${roomID}<br>`)
-            players.forEach(it=>{
-                $("#content").append(`${num++}.${it}<br>`)
-            })
-            $('.RoomButton').hide()
-            JoinRoomDialog.dialog.hide()
+            postRedirect(`/room/${data.roomID}`,{name:data.name})
         }
         SocketEvent.events.push(this)
     }

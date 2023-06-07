@@ -35,7 +35,7 @@ module.exports=class CardStack{
         if(this.stack.length==0){
             this.stack=this.droppedStack
             this.droppedStack=[]
-            this.shuffle(this.droppedStack)
+            this.shuffle(this.stack)
         }
         return this.stack.pop()
     }

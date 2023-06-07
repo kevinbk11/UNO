@@ -8,8 +8,9 @@ class GameEndDialog extends Dialog{
             <p id='player2'></p>
             <p id='player3'></p>
             <p id='player4'></p>
-            <input type='button' value='再來一局'>
-            <input type='button' value='離開'>
+            <input type='button' id='readyButton' value='準備下一局'>
+            <input type='button' id='exitButton' value='離開'>
+            <input type='button' id='startButton' value='開始'>
         </div>`)
     }
     create(){
@@ -20,9 +21,10 @@ class GameEndDialog extends Dialog{
             ,resizable:false
             ,draggable:true
             ,autoOpen:false
-            ,show:{effect:'slide',direction:'left'}
-            ,hide:{effect:'slide',direction:'right'}});
+            ,show:{effect:'slide',direction:'left'}});
         $('.ui-dialog-titlebar-close').css('display','none')
+        $('#gameEndDialog #startButton').hide()
+        $('#gameEndDialog #startButton').css('float', 'right')
         GameEndDialog.dialog=this
     }
     show(){
@@ -31,7 +33,7 @@ class GameEndDialog extends Dialog{
     }
     hide(){
         //$('#changeColorDialog').effect({effect:'slide',duration:1000})
-        $('gameEndDialog').dialog('close');
+        $('#gameEndDialog').dialog('close');
     }
     setPlayersName(players){
         for(let i =1;i<=players.length;i++){
@@ -41,6 +43,5 @@ class GameEndDialog extends Dialog{
     setWinner(winner){
         $(`#gameEndDialog #winnerName`).text(`勝利者是${winner}`)
     }
-    //接下來實作再來一局和離開功能
     //另外，把加入房間的功能多增加可以選擇房間列表似乎是不錯的選擇。
 }

@@ -1,7 +1,4 @@
 const checker = require("./Rule/RuleChecker");
-const Rule = require("./Rule/Rule");
-const AllowMultipleThrow = require("./Rule/RuleStrategy/MultipleThrow/AllowMultipleThrow");
-
 Array.prototype.remove = function(value) {
     const index = this.indexOf(value)
     this.splice(index, 1);
@@ -35,15 +32,12 @@ module.exports=class Player{
                 }
             }
         })
-
-        if(!checker.checkUno(this) && this.handCards.length!=0){
+        if(!checker.checkUno(this,game) && this.handCards.length!=0){
+            
             game.executeUnoPenaltyCard(this)
+            game.updateAllPlayerHandCards(game.nowPlayerNumber,2)
         }    
         this.isUno=false
-        if(this.handCards.length==0){
-            console.log("???????????")
-            game.gameOver()
-        }
         game.endRound(cards)
 
 

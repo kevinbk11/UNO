@@ -4,5 +4,6 @@ module.exports=class SocketEvent{
         this.socket;
         this.clients;
         this.nameToClient;
+        this.socketIDToUserID;
     }
 }

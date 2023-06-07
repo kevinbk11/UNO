@@ -1,24 +1,12 @@
-const CARD_TYPE = require('./Card/CARD_TYPE')
 const CardStack = require('./Card/CardStack')
 const PacketBuilder = require('../Builder/PacketBuilder')
-const Card = require('./Card/Card')
-const remove = require('../remove')
 const checker = require('./Rule/RuleChecker')
-Array.prototype.remove=function(value){
-    for(let index =0;index<this.length;index++){
-        const it = this[index]
-        if(it.isEqual(value)){
-            this.splice(index,1)
-            return true
-        }
-        return false
-    }
-}
+const releaser = require('../MemoreReleaser')
 module.exports=class Game{
     static games={}
     constructor(players,rule,roomID){
         this.roomID=roomID
-        this.cardStack=new CardStack()
+        this.cardStack;
         this.players=players
         this.rule=rule
         this.nowPlayerNumber=0
@@ -28,6 +16,7 @@ module.exports=class Game{
         this.isStacking=false
     }
     init(){
+        this.cardStack = new CardStack()
         this.cardStack.buildCardStack()
         this.cardStack.shuffle()
         this.lastCard=this.drawOneCard()
@@ -49,13 +38,39 @@ module.exports=class Game{
             return false
         }
         const requestPlayer = this.players.filter(it=>it.name==name)[0]
-        if(cards.length==0)return  false
+        const handCards = requestPlayer.handCards
+        if(requestPlayer.isDrawed){
+            if(cards.length>1)return false
+            else if(cards.length==1){
+                if(!handCards[handCards.length-1].isEqual(cards[0])){
+                    requestPlayer.sendError('你只能出你抽到的這張牌。')
+                    return false
+                }
+            }
+        }
+        if(cards.length==0)return false
         if(this.isCorrectPlayerThrowing(name)){
             return this.rule.executeMultipleCardStrategy(this,cards)
         }
         else{
             requestPlayer.sendError('現在不是你的回合。')
             return false
+        }
+    }
+    deleteGame(){
+        delete Game.games[this.roomID]
+        releaser.releaseGameMemore(this)
+        delete this
+    }
+    removePlayer(playerName){
+        if(this.players==null)return
+        for(let index=0;index<this.players.length;index++){
+            if(this.players[index].name==playerName){
+                this.players.splice(index,1)
+            }
+        }
+        if(this.players.length==0){
+            this.deleteGame()
         }
     }
     endRound(droppedCards=null){
@@ -66,6 +81,9 @@ module.exports=class Game{
         }
         nowPlayer.isDrawed=false
         this.rule.executeStackingStrategy(this,punishedPlayer,droppedCards)
+        if(nowPlayer.handCards.length==0){
+            this.gameOver()
+        }
         this.nowPlayerNumber=this.caculateNextPlayerNumber()
     }
     gameOver(){
@@ -84,6 +102,30 @@ module.exports=class Game{
             it.socket.emit("YouLoseEvent",gameOverPacket)
         })
     }
+    restart(){
+        this.players.forEach(it=>{
+            it.handCards=[]
+            it.isUno=false;
+            it.isDrawed=false
+        })
+        this.order=1
+        this.penaltyCardPile.length=0
+        this.isStacking=false
+        this.init()
+    }
+    updateAllPlayerHandCards(changerNumber,number,isDraw=true){
+        for(let i=0;i<this.players.length;i++){
+            if(i!=changerNumber){
+                this.players[i].socket.emit("UpdatePlayerHandCardsEvent",PacketBuilder
+                .addData('who',changerNumber)
+                .addData('you',i)
+                .addData('numberOfPeople',this.players.length)
+                .addData('numberOfCards',number)
+                .addData('isDraw',isDraw)
+                .build())
+            }
+        }
+    }
     isCorrectPlayerThrowing(name){
         return this.getNowPlayer().name==name
     }
@@ -94,6 +136,12 @@ module.exports=class Game{
         this.penaltyCardPile.forEach(it=>{
             player.pushCard(it)
         })
+        for(let i=0;i<this.players.length;i++){
+            if(this.players[i].name==player.name){
+                this.updateAllPlayerHandCards(i,this.penaltyCardPile.length)
+                break
+            }
+        }
         this.penaltyCardPile=[]
         this.isStacking=false
     }

@@ -22,7 +22,7 @@ module.exports=class Card{
     executeEffect(game,times){
         this.effect.execute(game,times)
     }
-    setEffect(){
+    setEffect(){ 
         switch(this.type){
             case CARD_TYPE.NUMBER:
                 return new NullEffect()

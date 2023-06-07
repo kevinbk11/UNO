@@ -8,7 +8,7 @@ module.exports = class ThrowCardRequest extends SocketEvent{
         super()
         this.name='ThrowCardRequest'
         this.handler=data=>{
-            if(this.clients.includes(data.id)){
+            if(this.clients.has(data.id)){
                 data=data.data
                 const cards = data.cards
                 const game = Game.games[data.roomID]
@@ -16,6 +16,7 @@ module.exports = class ThrowCardRequest extends SocketEvent{
                     cards[i]=Card.buildCard(cards[i])
                 }
                 if(game.checkThrowIsValid(cards,data.name)){
+                    game.updateAllPlayerHandCards(game.nowPlayerNumber,cards.length,false)
                     this.socket.emit('ThrowCardRespondEvent',PacketBuilder
                     .addData('success',true)
                     .addData('removedCardNumber',data.choiced)
@@ -26,6 +27,7 @@ module.exports = class ThrowCardRequest extends SocketEvent{
                         const player = game.players[i]
                         player.socket.emit('ChangeCardEvent',game.lastCard)
                     }
+                    
                 }
             }
             

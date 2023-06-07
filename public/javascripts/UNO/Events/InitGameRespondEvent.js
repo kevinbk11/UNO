@@ -3,12 +3,15 @@ class InitGameRespondEvent extends SocketEvent{
     constructor(){
         super('InitGameRespondEvent')
         this.choiced=[]
+        this.restart;
         this.handler=(data)=>{
+            this.restart=data.restart
             Card.sort(data.cards)
+            while(this.handCards.length>0)this.handCards.pop()
             data.cards.forEach((it)=>{
                 this.handCards.push(it)
             })
-            this.showCard(0,data.cards,data.players)
+            this.showCard(0,data.cards,data.players,data.restart)
             const firstCard=data.firstCard
             $('#dropped').attr('src',CardResourceProcessor.processor.getCardImageResource(firstCard))
         }
@@ -18,10 +21,12 @@ class InitGameRespondEvent extends SocketEvent{
         this.choiced=[]
     }
     showCard(i,cards,players){
-        if(i==3){
+        if(i==cards.length){
             this.setCardClickEvent()
-            this.setThrowCardButton()
-            this.setDrawButtonEvent()
+            if(!this.restart){
+                this.setThrowCardButton()
+                this.setDrawButtonEvent()
+            }
             return
         }   
         new Promise((resolve,reject)=>{
