@@ -83,6 +83,7 @@ html
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        z-index=1;
       }
       .bottom .content {
         margin-bottom: 10px;
@@ -136,7 +137,8 @@ html
         img(id = 'draw' src='/images/cards/back.png' style='width:150px')
         img(id='dropped' style='width:150px')
       .box.right
-      .box.bottom 
+      .box.bottom
+       p(id='name') #{name}
         .CardBlock
         .throw
           input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
