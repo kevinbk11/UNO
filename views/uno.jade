@@ -130,18 +130,19 @@ html
 
    
   body
-  
+    p(id='name' ) #{name}
     p(id='password') #{password}
     .container
       .box.top
   
       .box.left
       .box.center
-       p(id='name' ) #{name}
+ 
         img(id = 'draw' src='/images/cards/back.png' style='width:150px' )
         img(id='dropped' style='width:150px')
       .box.right
       .box.bottom 
+      
         .CardBlock
         .throw
          
