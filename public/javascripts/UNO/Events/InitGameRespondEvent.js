@@ -18,6 +18,10 @@ class InitGameRespondEvent extends SocketEvent{
             if(data.whoFirst==data.number){
                 const text = $('.name-display1 #name1').text()
                 $('.name-display1 #name1').text(`${text}✔️`)
+            }else{
+                const dif = ((data.whoFirst - data.number)+data.players.length)%data.players.length
+                const text = $(`.name-display${dif+1} #name${dif+1}`).text()
+                $(`.name-display${dif+1} #name${dif+1}`).text(`${text}✔️`)
             }
         }
         SocketEvent.events.push(this)

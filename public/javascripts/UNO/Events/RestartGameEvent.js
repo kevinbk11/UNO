@@ -13,6 +13,7 @@ class RestartGameEvent extends SocketEvent{
             .addData('roomID',this.roomID)
             .addData('restart',true)
             .build())
+            DynamicNameProcessor.processor.clearAllTick(4)
         }
         SocketEvent.events.push(this)
     }}
