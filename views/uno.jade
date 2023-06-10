@@ -27,7 +27,7 @@ html
     script(src="/javascripts/UNO/Events/RestartGameEvent.js") 
     script(src="/javascripts/UNO/Events/ReadyRespondEvent.js") 
     script(src="/javascripts/UNO/Events/UpdatePlayerHandCardsEvent.js") 
-    
+    script(src="/javascripts/UNO/Events/ChangePlayerEvent.js") 
     
     script(src="/javascripts/UNO/initEvents.js") 
     script(src='/javascripts/UNO/main.js')
@@ -172,19 +172,19 @@ html
     .container
       .box.top
         .name-display3
-          p #{name}
+          p(id='name3') #{name}
       .box.left
         .name-display4
-          p #{name}
+          p(id='name4') #{name}
       .box.center
         img(id = 'draw' src='/images/cards/back.png' style='width:150px')
         img(id='dropped' style='width:150px')
       .box.right
         .name-display2
-          p #{name}
+          p(id='name2') #{name}
       .box.bottom
         .name-display1
-          p #{name}
+          p(id='name1') #{name}
         .CardBlock
         .throw
           input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")

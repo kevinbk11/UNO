@@ -15,6 +15,10 @@ class InitGameRespondEvent extends SocketEvent{
             this.showCard(0,data.cards,data.players,data.restart)
             const firstCard=data.firstCard
             $('#dropped').attr('src',CardResourceProcessor.processor.getCardImageResource(firstCard))
+            if(data.whoFirst==data.number){
+                const text = $('.name-display1 #name1').text()
+                $('.name-display1 #name1').text(`${text}✔️`)
+            }
         }
         SocketEvent.events.push(this)
     }

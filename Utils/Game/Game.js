@@ -87,6 +87,14 @@ module.exports=class Game{
             this.gameOver()
         }
         this.nowPlayerNumber=this.caculateNextPlayerNumber()
+        for(let i =0;i<this.players.length;i++){
+            const it = this.players[i]
+            it.socket.emit('ChangePlayerEvent',PacketBuilder
+            .addData('you',i)
+            .addData('target',this.nowPlayerNumber)
+            .addData('numberOfPeople',this.players.length)
+            .build())
+        }
     }
     gameOver(){
         const winner = this.getNowPlayer()

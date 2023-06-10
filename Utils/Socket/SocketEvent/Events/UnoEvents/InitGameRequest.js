@@ -27,6 +27,7 @@ module.exports = class InitGameRequest extends SocketEvent{
                     .addData('players',players)
                     .addData('firstCard',game.lastCard)
                     .addData('restart',data.restart)
+                    .addData('whoFirst',game.nowPlayerNumber+1)
                     .build())
                     game.getPlayer(number-1).handCards=cards
                     game.getPlayer(number-1).socket=this.socket
