@@ -11,9 +11,11 @@ module.exports=class Game{
         this.rule=rule
         this.nowPlayerNumber=0
         this.lastCard
+        this.playerCount=0
         this.order=1 //1 for 順向 -1 for 逆向
         this.penaltyCardPile=[]
         this.isStacking=false
+        this.readySet = new Set()
     }
     init(){
         this.cardStack = new CardStack()

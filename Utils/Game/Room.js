@@ -5,7 +5,6 @@ module.exports=class Room{
         this.maxPlayer=maxPlayer
         this.rule=rule
         this.players=[]
-        this.readySet = new Set()
     }
     getPlayerNumber(name){
         return this.players.indexOf(name)+1

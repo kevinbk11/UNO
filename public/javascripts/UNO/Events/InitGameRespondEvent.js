@@ -61,7 +61,7 @@ class InitGameRespondEvent extends SocketEvent{
            
     }
     showAnotherPlayerCard(players){
-        if(players.length>=2)$('.box.right').append(`<img src='/images/cards/back.png'>`)
+        if(players.length>=2)$('.box.right ').append(`<img src='/images/cards/back.png'>`)
         if(players.length>=3)$('.box.top').append(`<img src='/images/cards/back.png'>`)
         if(players.length>=4)$('.box.left').append(`<img src='/images/cards/back.png'>`)
     }
