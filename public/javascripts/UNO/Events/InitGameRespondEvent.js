@@ -15,6 +15,12 @@ class InitGameRespondEvent extends SocketEvent{
             this.showCard(0,data.cards,data.players,data.restart)
             const firstCard=data.firstCard
             $('#dropped').attr('src',CardResourceProcessor.processor.getCardImageResource(firstCard))
+            let playerCount = data.players.length
+            for(let i=data.number-1,count=1;count<=playerCount;i=(i+1)%playerCount,count++){
+                console.log(i)
+                console.log(count)
+                $(`.name-display${count} #name${count}`).text(data.players[i])
+            }
             if(data.whoFirst==data.number){
                 const text = $('.name-display1 #name1').text()
                 $('.name-display1 #name1').text(`${text}✔️`)
@@ -23,6 +29,9 @@ class InitGameRespondEvent extends SocketEvent{
                 const text = $(`.name-display${dif+1} #name${dif+1}`).text()
                 $(`.name-display${dif+1} #name${dif+1}`).text(`${text}✔️`)
             }
+            console.log(data)
+            //$(`.name-display${data.number}`)
+
         }
         SocketEvent.events.push(this)
     }

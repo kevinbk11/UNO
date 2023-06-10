@@ -8,7 +8,6 @@ module.exports = class DrawOneCardRequest extends SocketEvent{
         super()
         this.name='DrawOneCardRequest'
         this.handler=data=>{
-            console.log("觸發")
             if(this.clients.has(data.id)){
                 data=data.data
                 const game = Game.games[data.roomID]

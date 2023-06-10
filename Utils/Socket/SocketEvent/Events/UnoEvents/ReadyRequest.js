@@ -15,6 +15,8 @@ module.exports = class ReadyRequest extends SocketEvent{
                 const player = game.getPlayerByName(data.name)
                 const players = game.players
                 console.log(game.players.indexOf(player))
+                console.log(game.readySet.size)
+                console.log(game.playerCount)
                 players.forEach((it)=>{
                     it.socket.emit("ReadyRespondEvent",PacketBuilder
                     .addData('number',game.players.indexOf(player))

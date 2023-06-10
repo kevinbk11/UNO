@@ -6,5 +6,10 @@ module.exports = class AllowStacking extends IStacking{
             const player = game.getPlayer(playerNumber)
             game.executePenaltyCardEvent(player)
         }
+        else if(this.lastIsPlus(game.lastCard)){
+            game.players.forEach(it=>{
+                it.socket.emit('StackingEvent',game.penaltyCardPile.length)
+            })
+        }
     }
 }

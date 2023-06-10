@@ -29,6 +29,7 @@ html
     script(src="/javascripts/UNO/Events/ReadyRespondEvent.js") 
     script(src="/javascripts/UNO/Events/UpdatePlayerHandCardsEvent.js") 
     script(src="/javascripts/UNO/Events/ChangePlayerEvent.js") 
+    script(src="/javascripts/UNO/Events/StackingEvent.js") 
     
     script(src="/javascripts/UNO/initEvents.js") 
     script(src='/javascripts/UNO/main.js')
@@ -164,28 +165,40 @@ html
         color: #D200D2;
       }
       .name-display1 p {
-        height: 0px;
-        width: 0px;
+        height: 50px;
+        width: 400px;
       }
+      .display{
+        flex-direction: column;
+        margin:0px 0px 150px -20px;
+      }
+      .display p{
+        font-size:24px;
+        width:200px;
+        height:50px;
+      }    
   body
     p(id='name') #{name}
     p(id='password') #{password}
     .container
       .box.top
         .name-display3
-          p(id='name3') #{name}
+          p(id='name3')
       .box.left
         .name-display4
-          p(id='name4') #{name}
+          p(id='name4')
       .box.center
         img(id = 'draw' src='/images/cards/back.png' style='width:150px')
         img(id='dropped' style='width:150px')
+        .display
+          p(id='plus')
+          p(id='color')
       .box.right
         .name-display2
-          p(id='name2') #{name}
+          p(id='name2')
       .box.bottom
         .name-display1
-          p(id='name1') #{name}
+          p(id='name1')
         .CardBlock
         .throw
           input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")

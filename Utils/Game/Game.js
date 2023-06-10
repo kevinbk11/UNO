@@ -118,6 +118,7 @@ module.exports=class Game{
             it.isUno=false;
             it.isDrawed=false
         })
+        this.playerCount=0
         this.order=1
         this.penaltyCardPile.length=0
         this.isStacking=false

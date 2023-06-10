@@ -13,7 +13,6 @@ module.exports = class InitGameRequest extends SocketEvent{
                     this.nameToClient[data.name]=this.socket
                     const game = Game.games[data.roomID]
                     game.playerCount++
-
                     const number = game.players.indexOf(game.getPlayerByName(data.name))+1
                     const players = []
                     game.players.forEach(it=>{

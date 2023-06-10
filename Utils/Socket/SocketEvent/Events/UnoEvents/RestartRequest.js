@@ -11,6 +11,7 @@ module.exports = class RestartRequest extends SocketEvent{
                 data=data.data
                 const game = Game.games[data.roomID]
                 const players = game.players
+                game.playerCount=0
                 if(game.readySet.size==game.players.length){
                     game.readySet.clear()
                     game.restart()
