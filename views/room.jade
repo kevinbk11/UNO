@@ -43,8 +43,25 @@ html
       .textbox1 {
       margin-bottom: 15px;
       }
-      .textbox {
-      margin-bottom: 10px;
+      .name1 {
+        font-size:60px;
+        margin-right: -500px;
+        margin-bottom: 100px;
+      }
+      .name2 {
+        font-size:60px;
+        margin-right: -500px;
+        margin-bottom: 75px;
+      }
+      .name3 {
+        font-size:60px;
+        margin-right: -500px;
+        margin-bottom: 500px;
+      }
+      .name4 {
+        font-size:60px;
+        margin-right: -500px;
+        margin-bottom: 25px;
       }
       .functionButton{
         width:200px;
@@ -72,7 +89,7 @@ html
     .container
       input.textbox1(type='text' readonly='' id='roomID' placeholder='房號:' value=roomID) 
       - for (var i=0;i<4;i++)
-        input.textbox(type='text' readonly='' id=`name${i+1}` placeholder=`文字框 ${i+1}` value=names[i])
+        p(type='text' readonly='' class=`name${i+1}` ) #{names[i]}
       .functionButton
         input(type='button' id='gameStartButton' readonly='' value="開始遊戲") 
         input(type='button' id='exitButton' readonly='' value='離開房間')  
