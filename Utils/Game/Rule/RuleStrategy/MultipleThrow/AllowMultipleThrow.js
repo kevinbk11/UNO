@@ -8,6 +8,7 @@ module.exports = class AllowMultipleThrow extends IMultipleThrow{
             }
             else{
                 game.getNowPlayer().sendError('卡片必須和上一張的數字或顏色相同。')
+                return false
             }
         }
         if(checker.checkThrowMultipleCardIsValid(cards)){

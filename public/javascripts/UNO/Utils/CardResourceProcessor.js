@@ -13,6 +13,8 @@ class CardResourceProcessor{
         $('.CardBlock img').addClass('notChoiced')
     }
     playDrawCardAnimate(place,cardResource,handCards=null){
+        $('#draw').off('click')
+        InitGameRespondEvent.self.isSetDrawButtonEvent=false
         let deg='0deg';
         if(place=='.left')deg='-90deg'
         else if(place==".top")deg='180deg'
@@ -53,6 +55,8 @@ class CardResourceProcessor{
                 },10+Math.random()*5)})
         }
         function play(myData){
+            $('#draw').off('click')
+            InitGameRespondEvent.self.isSetDrawButtonEvent=false
             const cards=myData.cards
             const length=cards.length
             const handCards=myData.handCards
@@ -61,26 +65,30 @@ class CardResourceProcessor{
                 processor.isPlayingAnimation=true
                 let count=0;
                 const id=setInterval(()=>{
-                    const it=cards[count]
-                    if(handCards!=null)handCards.push(it)
-                    processor.playDrawCardAnimate(place,processor.getCardImageResource(it),handCards)
-                    count++
                     if(count==length){
                         clearInterval(id)
                         resolve()
+                    }else{
+                        const it=cards[count]
+                        if(handCards!=null)handCards.push(it)
+                        processor.playDrawCardAnimate(place,processor.getCardImageResource(it),handCards)
+                        count++
                     }
+ 
                 },180)
             })
         }
         function reset(){
             InitGameRespondEvent.self.clearChoiced()
-            InitGameRespondEvent.self.setCardClickEvent() 
+            InitGameRespondEvent.self.setCardClickEvent()
+            InitGameRespondEvent.self.setDrawButtonEvent()
             processor.setAllCardUnchoiced()
             processor.isPlayingAnimation=false
         }
         waitAnimationEnd(myData)
         .then(myData=>play(myData))
         .then(reset)
+        
     }
 
 }

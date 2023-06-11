@@ -25,21 +25,26 @@ class MemoreReleaser{
         SocketController.clients.delete(id)
         const names = Object.keys(SocketController.nameToClient)
         for(let i =0;i<names.length;i++){
-            const it=names[i]
-            if(SocketController.nameToClient[it].id==socket.id){
-                console.log(`delete user:${it}`)
-                if(this.allPlayer[it]!=null){
-                    const game = this.allPlayer[it].game
-                    game.removePlayer(it)
-                    if(game.players!=null){
-                        for(let j=0;j<game.players.length;j++){
-                            const player = game.players[j]
-                            player.sendError('有人斷線了!將自動終止遊戲並返回大廳。')
+            try{
+                const it=names[i]
+                if(SocketController.nameToClient[it].id==socket.id){
+                    console.log(`delete user:${it}`)
+                    if(this.allPlayer[it]!=null){
+                        const game = this.allPlayer[it].game
+                        game.removePlayer(it)
+                        if(game.players!=null){
+                            for(let j=0;j<game.players.length;j++){
+                                const player = game.players[j]
+                                player.sendError('有人斷線了!將自動終止遊戲並返回大廳。')
+                            }
                         }
+    
                     }
-
+                    delete SocketController.nameToClient[it]
                 }
-                delete SocketController.nameToClient[it]
+            }
+            catch{
+
             }
         }
         

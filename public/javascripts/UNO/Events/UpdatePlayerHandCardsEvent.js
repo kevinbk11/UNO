@@ -18,7 +18,7 @@ class UpdatePlayerHandCardsEvent extends SocketEvent{
             }
             else{
                 for(let i=0;i<data.numberOfCards;i++){
-                    $(everyone[dif]).children()[0].remove()
+                    $(everyone[dif]).children().last().remove()
                 }
                 
             }

@@ -5,14 +5,15 @@ class RestartGameEvent extends SocketEvent{
         this.handler=(data)=>{
             GameEndDialog.dialog.hide()
             $(".CardBlock").empty()
-            $(".top").empty()
-            $(".left").empty()
-            $(".right").empty()
+            $(".box.top").find("img").remove()
+            $(".box.left").find("img").remove()
+            $(".box.right").find("img").remove()
             client.emit('InitGameRequest',this.packetBuilder
             .addData('name',this.userName)
             .addData('roomID',this.roomID)
             .addData('restart',true)
             .build())
+            DynamicNameProcessor.processor.clearAllTick(4)
         }
         SocketEvent.events.push(this)
     }}

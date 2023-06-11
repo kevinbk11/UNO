@@ -15,6 +15,7 @@ html
     script(src="/javascripts/UNO/Dialogs/GameEndDialog.js") 
     script(src="/javascripts/UNO/Card.js") 
     script(src='/javascripts/UNO/Utils/CardResourceProcessor.js')
+    script(src='/javascripts/UNO/Utils/DynamicNameProcessor.js')
     script(src='/javascripts/UNO/Events/ChangeCardEvent.js')
     script(src='/javascripts/UNO/Events/InitGameRespondEvent.js')
     script(src='/javascripts/UNO/Events/YouWinEvent.js')
@@ -27,7 +28,8 @@ html
     script(src="/javascripts/UNO/Events/RestartGameEvent.js") 
     script(src="/javascripts/UNO/Events/ReadyRespondEvent.js") 
     script(src="/javascripts/UNO/Events/UpdatePlayerHandCardsEvent.js") 
-    
+    script(src="/javascripts/UNO/Events/ChangePlayerEvent.js") 
+    script(src="/javascripts/UNO/Events/StackingEvent.js") 
     
     script(src="/javascripts/UNO/initEvents.js") 
     script(src='/javascripts/UNO/main.js')
@@ -37,7 +39,7 @@ html
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 90vh;
         width: 100%;
         box-sizing: border-box;
         padding: 20px;
@@ -106,7 +108,7 @@ html
       .bottom img.notChoiced{
         width:150px;
         height:214px;
-        margin:-20px -30px -20px -30px;
+        margin:20px -30px -100px -30px;
       }
       .top img{
         width:150px;
@@ -125,30 +127,81 @@ html
       }
       .bottom img.choiced{
         width:150px;
-        margin:20px -10px;
+        margin:-80px -10px;
       }
+      .name-display1 {
+        position: absolute;
+        top: calc(55%);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: #D200D2;
+      }
+      .name-display2 {
+        position: absolute;
+        top: calc(50%);
+        left: 85%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: #D200D2;
+      }
+      .name-display3 {
+        position: absolute;
+        top: calc(25%);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: #D200D2;
+      }
+      .name-display4 {
+        position: absolute;
+        top: calc(50%);
+        left: 15%;
+        transform: translateX(-50%); 
+        font-size: 20px;
+        font-weight: bold;
+        color: #D200D2;
+      }
+      .name-display1 p {
+        height: 50px;
+        width: 400px;
+      }
+      .display{
+        flex-direction: column;
+        margin:0px 0px 150px -20px;
+      }
+      .display p{
+        font-size:24px;
+        width:200px;
+        height:50px;
+      }    
   body
     p(id='name') #{name}
     p(id='password') #{password}
     .container
       .box.top
+        .name-display3
+          p(id='name3')
       .box.left
+        .name-display4
+          p(id='name4')
       .box.center
         img(id = 'draw' src='/images/cards/back.png' style='width:150px')
         img(id='dropped' style='width:150px')
+        .display
+          p(id='plus')
+          p(id='color')
       .box.right
+        .name-display2
+          p(id='name2')
       .box.bottom
-       p(id='name') #{name}
+        .name-display1
+          p(id='name1')
         .CardBlock
         .throw
           input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
           input(id='unoButton' type='button' style="margin:0px -40px" value="UNO")
       div(id='content')
-
- 
-
-
-
-
-
-
