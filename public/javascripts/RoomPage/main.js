@@ -20,6 +20,13 @@ window.onload = () => {
                         .build())
                 })
             }
+            $('#exitButton').on('click',()=>{
+                client.emit('ExitRequest',builder
+                .addData('name',nickname)
+                .addData('roomID',$('#roomID').val())
+                .build())
+                postRedirect('/',{name:nickname})
+            })
 
         })
         .catch(() => {
