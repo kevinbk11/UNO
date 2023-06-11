@@ -13,6 +13,8 @@ html
     script(src='/javascripts/RoomPage/Events/PlayerJoinEvent.js')
     script(src='/javascripts/RoomPage/Events/JoinRoomRespondEvent.js')
     script(src='/javascripts/RoomPage/Events/GameStartEvent.js')
+    script(src='/javascripts/RoomPage/Events/ExitEvent.js')
+    script(src='/javascripts/RoomPage/Events/RoomDissolveEvent.js')
     script(src='/javascripts/RoomPage/initEvents.js')
     title 文字框範例
     style.
@@ -44,17 +46,19 @@ html
       margin-bottom: 10px;
       }
       .functionButton{
+        width:200px;
+        display: flex;
         justify-content: space-around;
       }
   body
-    p(style='display:none',id='password') #{v}
-    p(style='display:none',id='name') #{myName}
+    p(style='display:none' id='password') #{v}
+    p(style='display:none' id='name') #{myName}
     .loader
     h2(style='text-align: center;') 等待中...
     .container
       input.textbox1(type='text' readonly='' id='roomID' placeholder='房號:' value=roomID) 
       - for (var i=0;i<4;i++)
-            input.textbox(type='text' readonly='' id=`name${i+1}` placeholder=`文字框 ${i+1}` value=names[i])
+        input.textbox(type='text' readonly='' id=`name${i+1}` placeholder=`文字框 ${i+1}` value=names[i])
       .functionButton
         input(type='button' id='gameStartButton' readonly='' value="開始遊戲") 
         input(type='button' id='exitButton' readonly='' value='離開房間')  
