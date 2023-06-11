@@ -16,6 +16,7 @@ window.onload = () => {
     let createRoomDialog = new CreateRoomDialog()
     createRoomDialog.create()
     let realLength
+    $('#name').hide()
     if ($('#name').text() == "") {
         nickname = prompt('請輸入您的暱稱。')
         realLength=countContainChinese(nickname)
@@ -28,7 +29,6 @@ window.onload = () => {
 
         }
             
-        $('#name').text(nickname)
     }
     else {
         nickname = $('#name').text()
