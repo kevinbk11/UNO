@@ -30,6 +30,7 @@ html
     script(src="/javascripts/UNO/Events/UpdatePlayerHandCardsEvent.js") 
     script(src="/javascripts/UNO/Events/ChangePlayerEvent.js") 
     script(src="/javascripts/UNO/Events/StackingEvent.js") 
+    script(src="/javascripts/UNO/Events/ChangeColorEvent.js") 
     
     script(src="/javascripts/UNO/initEvents.js") 
     script(src='/javascripts/UNO/main.js')
@@ -143,11 +144,12 @@ html
         font-size: 20px;
         font-weight: bold;
         color: #D200D2;
+        height:0px;
       }
       .name-display2 {
         position: absolute;
         top: calc(50%);
-        left: 85%;
+        left: 82%;
         transform: translateX(-50%);
         font-size: 20px;
         font-weight: bold;
@@ -172,8 +174,8 @@ html
         color: #D200D2;
       }
       .name-display1 p {
-        height: 50px;
-        width: 400px;
+        height: 0px;
+        width: 160px;
       }
       .display{
         flex-direction: column;

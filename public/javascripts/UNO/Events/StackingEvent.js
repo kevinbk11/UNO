@@ -3,7 +3,13 @@ class StackingEvent extends SocketEvent{
     constructor(){
         super('StackingEvent')
         this.handler=data=>{
-            $('.display #plus').text(`現在疊了${data}張`)
+            console.log(data)
+            if(data!=-1){
+                $('.display #plus').text(`現在疊了${data}張`)
+            }
+            else{
+                $('.display #plus').text(``)
+            }
         }
         SocketEvent.events.push(this)
     }
