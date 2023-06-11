@@ -1,8 +1,9 @@
 class RuleChecker {
     static checker = new this()
     checkUno(player,game) {
-        if(game.rule.isAllowMultipleThrow)
+        if(game.rule.isAllowThrowMultipleCard){
             return !(this.checkThrowMultipleCardIsValid(player.handCards) ^ player.isUno)
+        }
         else return player.isUno ^  player.handCards.length!=1
         //如果uno的規則部分是正確的就return true
         //也就是 如果我可以一次出完 而且我有喊UNO 就可以

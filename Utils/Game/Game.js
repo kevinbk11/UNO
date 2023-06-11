@@ -11,9 +11,11 @@ module.exports=class Game{
         this.rule=rule
         this.nowPlayerNumber=0
         this.lastCard
+        this.playerCount=0
         this.order=1 //1 for 順向 -1 for 逆向
         this.penaltyCardPile=[]
         this.isStacking=false
+        this.readySet = new Set()
     }
     init(){
         this.cardStack = new CardStack()
@@ -42,8 +44,8 @@ module.exports=class Game{
         if(requestPlayer.isDrawed){
             if(cards.length>1)return false
             else if(cards.length==1){
-                if(!handCards[handCards.length-1].isEqual(cards[0])){
-                    requestPlayer.sendError('你只能出你抽到的這張牌。')
+                if(handCards[handCards.length-1].getInfo()!=cards[0].getInfo()){
+                    requestPlayer.sendError(`你只能出你抽到的這張牌。抽到的牌是${handCards[handCards.length-1].getInfo()}`)
                     return false
                 }
             }
@@ -85,6 +87,14 @@ module.exports=class Game{
             this.gameOver()
         }
         this.nowPlayerNumber=this.caculateNextPlayerNumber()
+        for(let i =0;i<this.players.length;i++){
+            const it = this.players[i]
+            it.socket.emit('ChangePlayerEvent',PacketBuilder
+            .addData('you',i)
+            .addData('target',this.nowPlayerNumber)
+            .addData('numberOfPeople',this.players.length)
+            .build())
+        }
     }
     gameOver(){
         const winner = this.getNowPlayer()
@@ -108,6 +118,7 @@ module.exports=class Game{
             it.isUno=false;
             it.isDrawed=false
         })
+        this.playerCount=0
         this.order=1
         this.penaltyCardPile.length=0
         this.isStacking=false
