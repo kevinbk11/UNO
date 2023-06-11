@@ -16,40 +16,28 @@ html
     script(src='/javascripts/RoomPage/initEvents.js')
     title 文字框範例
     style.
-    
-      .loader {
-      border: 16px solid #f3f3f3; /* 灰色邊框 */
-      border-top: 16px solid #3498db; /* 藍色邊框 */
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-      animation: spin 2s linear infinite; /* 動畫設定 */
-      margin: 0 auto;
-      margin-top: 50px;
-      }
-      @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-      }
       .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 50vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin:left;
+       
       }
       .textbox1 {
       margin-bottom: 15px;
+   
       }
       .textbox {
       margin-bottom: 10px;
+     
+     
       }
       .functionButton{
         justify-content: space-around;
       } 
 
       body {
-      background-image: url('../images/AnyConv.com__1_1 (1) (1).gif');
+      background-image: url('../images/Slide1.jpg');
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: center;
@@ -63,8 +51,7 @@ html
   body
     p(style='display:none',id='password') #{v}
     p(style='display:none',id='name') #{myName}
-    .loader
-    h2(style='text-align: center;') 等待中...
+   
     .container
       input.textbox1(type='text' readonly='' id='roomID' placeholder='房號:' value=roomID) 
       - for (var i=0;i<4;i++)
