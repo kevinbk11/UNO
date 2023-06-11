@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    link(rel='preconnect' href='https://fonts.googleapis.com')
     script(src='https://code.jquery.com/jquery-3.6.4.js' integrity='sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=' crossorigin='anonymous')
     script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
     link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
@@ -205,17 +206,22 @@ html
       .display{
         flex-direction: column;
         margin:0px 0px 150px -20px;
+        
       }
       .display p{
         font-size:24px;
+        font-family: 'Noto Sans TC', sans-serif;
         width:200px;
         height:50px;
+        color: #D200D2;
       }
-      .throw{
-        top:2000px; 
-
-
-      }    
+       body {
+      background-image: url('../images/00.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      }
   body
     p(id='name') #{name}
     p(id='password') #{password}
@@ -230,7 +236,7 @@ html
         img(id = 'draw' src='/images/cards/back.png' style='width:150px')
         img(id='dropped' style='width:150px')
         .display
-          p(id='plus')
+          p(id='plus' )
           p(id='color')
       .box.right
         .name-display2

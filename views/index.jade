@@ -21,38 +21,63 @@ html
     title 2
     style.
       /*文字*/
-      .kaxi {
-      font-size: 6em;
-      color: rgb(71, 229, 221);
-      text-shadow: 1px 1px #303dd2, 2px 2px #303dd2, 3px 3px #303dd2, 4px 4px#303dd2, 5px 5px #303dd2, 6px 6px#303dd2, 7px 7px #303dd2, 8px 8px #303dd2, 9px 9px #303dd2, 10px 10px #303dd2;
-      animation: grow 1s infinite;
-      position: absolute;
-      top: 20%;
-      left: 52%;
-      transform: translate(-50%, -50%);
-      }
-      @keyframes grow {
-      0% {
-      font-size: 180px;
-      }
-      50% {
-      font-size: 200px;
-      }
-      100% {
-      font-size: 180px;
-      }
-      }
+   
       /*按鈕*/
       .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative; /* 相对定位 */
-      top: 380px; /* 向下偏移50像素 */
-      left: 51%; /* 水平居中 */
-      transform: translateX(-50%); /* 水平居中 */
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       position: relative; /* 相对定位 */
+       top: 280px; /* 向下偏移50像素 */
+       left: 51%; /* 水平居中 */
+       transform: translateX(-50%); /* 水平居中 */
+      }
+      .RoomButton {
+       background-color: #4CAF50;
+       border: none;
+       color: rgb(254, 255, 254);
+       padding: 15px 40px;
+       text-align: center;
+       text-decoration: none;
+       display: inline-block;
+       font-size: 100px;
+       margin: 10px 0px;
+       cursor: pointer;
+       border-radius: 10px;
+       box-shadow: 2px 2px 5px rgba(9, 177, 51, 0.3);
+       transition: all 0.3s ease;
+      }
+      .RoomButton:hover {
+       background-color: #3e8e41;
+      }
+      /*背景*/
+      body {
+      background-image: url('images/backgound.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      }
+      label {
+      border:1px solid #ccc;
+      padding:10px;
+      margin:0 0 10px;
+      display:block; 
       }
 
+      label:hover {
+      background:#eee;
+      cursor:pointer;
+      }
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative; /* 相对定位 */
+        top: 250px; /* 向下偏移50像素 */
+        left: 50%; /* 水平居中 */
+        transform: translateX(-50%); /* 水平居中 */
+      }
       .RoomButton {
         border:0;
         background-color:#003C9D;
@@ -62,7 +87,7 @@ html
        text-align: center;
        text-decoration: none;
        display: inline-block;
-       font-size: 20px;
+       font-size: 50px;
        margin: 10px 0px;
        cursor: pointer;
         }
@@ -75,30 +100,24 @@ html
       }
    
       body {
-      background-image: url('images/backgound.jpg');
+      background-image: url('images/1.gif');
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: center;
       background-size: cover;
       }
- 
-
 
   body
   p(style,id='name') #{name}
     p(style='display:none' id='password') #{number}
     p(id='roomID')
-    h1.kaxi UNO!
+
     input(value='開始遊戲' type='button' id="gameStartButton" style='display:none')
     .button-container
      input(value='創建房間' type='button' id="createRoomButton" class="RoomButton" )
      br(class="RoomButton")
      input(value='加入房間' type='button' id='joinRoomButton' class="RoomButton")
      br(class="RoomButton")
-     input(value='設定' type='button' id='joinRoomButton' class="RoomButton")
+     input(value='設定' type='button' id='settingButton' class="RoomButton")
      br(class="RoomButton")
-     div(id='content') 
-
-
-
-
+     div(id='content')
