@@ -25,7 +25,7 @@ html
       font-size: 6em;
       color: rgb(71, 229, 221);
       text-shadow: 1px 1px #303dd2, 2px 2px #303dd2, 3px 3px #303dd2, 4px 4px#303dd2, 5px 5px #303dd2, 6px 6px#303dd2, 7px 7px #303dd2, 8px 8px #303dd2, 9px 9px #303dd2, 10px 10px #303dd2;
-      animation: grow 15s infinite;
+      animation: grow 1s infinite;
       position: absolute;
       top: 20%;
       left: 52%;
@@ -33,13 +33,13 @@ html
       }
       @keyframes grow {
       0% {
-      font-size: 150px;
+      font-size: 180px;
       }
       50% {
       font-size: 200px;
       }
       100% {
-      font-size: 150px;
+      font-size: 180px;
       }
       }
       /*按鈕*/
@@ -89,18 +89,58 @@ html
       background:#eee;
       cursor:pointer;
       }
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative; /* 相对定位 */
+        top: 380px; /* 向下偏移50像素 */
+        left: 51%; /* 水平居中 */
+        transform: translateX(-50%); /* 水平居中 */
+      }
+      .RoomButton {
+        border:0;
+        background-color:#003C9D;
+        color:#fff;
+        border-radius:10px;
+       padding: 15px 32px;
+       text-align: center;
+       text-decoration: none;
+       display: inline-block;
+       font-size: 20px;
+       margin: 10px 0px;
+       cursor: pointer;
+        }
 
+      .RoomButton:hover {
+       color:#003C9D;
+       background-color:#ffffff;
+       border:2px #003C9D solid;
+        
+      }
+   
+      body {
+      background-image: url('images/backgound.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      }
 
   body
   p(style,id='name') #{name}
-    p(style='display:none',id='password') #{number}
+    p(style='display:none' id='password') #{number}
     p(id='roomID')
-    input(value='開始遊戲',type='button',id="gameStartButton",style='display:none')
-    input(value='創建房間',type='button',id="createRoomButton",class="RoomButton")
-    br(class="RoomButton")
-    input(value='加入房間',type='button',id='joinRoomButton',class="RoomButton")
-    br(class="RoomButton")
-    div(id='content') 
+    h1.kaxi UNO!
+    input(value='開始遊戲' type='button' id="gameStartButton" style='display:none')
+    .button-container
+     input(value='創建房間' type='button' id="createRoomButton" class="RoomButton" )
+     br(class="RoomButton")
+     input(value='加入房間' type='button' id='joinRoomButton' class="RoomButton")
+     br(class="RoomButton")
+     input(value='設定' type='button' id='joinRoomButton' class="RoomButton")
+     br(class="RoomButton")
+     div(id='content')
 
     
     
