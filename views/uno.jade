@@ -35,6 +35,31 @@ html
     script(src="/javascripts/UNO/initEvents.js") 
     script(src='/javascripts/UNO/main.js')
     style.
+      body {
+        background-image: url('../images/backgound.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+      }
+      .unoButton {
+        border:0;
+        background-color:#003C9D;
+        color:#fff;
+        border-radius:3px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 3px 0px;
+        cursor: pointer;
+        }
+
+      .unoButton:hover {
+       color:#003C9D;
+       background-color:#ffffff;
+       border:2px #003C9D solid;
+        
+      }
       .container {
         display: flex;
         flex-wrap: wrap;
@@ -185,6 +210,11 @@ html
         font-size:24px;
         width:200px;
         height:50px;
+      }
+      .throw{
+        top:2000px; 
+
+
       }    
   body
     p(id='name') #{name}
@@ -210,6 +240,6 @@ html
           p(id='name1')
         .CardBlock
         .throw
-          input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
-          input(id='unoButton' type='button' style="margin:0px -40px" value="UNO")
+          input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌" class="unoButton")
+          input(id='unoButton' type='button' style="margin:0px -40px" value="UNO" class="unoButton")
       div(id='content')

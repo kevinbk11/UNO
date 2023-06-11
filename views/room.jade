@@ -16,6 +16,7 @@ html
     script(src='/javascripts/RoomPage/initEvents.js')
     title 文字框範例
     style.
+    
       .loader {
       border: 16px solid #f3f3f3; /* 灰色邊框 */
       border-top: 16px solid #3498db; /* 藍色邊框 */
@@ -45,7 +46,20 @@ html
       }
       .functionButton{
         justify-content: space-around;
+      } 
+
+      body {
+      background-image: url('../images/backgound.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
       }
+    
+  
+   
+
+
   body
     p(style='display:none',id='password') #{v}
     p(style='display:none',id='name') #{myName}
