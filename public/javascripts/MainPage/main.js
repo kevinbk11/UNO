@@ -1,14 +1,34 @@
 let client = null
+function countContainChinese(str){
+    let length=0
+    for(let i=0;i<str.length;i++){
+        if(str[i].charCodeAt()>255){
+            length+=2
+        }else{
+            length+=1
+        }
+    }
+    return length
+}
 window.onload = () => {
     let joinRoomDialog = new JoinRoomDialog()
     joinRoomDialog.create()
     let createRoomDialog = new CreateRoomDialog()
     createRoomDialog.create()
     let nickname
+    let realLength
     if ($('#name').text() == "") {
         nickname = prompt('請輸入您的暱稱。')
-        while (nickname == null || nickname == '')
-            nickname = prompt('暱稱不可為空!請輸入您的暱稱。')
+        realLength=countContainChinese(nickname)
+        while (nickname == null || nickname == '' || realLength>10){
+            if(realLength>=10){
+                nickname = prompt('名稱太長了，最多只能在十個字元以下(中文字一個字兩個佔字元)。')
+                realLength=countContainChinese(nickname)
+            }
+            else nickname = prompt('暱稱不可為空!請輸入您的暱稱。')
+
+        }
+            
         $('#name').text(nickname)
     }
     else {

@@ -3,6 +3,7 @@ class ChangePlayerEvent extends SocketEvent{
     constructor(){
         super('ChangePlayerEvent')
         this.handler=data=>{
+            $('.display #color').text("")
             const myNumber=data.you
             const target=data.target
             const numberOfPeople = data.numberOfPeople
