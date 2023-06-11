@@ -1,6 +1,6 @@
 class JoinRoomDialog extends Dialog{
     static dialog = null
-    constructor(){
+    constructor(builder){
         super(`
         <div id="joinRoomDialog" class=dialog title="加入房間" style="overflow-y: auto;max-height: 1px;">
             <input id=roomNumber style="width:160;">
@@ -20,6 +20,7 @@ class JoinRoomDialog extends Dialog{
             </div>
 
         </div>`)
+        this.builder=builder
     }
     create(){
         if(JoinRoomDialog.dialog!=null)return
@@ -40,5 +41,21 @@ class JoinRoomDialog extends Dialog{
     }
     hide(){
         $('#joinRoomDialog').dialog('close');
+    }
+    updateRooms(rooms){
+        var table = $("#dataTable tbody");
+        table.empty()
+        let rawHtml = ""
+        for(let i=0;i<rooms.length;i++){
+            let roomID = rooms[i]
+            rawHtml+=`<tr><td id=${roomID}>${i+1}.${roomID}</td></tr>`
+        }
+        table.append(rawHtml)
+        for(let i=0;i<rooms.length;i++){
+            let roomID = rooms[i]
+            $(`tr #${roomID}`).on('click',()=>{
+                client.emit('JoinRoomRequest', this.builder.addData('name', nickname).addData('roomID', roomID).build())
+            })
+        }
     }
 }

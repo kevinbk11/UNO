@@ -8,13 +8,19 @@ window.onload = () => {
             $('#name').remove() 
             let builder = new PacketBuilder(id)
             initEvents()
-            $('#gameStartButton').on('click', () => {
-                let roomID = $('#roomID').val()
-                client.emit('StartGameRequest', builder
-                    .addData('name', nickname)
-                    .addData('roomID', roomID)
-                    .build())
-            })
+            if($('#name1').val()!=nickname){
+                $('#gameStartButton').remove()
+            }
+            else{
+                $('#gameStartButton').on('click', () => {
+                    let roomID = $('#roomID').val()
+                    client.emit('StartGameRequest', builder
+                        .addData('name', nickname)
+                        .addData('roomID', roomID)
+                        .build())
+                })
+            }
+
         })
         .catch(() => {
             alert("失敗")

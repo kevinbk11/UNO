@@ -1,4 +1,5 @@
 let client = null
+let nickname = null
 function countContainChinese(str){
     let length=0
     for(let i=0;i<str.length;i++){
@@ -11,11 +12,9 @@ function countContainChinese(str){
     return length
 }
 window.onload = () => {
-    let joinRoomDialog = new JoinRoomDialog()
-    joinRoomDialog.create()
+
     let createRoomDialog = new CreateRoomDialog()
     createRoomDialog.create()
-    let nickname
     let realLength
     if ($('#name').text() == "") {
         nickname = prompt('請輸入您的暱稱。')
@@ -40,7 +39,8 @@ window.onload = () => {
             $('#password').text(nickname)
             let builder = new PacketBuilder(id)
             let ruleBuilder = new RuleBuilder()
-
+            let joinRoomDialog = new JoinRoomDialog(builder)
+            joinRoomDialog.create()
             initEvents()
 
             $('#check').on('click', () => {
