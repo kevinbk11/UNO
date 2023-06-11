@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    link(rel='preconnect' href='https://fonts.googleapis.com')
     script(src='https://code.jquery.com/jquery-3.6.4.js' integrity='sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=' crossorigin='anonymous')
     script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
     link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
@@ -35,6 +36,31 @@ html
     script(src="/javascripts/UNO/initEvents.js") 
     script(src='/javascripts/UNO/main.js')
     style.
+      body {
+        background-image: url('../images/backgound.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+      }
+      .unoButton {
+        border:0;
+        background-color:#003C9D;
+        color:#fff;
+        border-radius:3px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 3px 0px;
+        cursor: pointer;
+        }
+
+      .unoButton:hover {
+       color:#003C9D;
+       background-color:#ffffff;
+       border:2px #003C9D solid;
+        
+      }
       .container {
         display: flex;
         flex-wrap: wrap;
@@ -64,6 +90,7 @@ html
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        
       }
       .right {
         order: 3;
@@ -75,10 +102,12 @@ html
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
       }
       .top {
         order: 1;
         flex: 1 0 100%;
+
       }
       .bottom {
         order: 4;
@@ -86,6 +115,7 @@ html
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        z-index=1;
       }
       .bottom .content {
         margin-bottom: 10px;
@@ -113,17 +143,20 @@ html
       .top img{
         width:150px;
         margin:-30px;
-        transform: rotate(180deg)
+        transform: rotate(180deg);
+
       }
       .left img{
         width:150px;
         margin:-64.2048px -20px -64.2048px -20px;
         transform: rotate(-270deg);
+
       }
       .right img{
         width:150px;
         margin:-64.048px -20px -64.2048px -20px;
         transform: rotate(-90deg);
+
       }
       .bottom img.choiced{
         width:150px;
@@ -173,12 +206,22 @@ html
       .display{
         flex-direction: column;
         margin:0px 0px 150px -20px;
+        
       }
       .display p{
         font-size:24px;
+        font-family: 'Noto Sans TC', sans-serif;
         width:200px;
         height:50px;
-      }    
+        color: #D200D2;
+      }
+       body {
+      background-image: url('../images/00.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      }
   body
     p(id='name') #{name}
     p(id='password') #{password}
@@ -193,7 +236,7 @@ html
         img(id = 'draw' src='/images/cards/back.png' style='width:150px')
         img(id='dropped' style='width:150px')
         .display
-          p(id='plus')
+          p(id='plus' )
           p(id='color')
       .box.right
         .name-display2
@@ -203,6 +246,6 @@ html
           p(id='name1')
         .CardBlock
         .throw
-          input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
-          input(id='unoButton' type='button' style="margin:0px -40px" value="UNO")
+          input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌" class="unoButton")
+          input(id='unoButton' type='button' style="margin:0px -40px" value="UNO" class="unoButton")
       div(id='content')
