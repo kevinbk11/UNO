@@ -56,7 +56,7 @@ html
         width:300px;
         height:125px;
         position:relative;
-        margin:29% 0% 0% 15%;
+        margin:5% 0% 0% 15%;
       }
       #roomID{
         color:#6994FF;
@@ -64,6 +64,8 @@ html
         margin: 2.5% 0% 0% 40%;
       }
       body {
+      overflow-x:hidden;
+      overflow-y:hidden;
       background-image: url('../images/Slide1.jpg');
       background-repeat: no-repeat;
       background-attachment: fixed;
@@ -81,8 +83,15 @@ html
 
     .container
       p(type='text' readonly='' id='roomID' placeholder='房號:') #{roomID}
-      - for (var i=0;i<4;i++)
-        p(type='text' readonly='' class=`name${i+1}` ) #{names[i]}
+      - for (var i=0;i<4;i++){
+        - if(names[i]==null){
+            p(type='text' readonly='' class=`name${i+1}` ) 　
+        - }else{
+            p(type='text' readonly='' class=`name${i+1}` ) #{names[i]}
+        - }
+      - }
+
+        
     .functionButton
       p(id='exitButton')
       p(id='gameStartButton')

@@ -9,6 +9,7 @@ class Card{
 
     static sort(cards,by='number'){
         const colors = Card.colors
+        console.log(by)
         if(by=='number'){
             cards.sort((a,b)=>{
                 if(a.number>b.number)return 1
@@ -21,6 +22,7 @@ class Card{
             })
         }
         else{
+            console.log("???????")
             cards.sort((a,b)=>{
                 if(colors[a.color]>colors[b.color])return -1
                 if(colors[a.color]<colors[b.color])return 1
