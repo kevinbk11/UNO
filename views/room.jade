@@ -24,28 +24,20 @@ html
         flex-direction: column;
         align-items: center;
         margin:left;
-       
-      }
-      .textbox1 {
-      margin-right: -900px;
-      margin-top:30px;
-      font-size:30px;
-      margin-bottom:40px;
-   
       }
       .name1 {
         font-size:60px;
-        margin: 7% 0% 3% 40%;
+        margin: 6% 0% 3.2% 40%;
         font-family: 'Ubuntu', sans-serif;
       }
       .name2 {
         font-size:60px;
-        margin: 0% 0% 3% 40%;
+        margin: 0% 0% 3.2% 40%;
          font-family: 'Ubuntu', sans-serif;
       }
       .name3 {
         font-size:60px;
-        margin: 0% 0% 3% 40%;
+        margin: 0% 0% 3.2% 40%;
         font-family: 'Ubuntu', sans-serif;
       }
       .name4 {
@@ -54,11 +46,23 @@ html
         font-family: 'Ubuntu', sans-serif;
       }
       .functionButton{
-        width:200px;
+        position:relative;
+        left:37.5%;
+        width:1000px;
+        height:200px;
         display: flex;
-        justify-content: space-around;
       } 
-
+      .functionButton p{
+        width:300px;
+        height:125px;
+        position:relative;
+        margin:29% 0% 0% 15%;
+      }
+      #roomID{
+        color:#6994FF;
+        font-size:64px;
+        margin: 2.5% 0% 0% 40%;
+      }
       body {
       background-image: url('../images/Slide1.jpg');
       background-repeat: no-repeat;
@@ -76,9 +80,9 @@ html
     p(style='display:none' id='name') #{myName}
 
     .container
-      input.textbox1(type='text' readonly='' id='roomID' placeholder='房號:' value=roomID) 
+      p(type='text' readonly='' id='roomID' placeholder='房號:') #{roomID}
       - for (var i=0;i<4;i++)
         p(type='text' readonly='' class=`name${i+1}` ) #{names[i]}
-      .functionButton
-        input(type='button' id='gameStartButton' readonly='' value="開始遊戲") 
-        input(type='button' id='exitButton' readonly='' value='離開房間')  
+    .functionButton
+      p(id='exitButton')
+      p(id='gameStartButton')
