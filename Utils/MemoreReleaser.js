@@ -19,6 +19,7 @@ class MemoreReleaser{
         delete game.isStacking
     }
     releaseSocketMemore(socket){
+        console.log(this.allPlayer)
         const SocketController = require("./Socket/SocketController")
         const id = SocketController.socketIDToUserID[socket.id]
         delete SocketController.socketIDToUserID[socket.id]
@@ -43,8 +44,8 @@ class MemoreReleaser{
                     delete SocketController.nameToClient[it]
                 }
             }
-            catch{
-
+            catch(e){
+                console.log(e)
             }
         }
         

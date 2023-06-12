@@ -5,7 +5,7 @@ const ChoiceColorRespond = require('./ChoiceColorRespond')
 const UnoRequest = require('./UnoRequest')
 const ReadyRequest = require('./ReadyRequest')
 const RestartRequest = require('./RestartRequest')
-const ExitRequest = require('./ExitRequest')
+const ExitRequest = require('../MainPageEvents/ExitRequest')
 requests=[
     InitGameRequest,
     ThrowCardRequest,
@@ -14,6 +14,5 @@ requests=[
     UnoRequest,
     ReadyRequest,
     RestartRequest,
-    ExitRequest
 ]
 module.exports= requests
