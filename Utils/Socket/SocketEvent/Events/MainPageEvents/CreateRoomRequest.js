@@ -9,6 +9,7 @@ module.exports=class CreateRoomRequest extends SocketEvent{
             if(this.clients.has(data.id)){
                 data=data.data
                 let room = new Room(4,data.rule)
+                room.someoneIn=true
                 room.players.push(data.name)
                 Room.rooms[room.roomID]=room
                 console.log(`房間${room.roomID}被創建了`)
