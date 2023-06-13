@@ -1,5 +1,7 @@
 class CardResourceProcessor{
     static processor = new this()
+    constructor(){
+    }
     getCardImageResource(card){
         if(card=='back')return `/images/cards/back.png`
         if(card==null)return `/images/cards/none.png`
@@ -27,8 +29,8 @@ class CardResourceProcessor{
         >`)
         if(place=='.CardBlock'){
             Card.insertCard(handCards,localStorage.getItem('sortingWithColor'))
-            console.log("?")
         }
+        AudioPlayer.playDrawCardEffect()
         new Promise((resolve,reject)=>{
             $('#draw').effect('transfer',{to:$(`${place} img.notAnimated`)},150)
             $(".ui-effects-transfer:last").css("background-image", "url(" + cardResource + ")");
