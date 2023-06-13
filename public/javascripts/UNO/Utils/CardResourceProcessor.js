@@ -26,7 +26,7 @@ class CardResourceProcessor{
             src="${noneCardResource}" 
         >`)
         if(place=='.CardBlock'){
-            Card.insertCard(handCards)
+            Card.insertCard(handCards,localStorage.getItem('sortingWithColor'))
             console.log("?")
         }
         new Promise((resolve,reject)=>{

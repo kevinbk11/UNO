@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    link(rel='preconnect' href='https://fonts.googleapis.com')
     script(src='https://code.jquery.com/jquery-3.6.4.js' integrity='sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=' crossorigin='anonymous')
     script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
     link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
@@ -18,42 +19,54 @@ html
     script(src='/javascripts/RoomPage/initEvents.js')
     title 文字框範例
     style.
-    
-      .loader {
-      border: 16px solid #f3f3f3; /* 灰色邊框 */
-      border-top: 16px solid #3498db; /* 藍色邊框 */
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-      animation: spin 2s linear infinite; /* 動畫設定 */
-      margin: 0 auto;
-      margin-top: 50px;
-      }
-      @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-      }
       .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 50vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin:left;
       }
-      .textbox1 {
-      margin-bottom: 15px;
+      .name1 {
+        font-size:60px;
+        margin: 6% 0% 3.2% 40%;
+        font-family: 'Ubuntu', sans-serif;
       }
-      .textbox {
-      margin-bottom: 10px;
+      .name2 {
+        font-size:60px;
+        margin: 0% 0% 3.2% 40%;
+         font-family: 'Ubuntu', sans-serif;
+      }
+      .name3 {
+        font-size:60px;
+        margin: 0% 0% 3.2% 40%;
+        font-family: 'Ubuntu', sans-serif;
+      }
+      .name4 {
+        font-size:60px;
+        margin: 0% 0% 0% 40%;
+        font-family: 'Ubuntu', sans-serif;
       }
       .functionButton{
-        width:200px;
+        position:relative;
+        left:37.5%;
+        width:1000px;
+        height:200px;
         display: flex;
-        justify-content: space-around;
       } 
-
+      .functionButton p{
+        width:300px;
+        height:125px;
+        position:relative;
+        margin:5% 0% 0% 15%;
+      }
+      #roomID{
+        color:#6994FF;
+        font-size:64px;
+        margin: 2.5% 0% 0% 40%;
+      }
       body {
-      background-image: url('../images/AnyConv.com__1_1 (1) (1).gif');
+      overflow-x:hidden;
+      overflow-y:hidden;
+      background-image: url('../images/Slide1.jpg');
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: center;
@@ -67,12 +80,18 @@ html
   body
     p(style='display:none' id='password') #{v}
     p(style='display:none' id='name') #{myName}
-    .loader
-    h2(style='text-align: center;') 等待中...
+
     .container
-      input.textbox1(type='text' readonly='' id='roomID' placeholder='房號:' value=roomID) 
-      - for (var i=0;i<4;i++)
-        input.textbox(type='text' readonly='' id=`name${i+1}` placeholder=`文字框 ${i+1}` value=names[i])
-      .functionButton
-        input(type='button' id='gameStartButton' readonly='' value="開始遊戲") 
-        input(type='button' id='exitButton' readonly='' value='離開房間')  
+      p(type='text' readonly='' id='roomID' placeholder='房號:') #{roomID}
+      - for (var i=0;i<4;i++){
+        - if(names[i]==null){
+            p(type='text' readonly='' class=`name${i+1}` ) 　
+        - }else{
+            p(type='text' readonly='' class=`name${i+1}` ) #{names[i]}
+        - }
+      - }
+
+        
+    .functionButton
+      p(id='exitButton')
+      p(id='gameStartButton')

@@ -4,8 +4,9 @@ class ExitEvent extends SocketEvent{
         super('ExitEvent')
         this.handler=(data)=>{
             for(let i=data;i<4;i++){
-                $(`#name${i}`).val($(`#name${i+1}`).val())
+                $(`.name${i}`).text($(`.name${i+1}`).text())
             }
+            $('.name4').text('　')
         }
         SocketEvent.events.push(this)
     }}

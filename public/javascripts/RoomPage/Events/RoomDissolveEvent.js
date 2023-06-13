@@ -3,7 +3,11 @@ class RoomDissolveEvent extends SocketEvent{
     constructor(){
         super('RoomDissolveEvent')
         this.handler=(data)=>{
-            postRedirect('/',{name:data})
+            alert('房主已解散房間，稍後自動跳轉回主頁面。')
+            setTimeout(()=>{
+                postRedirect('/',{name:data})
+            },600)
+            
         }
         SocketEvent.events.push(this)
     }}

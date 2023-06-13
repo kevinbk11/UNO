@@ -7,7 +7,7 @@ class InitGameRespondEvent extends SocketEvent{
         this.isSetDrawButtonEvent=false
         this.handler=(data)=>{
             this.restart=data.restart
-            Card.sort(data.cards)
+            Card.sort(data.cards,localStorage.getItem('sortingWithColor'))
             while(this.handCards.length>0)this.handCards.pop()
             data.cards.forEach((it)=>{
                 this.handCards.push(it)

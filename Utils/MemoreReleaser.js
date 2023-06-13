@@ -1,6 +1,7 @@
 //絕對
 //不要
 //require Player的module
+const Room = require("./Game/Room")
 class MemoreReleaser{
     static releaser = new this()
     constructor(){
@@ -19,7 +20,6 @@ class MemoreReleaser{
         delete game.isStacking
     }
     releaseSocketMemore(socket){
-        console.log(this.allPlayer)
         const SocketController = require("./Socket/SocketController")
         const id = SocketController.socketIDToUserID[socket.id]
         delete SocketController.socketIDToUserID[socket.id]
@@ -39,7 +39,32 @@ class MemoreReleaser{
                                 player.sendError('有人斷線了!將自動終止遊戲並返回大廳。')
                             }
                         }
-    
+                    }
+                    const rooms = Object.values(Room.rooms)
+                    for(let i=0;i<rooms.length;i++){
+                        const room = rooms[i]
+                        if(room.someoneIn){
+                            room.someoneIn=false
+                            break
+                        }
+                        else if(room.players.includes(it)){
+                            if(room.getPlayerNumber(it)!=1){
+                                room.players.forEach(player=>{
+                                    if(it!=player)
+                                        SocketController.nameToClient[player].emit('ExitEvent',room.getPlayerNumber(it))
+                                })
+                            }
+                            else{
+                                room.players.forEach(player=>{
+                                    if(it!=player)
+                                        SocketController.nameToClient[player].emit('RoomDissolveEvent',player)
+                                })
+                                delete Room.rooms[room.roomID]
+                            }
+                            const number = room.getPlayerNumber(it)
+                            room.players.splice(number-1,1)
+                            break
+                        }
                     }
                     delete SocketController.nameToClient[it]
                 }

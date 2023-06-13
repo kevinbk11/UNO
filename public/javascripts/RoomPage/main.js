@@ -8,12 +8,12 @@ window.onload = () => {
             $('#name').remove() 
             let builder = new PacketBuilder(id)
             initEvents()
-            if($('#name1').val()!=nickname){
+            if($('.name1').text()!=nickname){
                 $('#gameStartButton').remove()
             }
             else{
                 $('#gameStartButton').on('click', () => {
-                    let roomID = $('#roomID').val()
+                    let roomID = $('#roomID').text()
                     client.emit('StartGameRequest', builder
                         .addData('name', nickname)
                         .addData('roomID', roomID)
@@ -23,7 +23,7 @@ window.onload = () => {
             $('#exitButton').on('click',()=>{
                 client.emit('ExitRequest',builder
                 .addData('name',nickname)
-                .addData('roomID',$('#roomID').val())
+                .addData('roomID',$('#roomID').text())
                 .build())
                 postRedirect('/',{name:nickname})
             })

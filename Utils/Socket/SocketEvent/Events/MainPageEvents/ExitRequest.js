@@ -12,6 +12,7 @@ module.exports = class ExitRequest extends SocketEvent {
                 data = data.data
                 const name = data.name
                 const room = Room.rooms[data.roomID]
+                console.log(data)
                 const number = room.getPlayerNumber(name)
                 if(number!=1){
                     Room.rooms[data.roomID].players.forEach((it,index)=>{
@@ -24,6 +25,7 @@ module.exports = class ExitRequest extends SocketEvent {
                     })
                     delete Room.rooms[data.roomID]
                 }
+                console.log(Room.rooms)
 
             }
         }

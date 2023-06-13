@@ -17,6 +17,7 @@ module.exports=class JoinRoomRequest extends SocketEvent{
                     .build())//向房間內房客通知有新玩家加入
                 })
                 room.players.push(data.name)
+                room.someoneIn=true
                 this.socket.emit('JoinRoomRespondEvent',builder
                 .addData('name',data.name)
                 .addData('roomID',room.roomID)
