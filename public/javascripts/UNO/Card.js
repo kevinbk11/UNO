@@ -8,7 +8,6 @@ class Card{
     }
 
     static sort(cards,sortingWithColor){
-        console.log(sortingWithColor)
         const colors = Card.colors
         if(sortingWithColor=='true'){
             cards.sort((a,b)=>{

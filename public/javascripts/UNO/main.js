@@ -2,6 +2,8 @@ let client = null
 window.onload = ()=>{
     let choiceColorDialog = new ChangeColorDialog()
     let gameEndDialog = new GameEndDialog()
+    let unoDialog = new UnoDialog()
+    unoDialog.create()
     gameEndDialog.create()
     choiceColorDialog.create()
     client = io()
@@ -17,7 +19,7 @@ window.onload = ()=>{
         .addData('roomID',roomID)
         .addData('restart',false)
         .build())
-        
+        AudioPlayer.playBackgroundMusic()
         $('.color-button').on('click',(e)=>{
             client.emit('ChoiceColorRespond',builder
             .addData('color',$(e.target).attr('id'))

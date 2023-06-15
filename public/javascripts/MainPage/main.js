@@ -12,7 +12,6 @@ function countContainChinese(str){
     return length
 }
 window.onload = () => {
-
     let createRoomDialog = new CreateRoomDialog()
     createRoomDialog.create()
     let settingDialog = new SettingDialog()
@@ -28,14 +27,19 @@ window.onload = () => {
                 realLength=countContainChinese(nickname)
             }
             else nickname = prompt('暱稱不可為空!請輸入您的暱稱。')
-
         }
-            
+        let introduceDialog = new IntroduceDialog()
+        introduceDialog.create()
+        introduceDialog.show()
     }
     else {
         nickname = $('#name').text()
     }
     client = io()
+    client.on('NameReapetError',()=>{
+        alert("該名字目前已有使用者使用。")
+        location.reload()
+    })
     verify(nickname)
         .then((id) => {//成功之後
             if(localStorage.getItem('sortingWithColor')==null){

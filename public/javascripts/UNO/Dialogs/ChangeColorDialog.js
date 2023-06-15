@@ -20,7 +20,7 @@ class ChangeColorDialog extends Dialog{
             ,autoOpen:false
             ,show:{effect:'slide',direction:'left'}
             ,hide:{effect:'slide',direction:'right'}});
-        $('.ui-dialog-titlebar-close').css('display','none')
+        $('#changeColorDialog .ui-dialog-titlebar-close').css('display','none')
         ChangeColorDialog.dialog=this
         
     }

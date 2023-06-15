@@ -3,8 +3,6 @@ class CreateRoomDialog extends Dialog{
     constructor(){
         super(`
         <div id="CreateRoomDialog" class=dialog title="創建房間">
-            <p>輸入房名:<input id="roomName" style="margin:0px 0px 10px 0px"></p>
-            
             <label for="checkbox_1">
                 <input type="checkbox" class="checkbox" id="checkbox_1" value="isAllowThrowMultipleCard">
                 允許出同數字多張牌<br>(在和檯面上卡片數字一樣的情況)
@@ -28,7 +26,11 @@ class CreateRoomDialog extends Dialog{
                 <input type="checkbox" class="checkbox" id="checkbox_4" value="isAllowPass">
                 可以抽一張牌Pass
             </label>
-            <input type="button" id="createRoomSubmit" value="確定">
+            <div style='display:flex;justify-content:space-between'>
+                <input type="button" id="ruleIntroduceButton" value="規則說明">
+                <input type="button" id="createRoomSubmit" value="確定">
+            </div>
+            
             
         </div>`)
     }
@@ -43,6 +45,11 @@ class CreateRoomDialog extends Dialog{
             ,show:{effect:'slide',direction:'left'}
             ,hide:{effect:'slide',direction:'right'}
         });
+        const ruleDialog = new RuleIntroduceDialog()
+        ruleDialog.create()
+        $('#ruleIntroduceButton').on('click',()=>{
+            ruleDialog.show()
+        })
         CreateRoomDialog.dialog=this
     }
     show(){

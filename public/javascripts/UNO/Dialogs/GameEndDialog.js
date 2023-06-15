@@ -22,7 +22,7 @@ class GameEndDialog extends Dialog{
             ,draggable:true
             ,autoOpen:false
             ,show:{effect:'slide',direction:'left'}});
-        $('.ui-dialog-titlebar-close').css('display','none')
+        $('#gameEndDialog .ui-dialog-titlebar-close').css('display','none')
         $('#gameEndDialog #startButton').hide()
         $('#gameEndDialog #startButton').css('float', 'right')
         GameEndDialog.dialog=this

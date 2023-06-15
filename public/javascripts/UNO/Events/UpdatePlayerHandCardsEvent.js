@@ -11,16 +11,17 @@ class UpdatePlayerHandCardsEvent extends SocketEvent{
             const dif = ((who-you)+numberOfPeople)%numberOfPeople
             let everyone = ['.bottom','.right','.top','.left']
             const processor = CardResourceProcessor.processor
-            if(data.isDraw){
+            if(data.isDraw){              
                 const cards = []
                 for(let i=0;i<data.numberOfCards;i++)cards.push(['back'])
                 processor.playAnimate({place:everyone[dif],cards:cards,handCards:null})
             }
             else{
+                console.log('throw')
+                AudioPlayer.playThrowCardEffect()
                 for(let i=0;i<data.numberOfCards;i++){
                     $(everyone[dif]).children().last().remove()
                 }
-                
             }
             
         }
