@@ -19,7 +19,7 @@ module.exports = class InitGameRequest extends SocketEvent{
                         players.push(it.name)
                     })
                     const cards=[]
-                    for(let i=0;i<2;i++)cards.push(game.drawOneCard())
+                    for(let i=0;i<7;i++)cards.push(game.drawOneCard())
                     this.socket.emit('InitGameRespondEvent',PacketBuilder
                     .addData('number',number)
                     .addData('cards',cards)

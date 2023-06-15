@@ -3,8 +3,13 @@ class JoinRoomRespondEvent extends SocketEvent{
     constructor(){
         super('JoinRoomRespondEvent')
         this.handler=(data)=>{
-            localStorage.setItem('sortingWithColor',$('#sortingWithColor').is(':checked'))
-            postRedirect(`/room/${data.roomID}`,{name:data.name})
+            if(data!=false){
+                localStorage.setItem('sortingWithColor',$('#sortingWithColor').is(':checked'))
+                postRedirect(`/room/${data.roomID}`,{name:data.name})
+            }
+            else{
+                alert("房間已滿!!")
+            }
         }
         SocketEvent.events.push(this)
     }

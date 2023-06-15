@@ -37,6 +37,7 @@ class MemoreReleaser{
                             for(let j=0;j<game.players.length;j++){
                                 const player = game.players[j]
                                 player.sendError('有人斷線了!將自動終止遊戲並返回大廳。')
+                                delete SocketController.nameToClient[player.name]
                             }
                         }
                     }

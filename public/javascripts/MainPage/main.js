@@ -16,32 +16,29 @@ window.onload = () => {
     createRoomDialog.create()
     let settingDialog = new SettingDialog()
     settingDialog.create()
-    let realLength
+    let realLength=0
     $('#name').hide()
     if ($('#name').text() == "") {
         nickname = prompt('請輸入您的暱稱。')
-        realLength=countContainChinese(nickname)
         while (nickname == null || nickname == '' || realLength>10){
+            if(nickname!=null)realLength=countContainChinese(nickname)  
             if(realLength>=10){
-                nickname = prompt('名稱太長了，最多只能在十個字元以下(中文字一個字兩個佔字元)。')
+                nickname = prompt('名稱太長了，最多只能在十個字元以下(中文字一個字佔兩個字元)。')
                 realLength=countContainChinese(nickname)
             }
             else nickname = prompt('暱稱不可為空!請輸入您的暱稱。')
         }
-        let introduceDialog = new IntroduceDialog()
-        introduceDialog.create()
-        introduceDialog.show()
     }
     else {
         nickname = $('#name').text()
-    }
+    }//
     client = io()
-    client.on('NameReapetError',()=>{
-        alert("該名字目前已有使用者使用。")
-        location.reload()
-    })
     verify(nickname)
         .then((id) => {//成功之後
+            let introduceDialog = new IntroduceDialog()
+            introduceDialog.create()
+            introduceDialog.show()
+
             if(localStorage.getItem('sortingWithColor')==null){
                 localStorage.setItem('sortingWithColor',false)
             }
@@ -85,7 +82,8 @@ window.onload = () => {
                 localStorage.setItem('sortingWithColor',$('#sortingWithColor').is(':checked'))
             })
         })
-        .catch(() => {
+        .catch((e) => {
+            console.log(e)
             alert("失敗")
         })
 }

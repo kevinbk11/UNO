@@ -8,8 +8,7 @@ module.exports=class VerifyRequest extends SocketEvent{
             if(this.clients.has(data.password)){
                 this.socket.emit('VerifyRespond',{success:'true',data:data.password})
                 if(this.nameToClient[data.name]!=null){
-                    console.log("?")
-                    this.socket.emit('NameReapetError')
+                    this.socket.emit('VerifyRespond','repeat')
                 }
                 else{
                     this.nameToClient[data.name]=this.socket
