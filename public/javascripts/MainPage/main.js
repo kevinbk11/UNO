@@ -28,6 +28,9 @@ window.onload = () => {
             }
             else nickname = prompt('暱稱不可為空!請輸入您的暱稱。')
         }
+        let introduceDialog = new IntroduceDialog()
+        introduceDialog.create()
+        introduceDialog.show()
     }
     else {
         nickname = $('#name').text()
@@ -35,9 +38,6 @@ window.onload = () => {
     client = io()
     verify(nickname)
         .then((id) => {//成功之後
-            let introduceDialog = new IntroduceDialog()
-            introduceDialog.create()
-            introduceDialog.show()
 
             if(localStorage.getItem('sortingWithColor')==null){
                 localStorage.setItem('sortingWithColor',false)
@@ -83,7 +83,7 @@ window.onload = () => {
             })
         })
         .catch((e) => {
-            console.log(e)
             alert("失敗")
+            location.reload()
         })
 }
