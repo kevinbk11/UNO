@@ -22,6 +22,7 @@ class ThrowCardRespondEvent extends SocketEvent{
                     removed++
                 }
             }
+            AudioPlayer.playThrowCardEffect()
             InitGameRespondEvent.self.clearChoiced()
             CardResourceProcessor.processor.setAllCardUnchoiced()
         }

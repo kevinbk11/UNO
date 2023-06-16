@@ -1,6 +1,8 @@
 doctype html
 html
   head
+    title UNO
+    link(rel='preconnect' href='https://fonts.googleapis.com')
     script(src='https://code.jquery.com/jquery-3.6.4.js' integrity='sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=' crossorigin='anonymous')
     script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
     link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
@@ -8,12 +10,15 @@ html
     script(src='/javascripts/Utils/remove.js')
     script(src='/javascripts/Utils/PacketBuilder.js')
     script(src='/socket.io/socket.io.js')
+    script(src="/javascripts/Utils/postRedirect.js") 
     script(src='/javascripts/UNO/Events/SocketEvent.js')
     script(src='/javascripts/Dialog.js')
+    script(src="/javascripts/UNO/Dialogs/UnoDialog.js") 
     script(src="/javascripts/UNO/Dialogs/ChangeColorDialog.js") 
     script(src="/javascripts/UNO/Dialogs/GameEndDialog.js") 
     script(src="/javascripts/UNO/Card.js") 
     script(src='/javascripts/UNO/Utils/CardResourceProcessor.js')
+    script(src='/javascripts/UNO/Utils/DynamicNameProcessor.js')
     script(src='/javascripts/UNO/Events/ChangeCardEvent.js')
     script(src='/javascripts/UNO/Events/InitGameRespondEvent.js')
     script(src='/javascripts/UNO/Events/YouWinEvent.js')
@@ -24,17 +29,47 @@ html
     script(src="/javascripts/UNO/Events/PenaltyCardEvent.js") 
     script(src="/javascripts/UNO/Events/DrawOneCardRespondEvent.js") 
     script(src="/javascripts/UNO/Events/RestartGameEvent.js") 
+    script(src="/javascripts/UNO/Events/PlayerUnoEvent.js") 
     script(src="/javascripts/UNO/Events/ReadyRespondEvent.js") 
-    
+    script(src="/javascripts/UNO/Events/UpdatePlayerHandCardsEvent.js") 
+    script(src="/javascripts/UNO/Events/ChangePlayerEvent.js") 
+    script(src="/javascripts/UNO/Events/StackingEvent.js") 
+    script(src="/javascripts/UNO/Events/ChangeColorEvent.js") 
+    script(src='/javascripts/Utils/AudioPlayer.js')
     script(src="/javascripts/UNO/initEvents.js") 
     script(src='/javascripts/UNO/main.js')
     style.
+      body {
+        background-image: url('../images/backgound.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+      }
+      .unoButton {
+        border:0;
+        background-color:#003C9D;
+        color:#fff;
+        border-radius:3px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 3px 0px;
+        cursor: pointer;
+        }
+
+      .unoButton:hover {
+       color:#003C9D;
+       background-color:#ffffff;
+       border:2px #003C9D solid;
+        
+      }
       .container {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 90vh;
         width: 100%;
         box-sizing: border-box;
         padding: 20px;
@@ -58,6 +93,7 @@ html
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        
       }
       .right {
         order: 3;
@@ -69,10 +105,12 @@ html
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
       }
       .top {
         order: 1;
         flex: 1 0 100%;
+
       }
       .bottom {
         order: 4;
@@ -80,6 +118,7 @@ html
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        z-index=1;
       }
       .bottom .content {
         margin-bottom: 10px;
@@ -102,48 +141,114 @@ html
       .bottom img.notChoiced{
         width:150px;
         height:214px;
-        margin:-20px -30px -20px -30px;
+        margin:20px -30px -100px -30px;
       }
       .top img{
         width:150px;
         margin:-30px;
-        transform: rotate(180deg)
+        transform: rotate(180deg);
+
       }
       .left img{
         width:150px;
         margin:-64.2048px -20px -64.2048px -20px;
         transform: rotate(-270deg);
+
       }
       .right img{
         width:150px;
         margin:-64.048px -20px -64.2048px -20px;
         transform: rotate(-90deg);
+
       }
       .bottom img.choiced{
         width:150px;
-        margin:20px -10px;
+        margin:-80px -10px;
+      }
+      .name-display1 {
+        position: absolute;
+        top: calc(55%);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: #F24C3D;
+        height:0px;
+      }
+      .name-display2 {
+        position: absolute;
+        top: calc(50%);
+        left: 82%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: #F24C3D;
+      }
+      .name-display3 {
+        position: absolute;
+        top: calc(25%);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: #F24C3D;
+      }
+      .name-display4 {
+        position: absolute;
+        top: calc(50%);
+        left: 15%;
+        transform: translateX(-50%); 
+        font-size: 20px;
+        font-weight: bold;
+        color: #F24C3D;
+      }
+      .name-display1 p {
+        height: 0px;
+        width: 160px;
+      }
+      .display{
+        flex-direction: column;
+        margin:0px 0px 150px -20px;
+        
+      }
+      .display p{
+        font-size:24px;
+        font-family: 'Noto Sans TC', sans-serif;
+        width:200px;
+        height:50px;
+        color: #F24C3D;
+      }
+       body {
+      background-image: url('../images/000.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
       }
   body
     p(id='name') #{name}
     p(id='password') #{password}
     .container
       .box.top
+        .name-display3
+          p(id='name3')
       .box.left
+        .name-display4
+          p(id='name4')
       .box.center
         img(id = 'draw' src='/images/cards/back.png' style='width:150px')
         img(id='dropped' style='width:150px')
+        .display
+          p(id='plus' )
+          p(id='color')
       .box.right
-      .box.bottom 
+        .name-display2
+          p(id='name2')
+      .box.bottom
+        .name-display1
+          p(id='name1')
         .CardBlock
         .throw
-          input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌")
-          input(id='unoButton' type='button' style="margin:0px -40px" value="UNO")
+          input(id='throwCard' type='button' style="margin:0px 50px" value="丟牌" class="unoButton")
+          input(id='unoButton' type='button' style="margin:0px -40px" value="UNO" class="unoButton")
       div(id='content')
-
- 
-
-
-
-
-
-

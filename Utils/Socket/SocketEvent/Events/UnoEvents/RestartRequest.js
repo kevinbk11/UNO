@@ -9,11 +9,11 @@ module.exports = class RestartRequest extends SocketEvent{
         this.handler=data=>{
             if(this.clients.has(data.id)){
                 data=data.data
-                const room = Room.rooms[data.roomID]
                 const game = Game.games[data.roomID]
                 const players = game.players
-                if(room.readySet.size==room.players.length){
-                    room.readySet.clear()
+                game.playerCount=0
+                if(game.readySet.size==game.players.length){
+                    game.readySet.clear()
                     game.restart()
                     players.forEach((it)=>{
                         it.socket.emit("RestartGameEvent")

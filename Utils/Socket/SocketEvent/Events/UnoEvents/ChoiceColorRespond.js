@@ -10,6 +10,9 @@ module.exports = class ChoiceColorRespond extends SocketEvent{
                 data=data.data
                 const game = Game.games[data.roomID]
                 game.lastCard.color=data.color
+                game.players.forEach(it=>{
+                    it.socket.emit('ChangeColorEvent',data.color)
+                })
             }
         
         }

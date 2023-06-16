@@ -2,6 +2,8 @@ let client = null
 window.onload = ()=>{
     let choiceColorDialog = new ChangeColorDialog()
     let gameEndDialog = new GameEndDialog()
+    let unoDialog = new UnoDialog()
+    unoDialog.create()
     gameEndDialog.create()
     choiceColorDialog.create()
     client = io()
@@ -17,7 +19,7 @@ window.onload = ()=>{
         .addData('roomID',roomID)
         .addData('restart',false)
         .build())
-        
+        AudioPlayer.playBackgroundMusic()
         $('.color-button').on('click',(e)=>{
             client.emit('ChoiceColorRespond',builder
             .addData('color',$(e.target).attr('id'))
@@ -43,24 +45,7 @@ window.onload = ()=>{
             $('#gameEndDialog #startButton').hide()
         })
         $('#gameEndDialog #exitButton').on('click',()=>{
-            client.emit('ExitRequest',builder
-            .addData('roomID',roomID)
-            .addData('name',name)
-            .build())
-            var redirect = '/'
-            $.extend(
-            {
-                redirectPost: function(location, args)
-                {
-                    var form = '';
-                    $.each( args, function( key, value ) {
-                        value = value.split('"').join('\"')
-                        form += '<input type="hidden" name="'+key+'" value="'+value+'">';
-                    });
-                    $('<form action="' + location + '" method="POST">' + form + '</form>').appendTo($(document.body)).submit();
-                }
-            });
-            $.redirectPost(redirect, {name:name});
+            postRedirect('/',{name:name})
         })
     })
     

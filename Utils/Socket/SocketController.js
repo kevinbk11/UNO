@@ -1,3 +1,4 @@
+const releaser = require('../MemoreReleaser')
 const mainRequestEvents = require('./SocketEvent/Events/MainPageEvents/index')
 const unoRequestEvents = require('./SocketEvent/Events/UnoEvents/index')
 class SocketController{
@@ -15,14 +16,7 @@ class SocketController{
             for(let i=0;i<unoRequestEvents.length;i++)
                 this.setSocketRequestEvent(socket,new unoRequestEvents[i]())
             socket.on('disconnect',()=>{
-                const id = SocketController.socketIDToUserID[socket.id]
-                delete SocketController.socketIDToUserID[socket.id]
-                SocketController.clients.delete(id)
-                Object.keys(SocketController.nameToClient).forEach((it)=>{
-                    if(SocketController.nameToClient[it].id==socket.id){
-                        delete SocketController.nameToClient[it]
-                    }
-                })
+                releaser.releaseSocketMemore(socket)
             })
           });
     }

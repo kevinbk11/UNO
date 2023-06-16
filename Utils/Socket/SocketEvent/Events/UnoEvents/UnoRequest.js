@@ -13,8 +13,17 @@ module.exports = class UnoRequest extends SocketEvent{
                 data=data.data
                 const game = Game.games[data.roomID] 
                 const player = game.getPlayerByName(data.name)
-                if(game.getNowPlayer().name==player.name)
-                    player.isUno=true
+                if(game.getNowPlayer().name==player.name){
+                    if(!player.isUno){
+                        player.isUno=true
+                        game.players.forEach((it)=>{
+                            it.socket.emit('PlayerUnoEvent',data.name)
+                        })
+                    }
+                    
+                }
+                    
+                    
             }
         }
     }

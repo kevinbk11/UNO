@@ -3,15 +3,13 @@ class JoinRoomRespondEvent extends SocketEvent{
     constructor(){
         super('JoinRoomRespondEvent')
         this.handler=(data)=>{
-            const players = data.players.toString().split(',')
-            const roomID = data.roomID
-            let num=1;
-            $("#roomID").append(`房間ID:${roomID}<br>`)
-            players.forEach(it=>{
-                $("#content").append(`${num++}.${it}<br>`)
-            })
-            $('.RoomButton').hide()
-            JoinRoomDialog.dialog.hide()
+            if(data!=false){
+                localStorage.setItem('sortingWithColor',$('#sortingWithColor').is(':checked'))
+                postRedirect(`/room/${data.roomID}`,{name:data.name})
+            }
+            else{
+                alert("房間已滿!!")
+            }
         }
         SocketEvent.events.push(this)
     }

@@ -7,20 +7,9 @@ class Card{
         this.type=type
     }
 
-    static sort(cards,by='number'){
+    static sort(cards,sortingWithColor){
         const colors = Card.colors
-        if(by=='number'){
-            cards.sort((a,b)=>{
-                if(a.number>b.number)return 1
-                if(a.number<b.number)return -1
-                if(a.number==b.number){
-                    if(colors[a.color]<colors[b.color])return 1
-                    if(colors[a.color]>colors[b.color])return -1
-                    return 0
-                }
-            })
-        }
-        else{
+        if(sortingWithColor=='true'){
             cards.sort((a,b)=>{
                 if(colors[a.color]>colors[b.color])return -1
                 if(colors[a.color]<colors[b.color])return 1
@@ -31,11 +20,21 @@ class Card{
                 }
             })
         }
+        else{
+            cards.sort((a,b)=>{
+                if(a.number>b.number)return 1
+                if(a.number<b.number)return -1
+                if(a.number==b.number){
+                    if(colors[a.color]<colors[b.color])return 1
+                    if(colors[a.color]>colors[b.color])return -1
+                    return 0
+                }
+            })
+        }
     }
 
-    static insertCard(cards,by='number'){
+    static insertCard(cards,sortingWithColor){
         const swap = (arr,i) => {
-            
             [arr[i],arr[i+1]] = [arr[i+1], arr[i]]
             const cardImgs = $('.CardBlock img')
             let e1 = cardImgs[i]
@@ -45,7 +44,7 @@ class Card{
             $(e2).css('z-index',temp)
             $(e1).insertAfter($(e2))
         }
-        if(by=='color'){
+        if(sortingWithColor=='true'){
             for (let i = cards.length - 2; i >= 0; i--) {
                 let cardA = cards[i]
                 let cardB = cards[i + 1]

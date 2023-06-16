@@ -1,0 +1,97 @@
+doctype html
+html
+  head
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    script(src='https://code.jquery.com/jquery-3.6.4.js' integrity='sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=' crossorigin='anonymous')
+    script(src='https://code.jquery.com/ui/1.13.2/jquery-ui.js' integrity='sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=' crossorigin='anonymous')
+    link(rel='stylesheet' href='https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css')
+    script(src='/javascripts/RoomPage/main.js')
+    script(src='/socket.io/socket.io.js')
+    script(src="/javascripts/Utils/postRedirect.js") 
+    script(src='/javascripts/Utils/PacketBuilder.js')
+    script(src="/javascripts/Utils/verify.js") 
+    script(src='/javascripts/RoomPage/Events/SocketEvent.js')
+    script(src='/javascripts/RoomPage/Events/PlayerJoinEvent.js')
+    script(src='/javascripts/RoomPage/Events/JoinRoomRespondEvent.js')
+    script(src='/javascripts/RoomPage/Events/GameStartEvent.js')
+    script(src='/javascripts/RoomPage/Events/ExitEvent.js')
+    script(src='/javascripts/RoomPage/Events/RoomDissolveEvent.js')
+    script(src='/javascripts/RoomPage/initEvents.js')
+    title 房間#{roomID}
+    style.
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin:left;
+      }
+      .name1 {
+        font-size:60px;
+        margin: 7.5% 0% 3.2% 40%;
+        font-family: 'Ubuntu', sans-serif;
+      }
+      .name2 {
+        font-size:60px;
+        margin: 0% 0% 3.2% 40%;
+         font-family: 'Ubuntu', sans-serif;
+      }
+      .name3 {
+        font-size:60px;
+        margin: 0% 0% 3.2% 40%;
+        font-family: 'Ubuntu', sans-serif;
+      }
+      .name4 {
+        font-size:60px;
+        margin: 0% 0% 0% 40%;
+        font-family: 'Ubuntu', sans-serif;
+      }
+      .functionButton{
+        position:relative;
+        left:37.5%;
+        width:1000px;
+        height:200px;
+        display: flex;
+      } 
+      .functionButton p{
+        width:300px;
+        height:125px;
+        position:relative;
+        margin:5% 0% 0% 15%;
+      }
+      #roomID{
+        color:#6994FF;
+        font-size:64px;
+        margin: 2.5% 0% 0% 40%;
+      }
+      body {
+      overflow-x:hidden;
+      overflow-y:hidden;
+      background-image: url('../images/Slide1.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      }
+    
+  
+   
+
+
+  body
+    p(style='display:none' id='password') #{v}
+    p(style='display:none' id='name') #{myName}
+
+    .container
+      p(type='text' readonly='' id='roomID' placeholder='房號:') #{roomID}
+      - for (var i=0;i<4;i++){
+        - if(names[i]==null){
+            p(type='text' readonly='' class=`name${i+1}` ) 　
+        - }else{
+            p(type='text' readonly='' class=`name${i+1}` ) #{names[i]}
+        - }
+      - }
+
+        
+    .functionButton
+      p(id='exitButton')
+      p(id='gameStartButton')
